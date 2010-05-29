@@ -22,6 +22,7 @@
 #include <tchar.h>
 #include <conio.h>
 #include <string>
+#include <queue>
 
 #include <winsock2.h>
 #include <iphlpapi.h>

@@ -403,6 +403,9 @@ string imgNameBase="Cont_capture_", imgName, ext=".jpeg";
 Calibrator *calibrator;
 CriticalSection fileNumbCS;
 volatile LONG fileNumber;
+volatile bool toStop=false;
+queue<IplImage*> imageQueue;
+CriticalSection imageQueueCS;
 
 
 int CalibrateCamera(); //DWORD WINAPI CalibrateCamera( LPVOID lpParam );
@@ -411,6 +414,8 @@ int SaveFile(IplImage* image, Pose_Marker *pose);
 string getTimeFileName();
 DWORD testConnectivity(string ip);
 string getUniqueFileName();
+
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {		
@@ -423,7 +428,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	calibrator = new Calibrator();
 
-	ofstream f("TestElaborazioneStream.txt", ios::app);
+	ofstream f("TestElabFrame_1000.txt", ios::app);
 	if(!f) {
         cout<<"Errore nell'apertura del file!";
         return -1;
@@ -482,10 +487,13 @@ int _tmain(int argc, _TCHAR* argv[])
 #else*/
 #ifdef PLAY_VIDEO
 #ifndef LOAD_IMAGE
+
+	int found;
 	string wndName = "video _ 's'ave, 'e'laborate, 'q'uit";
 	cvNamedWindow(wndName.c_str(), CV_WINDOW_AUTOSIZE );
 	cout<< "Playing video" << endl;
-	while( key != 'q' && elaboratedFrame<50 ) 
+	int numFrameToElab=1000;
+	while( key != 'q' && elaboratedFrame<numFrameToElab ) 
 	{
 		/* get a frame */
 		frame = cvQueryFrame( cap );
@@ -501,17 +509,22 @@ int _tmain(int argc, _TCHAR* argv[])
 			break;*/
 		case 'e':
 			
-			
 			t1=clock();
 			IplImage *image = cvCreateImage( cvSize( frame->width, frame->height ),
                                frame->depth, frame->nChannels );
 			cvCopyImage( frame, image);
-			ElaborateImage(image);
+			//{
+			//	Guard p(imageQueueCS);
+			//	imageQueue.push(image);
+			//}
+			
+			found=ElaborateImage(image);
 			t2=clock();
 			diff=t2-t1;
-			f<<"Elaboration took for " << diff << " milliseconds"<<endl;
+			f<<"Elaborating took for " << diff << " milliseconds - pattern found "<<found<<endl;
 			tot+=diff;
-			//QueueUserWorkItem(ElaborateImage, image,0);
+			//if(elaboratedFrame==0)
+			//	QueueUserWorkItem(ElaborateImage, 0/*image*/,0); //faccio partire elavorazione la prima volta
 			elaboratedFrame++; 
 
 			break;
@@ -524,7 +537,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		if(elaboratedFrame==0)
 			key = cvWaitKey(1);
 	}
-	f<<"Average elaboration time: "<<tot/50<<" milliseconds"<<endl;
+	//toStop=true;
+	f<<"total elaboration time: "<<tot<<" milliseconds - "<<numFrameToElab<<" frames"<<endl;
+	f<<"Avarage elaboration time: "<<tot/1000<<" milliseconds"<<endl;
 	f<<"Test end"<<endl<<endl;
 	f.close();
 	cvDestroyWindow( wndName.c_str() );
@@ -618,21 +633,51 @@ int SaveFile(IplImage* image, Pose_Marker *pose)
 DWORD WINAPI ElaborateImage( LPVOID lpParam )
 //int ElaborateImage(IplImage* inImage)
 {
+//	ofstream f2("TestElaboratingFrame_multiThr.txt", ios::app);
 	IplImage *image = cvCreateImage(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
 	Pose_Marker *pose;
-
+	/*if(!f2) {
+        cout<<"Errore nell'apertura del file!";
+        return -1;
+    }*/
+//	f2<<"Test start"<<endl;
 	IplImage* inImage=reinterpret_cast<IplImage*>(lpParam);
-
-	cvCvtColor(inImage,image,CV_BGR2GRAY);
-
-	pose=calibrator->FindPattern(image); //devo ritornare anche la posa per metterla nel file jpeg
-	
-	
-	
-	SaveFile(image, pose);
-	delete pose;
-	
-	return 0; 
+	//double tot=0;
+	//clock_t t3=clock(),t5,t6;
+	//while(true)
+	//{
+		//{
+		//	t5=clock();
+		//	Guard p(imageQueueCS);
+		//	if(!imageQueue.empty())
+		//	{
+		//		inImage=imageQueue.front();
+		//		imageQueue.pop();
+		//	}
+		//	else if (toStop)
+		//		break;
+		//	else
+		//		inImage=0;
+	//	}
+	//	if(inImage)
+	//	{
+			cvCvtColor(inImage,image,CV_BGR2GRAY);
+			pose=calibrator->FindPattern(image); //devo ritornare anche la posa per metterla nel file jpeg
+			SaveFile(image, pose);
+	//	}
+	//	t6=clock();
+	//	f2<<"elaborazione: "<<double(t6-t5)<<endl;
+	//	tot+=(t6-t5);
+		
+//	}
+//	clock_t t4=clock();
+//	f2<<"totale elaborazione: "<<double(t4-t3)<<endl;
+			
+	//delete pose;
+	if(!pose)
+		return 0; 
+	else
+		return 1;
 }
 
 string getUniqueFileName()
