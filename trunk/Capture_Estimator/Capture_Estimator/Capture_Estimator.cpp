@@ -404,6 +404,7 @@ Calibrator *calibrator;
 CriticalSection fileNumbCS;
 volatile LONG fileNumber;
 
+
 int CalibrateCamera(); //DWORD WINAPI CalibrateCamera( LPVOID lpParam );
 int SaveFile(IplImage* image, Pose_Marker *pose);
 /*int ElaborateImage(IplImage* inImage); */ DWORD WINAPI ElaborateImage( LPVOID lpParam );
@@ -414,12 +415,20 @@ string getUniqueFileName();
 int _tmain(int argc, _TCHAR* argv[])
 {		
 	int elaboratedFrame=0;
-
+	clock_t t1,t2;
+	double tot=0,diff=0;
 	IplImage  *frame;
 	int key=0;
 	CvCapture *cap;
 
 	calibrator = new Calibrator();
+
+	ofstream f("TestElaborazioneStream.txt", ios::app);
+	if(!f) {
+        cout<<"Errore nell'apertura del file!";
+        return -1;
+    }
+	f<<"Test start"<<endl;
 
 	cout<<endl<< "Capturing file " << cameraIp << endl;
 	try{ 	
@@ -492,12 +501,19 @@ int _tmain(int argc, _TCHAR* argv[])
 			break;*/
 		case 'e':
 			
+			
+			t1=clock();
 			IplImage *image = cvCreateImage( cvSize( frame->width, frame->height ),
                                frame->depth, frame->nChannels );
 			cvCopyImage( frame, image);
-			//ElaborateImage(image);
-			QueueUserWorkItem(ElaborateImage, image,0);
-			elaboratedFrame++;
+			ElaborateImage(image);
+			t2=clock();
+			diff=t2-t1;
+			f<<"Elaboration took for " << diff << " milliseconds"<<endl;
+			tot+=diff;
+			//QueueUserWorkItem(ElaborateImage, image,0);
+			elaboratedFrame++; 
+
 			break;
 		}
 		//key=' ';
@@ -508,6 +524,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		if(elaboratedFrame==0)
 			key = cvWaitKey(1);
 	}
+	f<<"Average elaboration time: "<<tot/50<<" milliseconds"<<endl;
+	f<<"Test end"<<endl<<endl;
+	f.close();
 	cvDestroyWindow( wndName.c_str() );
 #else
 	QueueUserWorkItem(ElaborateImage, calibrator->LoadMyImage(),0);
@@ -631,8 +650,8 @@ string getTimeFileName()
 {
 	stringstream ss;
 	time_t imgTime;
-	struct tm  *timeinfo=new tm();
-	char *buf;
+	//struct tm  *timeinfo=new tm();
+	//char *buf;
 
 	//imgTime=time(0);
 	time(&imgTime);
