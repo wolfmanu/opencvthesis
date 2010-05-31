@@ -1,19 +1,20 @@
 // Capture_Estimator.cpp : Defines the entry point for the console application.
 //
 
-//#define LOAD_IMAGE
+#define LOAD_IMAGE
 //#define DISPLAY_FRAME
 #define PLAY_VIDEO
 //#define GRAB_RETRIEVE
 #define DEBUG
+#define USEFTP
 
-#ifdef LOAD_IMAGE
+/*#ifdef LOAD_IMAGE
 	#define CAM_H 768
 	#define CAM_W 1024
-#else
+#else*/
 	#define CAM_H 240
 	#define CAM_W 320
-#endif
+//#endif
 
 #include "stdafx.h"
 
@@ -22,7 +23,7 @@
 
 using namespace std;
 
-
+string getFileNameToLoad();
 
 class Calibrator{
 
@@ -67,13 +68,13 @@ Calibrator::Calibrator(void)
 	inputImgName="frame4.png";
 	inputImgPath="D:\\Documenti\\Politecnico\\anno5\\Tesi\\Capture_Estimator\\Capture_Estimator\\";
 
-#ifdef LOAD_IMAGE
-	AICONCalibName="CAM_RIGHT_AIR_CALIB.ini";
-	ARTKPCalibName="EurobotCamAICONUndistortion2.cal";
-#else
+//#ifdef LOAD_IMAGE
+//	AICONCalibName="CAM_RIGHT_AIR_CALIB.ini";
+//	ARTKPCalibName="EurobotCamAICONUndistortion2.cal";
+//#else
 	AICONCalibName="camera.ini";
 	ARTKPCalibName="camera.cal";
-#endif
+//#endif
 
 	Calibrator_();
 }
@@ -191,6 +192,7 @@ int Calibrator::Calibrate()
 IplImage* Calibrator::LoadMyImage()
 {
 	IplImage *im;
+	inputImage=getFileNameToLoad();
 	//im = cvLoadImage(inputImage.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
 	im = cvLoadImage(inputImage.c_str());
 	if(!im)
@@ -399,14 +401,18 @@ bool Calibrator::File_Exists(const char *sPath)
 
 string cameraIp = "192.168.1.160";
 string rtspProto = "rtsp://";
-string imgNameBase="Cont_capture_", imgName, ext=".jpeg";
+string imgNameBase="Capture___", imgName, ext=".jpeg";
+string imgNameBaseToLoad="Capture_F";
 Calibrator *calibrator;
 CriticalSection fileNumbCS;
 volatile LONG fileNumber;
+LONG fileNumberToLoad;
 volatile bool toStop=false;
 queue<IplImage*> imageQueue;
 CriticalSection imageQueueCS;
-
+#ifdef USEFTP
+FTPSender *ftps=new FTPSender();
+#endif
 
 int CalibrateCamera(); //DWORD WINAPI CalibrateCamera( LPVOID lpParam );
 int SaveFile(IplImage* image, Pose_Marker *pose);
@@ -414,6 +420,7 @@ int SaveFile(IplImage* image, Pose_Marker *pose);
 string getTimeFileName();
 DWORD testConnectivity(string ip);
 string getUniqueFileName();
+void SendViaFTP(Pose_Marker* pose);
 
 
 
@@ -424,11 +431,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	double tot=0,diff=0;
 	IplImage  *frame;
 	int key=0;
+	string cameraRtspIp=rtspProto;
+	cameraRtspIp.append(cameraIp);
 	CvCapture *cap;
 
 	calibrator = new Calibrator();
-
-	ofstream f("TestElabFrame_1000.txt", ios::app);
+	ofstream f("TestElabFrame_FTP.txt", ios::app);
+	ofstream fcapt("TestTimeCapt.txt", ios::app);
 	if(!f) {
         cout<<"Errore nell'apertura del file!";
         return -1;
@@ -446,11 +455,20 @@ int _tmain(int argc, _TCHAR* argv[])
 			cout<<"aborting"<<endl;
 			system("pause");
 			return 0;
-		}       
-
-		cap=cvCreateFileCapture_FFMPEG((rtspProto.append(cameraIp)).c_str());
+		}    
+		clock_t startCapture,endCapture;
+		//for(int u=0;u<20;u++)
+		//{
+			startCapture=clock();			
+			cap=cvCreateFileCapture_FFMPEG(cameraRtspIp.c_str());
+			endCapture=clock();
+			fcapt<<"cvCreateFileCapture_FFMPEG took "<<double(endCapture-startCapture)<<" milliseconds = "<<double(endCapture-startCapture)/1000<<" sec"<<endl;
+			//cvReleaseCapture_FFMPEG(&cap);
+			
+		//}
+		fcapt.close();
 #endif
-		
+	
 	}catch(char* str)
 	{
 		cout << "Exception raised: " << str << '\n';
@@ -486,29 +504,22 @@ int _tmain(int argc, _TCHAR* argv[])
 	cvDestroyWindow( "frame" );	
 #else*/
 #ifdef PLAY_VIDEO
+	int numFrameToElab=5;
 #ifndef LOAD_IMAGE
 
 	int found;
 	string wndName = "video _ 's'ave, 'e'laborate, 'q'uit";
 	cvNamedWindow(wndName.c_str(), CV_WINDOW_AUTOSIZE );
 	cout<< "Playing video" << endl;
-	int numFrameToElab=1000;
+	
 	while( key != 'q' && elaboratedFrame<numFrameToElab ) 
 	{
-		/* get a frame */
 		frame = cvQueryFrame( cap );
-		/* always check */
 		if( !frame ) break;
+
 		switch (key)
 		{
-		/*case 's':
-			if(!cvSaveImage((getTimeFileName()).c_str() ,frame))
-				cout<<"image not saved!"<< endl;
-			else
-				cout<<imgName<<" saved";
-			break;*/
 		case 'e':
-			
 			t1=clock();
 			IplImage *image = cvCreateImage( cvSize( frame->width, frame->height ),
                                frame->depth, frame->nChannels );
@@ -539,13 +550,29 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	//toStop=true;
 	f<<"total elaboration time: "<<tot<<" milliseconds - "<<numFrameToElab<<" frames"<<endl;
-	f<<"Avarage elaboration time: "<<tot/1000<<" milliseconds"<<endl;
+	f<<"Avarage elaboration time: "<<tot/numFrameToElab<<" milliseconds"<<endl;
 	f<<"Test end"<<endl<<endl;
 	f.close();
 	cvDestroyWindow( wndName.c_str() );
 #else
-	QueueUserWorkItem(ElaborateImage, calibrator->LoadMyImage(),0);
+	while(elaboratedFrame<numFrameToElab)
+	{
+		frame=calibrator->LoadMyImage();
+		IplImage *image = cvCreateImage( cvSize( frame->width, frame->height ),
+                               frame->depth, frame->nChannels );
+		cvCopyImage( frame, image);
+		/*{
+			Guard p(imageQueueCS);
+			imageQueue.push(image);
+		}*/
+		ElaborateImage(image);
+		//if(elaboratedFrame==0)
+		//	QueueUserWorkItem(ElaborateImage, 0/*image*/,0); //faccio partire elavorazione la prima volta
+		elaboratedFrame++; 
+
+	//QueueUserWorkItem(ElaborateImage, calibrator->LoadMyImage(),0);
 	//ElaborateImage(calibrator->LoadMyImage());
+	}
 #endif
 #endif
 /*#endif*/
@@ -612,8 +639,10 @@ int SaveFile(IplImage* image, Pose_Marker *pose)
 	
 	if(!pose)
 		comment="Pattern not found";
-	else
+	else{
 		comment=pose->toString();
+		filename[8]='F';
+	}
 	writeJpegFile ((char*)(filename.c_str()), *cvimage, options, comment);
 	cout<<"Saved image "<<filename<<endl;
 	//string comment="";
@@ -633,7 +662,7 @@ int SaveFile(IplImage* image, Pose_Marker *pose)
 DWORD WINAPI ElaborateImage( LPVOID lpParam )
 //int ElaborateImage(IplImage* inImage)
 {
-//	ofstream f2("TestElaboratingFrame_multiThr.txt", ios::app);
+	//ofstream f2("TestElaboratingFrame_FTP2.txt", ios::app);
 	IplImage *image = cvCreateImage(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
 	Pose_Marker *pose;
 	/*if(!f2) {
@@ -644,41 +673,78 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	IplImage* inImage=reinterpret_cast<IplImage*>(lpParam);
 	//double tot=0;
 	//clock_t t3=clock(),t5,t6;
-	//while(true)
-	//{
-		//{
-		//	t5=clock();
-		//	Guard p(imageQueueCS);
-		//	if(!imageQueue.empty())
-		//	{
-		//		inImage=imageQueue.front();
-		//		imageQueue.pop();
-		//	}
-		//	else if (toStop)
-		//		break;
-		//	else
-		//		inImage=0;
-	//	}
-	//	if(inImage)
-	//	{
+	/*while(true)
+	{
+		{
+			//t5=clock();
+			Guard p(imageQueueCS);
+			if(!imageQueue.empty())
+			{
+				inImage=imageQueue.front();
+				imageQueue.pop();
+			}
+			else if (toStop)
+				break;
+			else
+				inImage=0;
+		}
+		if(inImage)
+		{*/
 			cvCvtColor(inImage,image,CV_BGR2GRAY);
 			pose=calibrator->FindPattern(image); //devo ritornare anche la posa per metterla nel file jpeg
 			SaveFile(image, pose);
-	//	}
-	//	t6=clock();
-	//	f2<<"elaborazione: "<<double(t6-t5)<<endl;
-	//	tot+=(t6-t5);
+		#ifdef USEFTP
+			SendViaFTP(pose);
+		#endif
+		//}
+		//t6=clock();
+		//f2<<"elaborazione: "<<double(t6-t5)<<endl;
+		//tot+=(t6-t5);
 		
-//	}
-//	clock_t t4=clock();
-//	f2<<"totale elaborazione: "<<double(t4-t3)<<endl;
+	//}
+	//clock_t t4=clock();
+	//f2<<"totale elaborazione: "<<double(t4-t3)<<endl;
 			
 	//delete pose;
+
+
 	if(!pose)
 		return 0; 
 	else
 		return 1;
 }
+
+void SendViaFTP(Pose_Marker* pose)
+{
+	string msg,received, ftpServer="localhost", ftpPort="2000", ftpUser="", ftpPass="";
+	int maxRcv;
+
+	if(!pose)
+	{
+		maxRcv=1;
+		msg="-1\n";
+	}
+	else
+	{
+		maxRcv=7;
+		msg=pose->toString();
+	}
+	
+	if(!ftps->connectFTP(ftpServer,ftpPort,ftpUser,ftpPass))
+	{
+		cerr<<"[SendViaFTP] Error: connectFTP()"<<endl;
+		return;
+	}
+	ftps->sendData(msg);
+
+
+	for(int i=0;i<maxRcv;i++)
+	{
+		ftps->rcvData(&received);
+		cout<<"Received: "<<received<<endl;
+	}
+}
+
 
 string getUniqueFileName()
 {
@@ -687,6 +753,17 @@ string getUniqueFileName()
 	Guard l(fileNumbCS);
 	ss<<imgNameBase<<fileNumber<<ext;
 	fileNumber++;
+	}
+	return ss.str();
+}
+
+string getFileNameToLoad()
+{
+	stringstream ss;
+	{
+	//Guard l(fileNumbCS);
+	ss<<imgNameBaseToLoad<<fileNumberToLoad<<ext;
+	fileNumberToLoad++;
 	}
 	return ss.str();
 }
