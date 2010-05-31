@@ -1,0 +1,19 @@
+Test start
+cvCreateFileCapture_FFMPEG took 47468 milliseconds = 47.468 sec
+cvCreateFileCapture_FFMPEG took 55750 milliseconds = 55.75 sec
+cvCreateFileCapture_FFMPEG took 55360 milliseconds = 55.36 sec
+
+cvCreateFileCapture_FFMPEG took 66047 milliseconds = 66.047 sec
+cvCreateFileCapture_FFMPEG took 70485 milliseconds = 70.485 sec
+cvCreateFileCapture_FFMPEG took 60016 milliseconds = 60.016 sec
+
+
+cvCreateFileCapture_FFMPEG took 89985 milliseconds = 89.985 sec
+cvCreateFileCapture_FFMPEG took 92594 milliseconds = 92.594 sec
+cvCreateFileCapture_FFMPEG took 149156 milliseconds = 149.156 sec
+cvCreateFileCapture_FFMPEG took 148219 milliseconds = 148.219 sec
+cvCreateFileCapture_FFMPEG took 149281 milliseconds = 149.281 sec
+cvCreateFileCapture_FFMPEG took 137218 milliseconds = 137.218 sec
+cvCreateFileCapture_FFMPEG took 166609 milliseconds = 166.609 sec
+cvCreateFileCapture_FFMPEG took 158219 milliseconds = 158.219 sec
+cvCreateFileCapture_FFMPEG took 292281 milliseconds = 292.281 sec
