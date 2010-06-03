@@ -17,3 +17,38 @@ cvCreateFileCapture_FFMPEG took 137218 milliseconds = 137.218 sec
 cvCreateFileCapture_FFMPEG took 166609 milliseconds = 166.609 sec
 cvCreateFileCapture_FFMPEG took 158219 milliseconds = 158.219 sec
 cvCreateFileCapture_FFMPEG took 292281 milliseconds = 292.281 sec
+
+cvCreateFileCapture_FFMPEG took 61735 milliseconds = 61.735 sec
+cvCreateFileCapture_FFMPEG took 65063 milliseconds = 65.063 sec
+cvCreateFileCapture_FFMPEG took 59625 milliseconds = 59.625 sec
+cvCreateFileCapture_FFMPEG took 59875 milliseconds = 59.875 sec
+cvCreateFileCapture_FFMPEG took 64563 milliseconds = 64.563 sec
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+
+cvCreateFileCapture_FFMPEG took 60594 milliseconds = 60.594 sec
+cvCreateFileCapture_FFMPEG took 63188 milliseconds = 63.188 sec
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 35891 milliseconds = 35.891 sec
+
+cvCreateFileCapture_FFMPEG took 547 milliseconds = 0.547 sec
+
+cvCreateFileCapture_FFMPEG took 35984 milliseconds = 35.984 sec
+
+cvCreateFileCapture_FFMPEG took 2359 milliseconds = 2.359 sec
+
+cvCreateFileCapture_FFMPEG took 218 milliseconds = 0.218 sec
+
+cvCreateFileCapture_FFMPEG took 234 milliseconds = 0.234 sec
+
+cvCreateFileCapture_FFMPEG took 203 milliseconds = 0.203 sec
+
+cvCreateFileCapture_FFMPEG took 106797 milliseconds = 106.797 sec
+
+cvCreateFileCapture_FFMPEG took 116750 milliseconds = 116.75 sec
+
+cvCreateFileCapture_FFMPEG took 108953 milliseconds = 108.953 sec
+
+cvCreateFileCapture_FFMPEG took 266 milliseconds = 0.266 sec
+
+cvCreateFileCapture_FFMPEG took 235 milliseconds = 0.235 sec
+
