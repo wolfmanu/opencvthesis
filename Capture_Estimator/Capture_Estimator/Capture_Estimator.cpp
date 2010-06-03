@@ -1,7 +1,7 @@
 // Capture_Estimator.cpp : Defines the entry point for the console application.
 //
 
-#define LOAD_IMAGE
+//#define LOAD_IMAGE
 //#define DISPLAY_FRAME
 #define PLAY_VIDEO
 //#define GRAB_RETRIEVE
@@ -414,6 +414,15 @@ CriticalSection imageQueueCS;
 FTPSender *ftps=new FTPSender();
 #endif
 
+
+long lTimeout;
+HANDLE hThread;
+DWORD WINAPI WaitThread ( LPVOID );
+void setAlarm();
+void stopAlarm();
+
+
+
 int CalibrateCamera(); //DWORD WINAPI CalibrateCamera( LPVOID lpParam );
 int SaveFile(IplImage* image, Pose_Marker *pose);
 /*int ElaborateImage(IplImage* inImage); */ DWORD WINAPI ElaborateImage( LPVOID lpParam );
@@ -422,7 +431,7 @@ DWORD testConnectivity(string ip);
 string getUniqueFileName();
 void SendViaFTP(Pose_Marker* pose);
 
-
+ofstream fcapt("TestTimeCapt.txt", ios::app);
 
 int _tmain(int argc, _TCHAR* argv[])
 {		
@@ -434,10 +443,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	string cameraRtspIp=rtspProto;
 	cameraRtspIp.append(cameraIp);
 	CvCapture *cap;
-
+	
 	calibrator = new Calibrator();
 	ofstream f("TestElabFrame_FTP.txt", ios::app);
-	ofstream fcapt("TestTimeCapt.txt", ios::app);
+	
 	if(!f) {
         cout<<"Errore nell'apertura del file!";
         return -1;
@@ -458,15 +467,20 @@ int _tmain(int argc, _TCHAR* argv[])
 		}    
 		clock_t startCapture,endCapture;
 		//for(int u=0;u<20;u++)
-		//{
+		{
+			//cout<<"capture number "<<u<<endl;
+			//CvCapture *cap;
+			setAlarm();
 			startCapture=clock();			
 			cap=cvCreateFileCapture_FFMPEG(cameraRtspIp.c_str());
 			endCapture=clock();
+			stopAlarm();
 			fcapt<<"cvCreateFileCapture_FFMPEG took "<<double(endCapture-startCapture)<<" milliseconds = "<<double(endCapture-startCapture)/1000<<" sec"<<endl;
 			//cvReleaseCapture_FFMPEG(&cap);
-			
-		//}
+		}
+		fcapt<<endl;
 		fcapt.close();
+		
 #endif
 	
 	}catch(char* str)
@@ -475,6 +489,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		system("pause");
 		return 0;
 	}
+
 #ifndef LOAD_IMAGE
 	if(!cap){
 		cerr<<"Error opening file " << cameraIp<< endl;
@@ -516,7 +531,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		frame = cvQueryFrame( cap );
 		if( !frame ) break;
-
+		
 		switch (key)
 		{
 		case 'e':
@@ -535,16 +550,18 @@ int _tmain(int argc, _TCHAR* argv[])
 			f<<"Elaborating took for " << diff << " milliseconds - pattern found "<<found<<endl;
 			tot+=diff;
 			//if(elaboratedFrame==0)
-			//	QueueUserWorkItem(ElaborateImage, 0/*image*/,0); //faccio partire elavorazione la prima volta
+			//	QueueUserWorkItem(ElaborateImage, 0,0); //faccio partire elavorazione la prima volta
 			elaboratedFrame++; 
 
 			break;
 		}
 		//key=' ';
 		
-		/* display frame */
+		frame->height=240;
+		frame->width=320;
+		frame->widthStep=960;
 		cvShowImage( wndName.c_str(), frame );
-		/* quit if user press 'q' */
+	
 		if(elaboratedFrame==0)
 			key = cvWaitKey(1);
 	}
@@ -561,13 +578,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		IplImage *image = cvCreateImage( cvSize( frame->width, frame->height ),
                                frame->depth, frame->nChannels );
 		cvCopyImage( frame, image);
-		/*{
-			Guard p(imageQueueCS);
-			imageQueue.push(image);
-		}*/
+		//{
+		//	Guard p(imageQueueCS);
+		//	imageQueue.push(image);
+		//}
 		ElaborateImage(image);
 		//if(elaboratedFrame==0)
-		//	QueueUserWorkItem(ElaborateImage, 0/*image*/,0); //faccio partire elavorazione la prima volta
+		//	QueueUserWorkItem(ElaborateImage, 0,0); //faccio partire elavorazione la prima volta
 		elaboratedFrame++; 
 
 	//QueueUserWorkItem(ElaborateImage, calibrator->LoadMyImage(),0);
@@ -575,7 +592,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 #endif
 #endif
-/*#endif*/
+////#endif
 #ifndef LOAD_IMAGE
 	cvReleaseCapture(&cap);
 #endif	
@@ -596,6 +613,28 @@ int CalibrateCamera()
 		return -1;
 	}
 	return 0;
+}
+
+
+DWORD WINAPI WaitThread ( LPVOID ) 
+{
+	Sleep (lTimeout);
+	fcapt<< "cvCreateFileCapture_FFMPEG is lasting too long...Terminated."<<endl;
+	ExitProcess(0);
+	return 0;
+}
+
+
+void setAlarm()
+{	
+	DWORD dwTID;
+	lTimeout=420000; //420 sec = 7 min
+	hThread = CreateThread( NULL,0, WaitThread, 0, 0, &dwTID);
+}
+
+void stopAlarm()
+{
+	TerminateThread(hThread,0); // cancel thread
 }
 
 DWORD testConnectivity(string ip)
@@ -662,7 +701,7 @@ int SaveFile(IplImage* image, Pose_Marker *pose)
 DWORD WINAPI ElaborateImage( LPVOID lpParam )
 //int ElaborateImage(IplImage* inImage)
 {
-	//ofstream f2("TestElaboratingFrame_FTP2.txt", ios::app);
+	ofstream f2("TestElaboratingFrame_FTP2.txt", ios::app);
 	IplImage *image = cvCreateImage(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
 	Pose_Marker *pose;
 	/*if(!f2) {
