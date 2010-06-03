@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Servertest", "Servertest\Servertest.vcproj", "{A7134A98-9871-4845-98A7-690B7ED34F85}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LANtest1", "..\LANtest1\LANtest1\LANtest1.vcproj", "{DED36284-9E72-4CDE-89CD-E0C47986ED2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7134A98-9871-4845-98A7-690B7ED34F85}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A7134A98-9871-4845-98A7-690B7ED34F85}.Debug|Win32.Build.0 = Debug|Win32
+		{A7134A98-9871-4845-98A7-690B7ED34F85}.Release|Win32.ActiveCfg = Release|Win32
+		{A7134A98-9871-4845-98A7-690B7ED34F85}.Release|Win32.Build.0 = Release|Win32
+		{DED36284-9E72-4CDE-89CD-E0C47986ED2C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DED36284-9E72-4CDE-89CD-E0C47986ED2C}.Debug|Win32.Build.0 = Debug|Win32
+		{DED36284-9E72-4CDE-89CD-E0C47986ED2C}.Release|Win32.ActiveCfg = Release|Win32
+		{DED36284-9E72-4CDE-89CD-E0C47986ED2C}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
