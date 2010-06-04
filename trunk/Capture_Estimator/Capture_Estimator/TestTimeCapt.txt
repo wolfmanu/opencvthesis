@@ -30,17 +30,6 @@ cvCreateFileCapture_FFMPEG took 63188 milliseconds = 63.188 sec
 cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
 cvCreateFileCapture_FFMPEG took 35891 milliseconds = 35.891 sec
 
-cvCreateFileCapture_FFMPEG took 547 milliseconds = 0.547 sec
-
-cvCreateFileCapture_FFMPEG took 35984 milliseconds = 35.984 sec
-
-cvCreateFileCapture_FFMPEG took 2359 milliseconds = 2.359 sec
-
-cvCreateFileCapture_FFMPEG took 218 milliseconds = 0.218 sec
-
-cvCreateFileCapture_FFMPEG took 234 milliseconds = 0.234 sec
-
-cvCreateFileCapture_FFMPEG took 203 milliseconds = 0.203 sec
 
 cvCreateFileCapture_FFMPEG took 106797 milliseconds = 106.797 sec
 
@@ -48,7 +37,39 @@ cvCreateFileCapture_FFMPEG took 116750 milliseconds = 116.75 sec
 
 cvCreateFileCapture_FFMPEG took 108953 milliseconds = 108.953 sec
 
-cvCreateFileCapture_FFMPEG took 266 milliseconds = 0.266 sec
 
-cvCreateFileCapture_FFMPEG took 235 milliseconds = 0.235 sec
 
+cvCreateFileCapture_FFMPEG took 165047 milliseconds = 165.047 sec
+
+cvCreateFileCapture_FFMPEG took 54234 milliseconds = 54.234 sec
+
+cvCreateFileCapture_FFMPEG took 152110 milliseconds = 152.11 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 133109 milliseconds = 133.109 sec
+
+cvCreateFileCapture_FFMPEG took 168032 milliseconds = 168.032 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 113000 milliseconds = 113 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 0 milliseconds = 0 sec
+
+cvCreateFileCapture_FFMPEG took 0 milliseconds = 0 sec
+
+cvCreateFileCapture_FFMPEG took 0 milliseconds = 0 sec
+
+cvCreateFileCapture_FFMPEG took 0 milliseconds = 0 sec
+
+cvCreateFileCapture_FFMPEG took 126391 milliseconds = 126.391 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
