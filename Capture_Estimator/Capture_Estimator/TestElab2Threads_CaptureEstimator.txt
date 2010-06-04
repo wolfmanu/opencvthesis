@@ -1,0 +1,70 @@
+Test start - 1
+[Capture_Estimator] - Start elaborating 291656
+[Capture_Estimator] - End elaborating 303796
+[Capture_Estimator] - Total elaboration time: 12140 milliseconds - 304 frames
+[Capture_Estimator] - Avarage elaboration time: 39.9342 milliseconds
+Test end
+
+Test start - 2
+[Capture_Estimator] - Start elaborating 205390
+[Capture_Estimator] - End elaborating 217609
+[Capture_Estimator] - Total elaboration time: 12219 milliseconds - 306 frames
+[Capture_Estimator] - Avarage elaboration time: 39.9314 milliseconds
+Test end
+
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275572712
+[Capture_Estimator] - Start elaborating 260203
+[Capture_Estimator] - End elaborating 270187
+[Capture_Estimator] - Total elaboration time: 9984 milliseconds - 249 frames
+[Capture_Estimator] - Avarage elaboration time: 40.0964 milliseconds
+[Capture_Estimator] - Rate: 27.6667 frames/sec
+
+[Capture_Estimator] - Start elaborating 285046
+[Capture_Estimator] - End elaborating 302968
+[Capture_Estimator] - Total elaboration time: 17922 milliseconds - 449 frames
+[Capture_Estimator] - Avarage elaboration time: 39.9154 milliseconds
+[Capture_Estimator] - Rate: 26.4118 frames/sec
+
+[Capture_Estimator] - Start elaborating 342546
+[Capture_Estimator] - End elaborating 353656
+[Capture_Estimator] - Total elaboration time: 11110 milliseconds - 278 frames
+[Capture_Estimator] - Avarage elaboration time: 39.964 milliseconds
+[Capture_Estimator] - Rate: 25.2727 frames/sec
+Test end
+
+
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578136
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578345
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578378
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578549
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578620
+[Capture_Estimator] - End elaborating 3640
+[Capture_Estimator] - Total elaboration time: 8.58997e+008 milliseconds - 0 frames
+[Capture_Estimator] - Avarage elaboration time: 1.#INF milliseconds
+[Capture_Estimator] - Rate: 0 frames/sec
+Test end
+
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578688
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578710
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578919
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578931
+[Capture_Estimator] - Start elaborating 194171
+[Capture_Estimator] - Start elaborating 202015
+[Capture_Estimator] - Start elaborating 221109
+[Capture_Estimator] - End elaborating 269921
+[Capture_Estimator] - Total elaboration time: 48812 milliseconds - 0 frames
+[Capture_Estimator] - Avarage elaboration time: 1.#INF milliseconds
+[Capture_Estimator] - Rate: 0 frames/sec
+
+[Capture_Estimator] - End elaborating 288593
+[Capture_Estimator] - Total elaboration time: 67484 milliseconds - 0 frames
+[Capture_Estimator] - Avarage elaboration time: 1.#INF milliseconds
+[Capture_Estimator] - Rate: 0 frames/sec
+Test end
+
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579315
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579329
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579513
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579764
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579960
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275580146

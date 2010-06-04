@@ -1,0 +1,51 @@
+Test Start - 1
+[ElaborateImage] - Start elaborating 291703
+[ElaborateImage] - End elaborating 318437
+[ElaborateImage] - Total elaboration time: 26734 - 304 frames
+[ElaborateImage] - Total avarage elaboration time: 87
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - 2
+[ElaborateImage] - Start elaborating 205437
+[ElaborateImage] - End elaborating 228984
+[ElaborateImage] - Total elaboration time: 23547 - 306 frames
+[ElaborateImage] - Total avarage elaboration time: 76
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275572712
+[ElaborateImage] - Start elaborating 260265
+[ElaborateImage] - End elaborating 282656
+[ElaborateImage] - Total elaboration time: 22391 - 249 frames
+[ElaborateImage] - Total avarage elaboration time: 89
+[ElaborateImage] - Rate: 11 frames/sec
+[ElaborateImage] - Wasted Time: 171
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275572712
+[ElaborateImage] - Start elaborating 285046
+[ElaborateImage] - End elaborating 339625
+[ElaborateImage] - Total elaboration time: 54579 - 449 frames
+[ElaborateImage] - Total avarage elaboration time: 121
+[ElaborateImage] - Rate: 8 frames/sec
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275572712
+[ElaborateImage] - Start elaborating 342546
+[ElaborateImage] - End elaborating 367109
+[ElaborateImage] - Total elaboration time: 24563 - 278 frames
+[ElaborateImage] - Total avarage elaboration time: 88
+[ElaborateImage] - Rate: 11 frames/sec
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578931
+[ElaborateImage] - Start elaborating 202015
+[ElaborateImage] - End elaborating 286125
+[ElaborateImage] - Total elaboration time: 84110 - 6 frames
+[ElaborateImage] - Total avarage elaboration time: 14018
+[ElaborateImage] - Rate: 0 frames/sec
+[ElaborateImage] - Correctly recognized 0
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578931
+[ElaborateImage] - Start elaborating 286125
+[ElaborateImage] - End elaborating 288656
+[ElaborateImage] - Total elaboration time: 2531 - 0 frames
