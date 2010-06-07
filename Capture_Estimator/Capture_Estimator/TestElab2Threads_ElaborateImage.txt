@@ -36,16 +36,510 @@ Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275572712
 [ElaborateImage] - Rate: 11 frames/sec
 [ElaborateImage] - Wasted Time: 0
 
-Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578931
-[ElaborateImage] - Start elaborating 202015
-[ElaborateImage] - End elaborating 286125
-[ElaborateImage] - Total elaboration time: 84110 - 6 frames
-[ElaborateImage] - Total avarage elaboration time: 14018
-[ElaborateImage] - Rate: 0 frames/sec
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275656032
+[ElaborateImage] - Start elaborating 1147531
+[ElaborateImage] - End elaborating 1147640
+[ElaborateImage] - Total elaboration time: 109 - 1 frames
+[ElaborateImage] - Total avarage elaboration time: 109
+[ElaborateImage] - Rate: 9.17431 frames/sec
 [ElaborateImage] - Correctly recognized 0
 [ElaborateImage] - Wasted Time: 0
 
-Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578931
-[ElaborateImage] - Start elaborating 286125
-[ElaborateImage] - End elaborating 288656
-[ElaborateImage] - Total elaboration time: 2531 - 0 frames
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275656032
+[ElaborateImage] - Start elaborating 1147656
+[ElaborateImage] - End elaborating 1147703
+[ElaborateImage] - Total elaboration time: 47 - 2 frames
+[ElaborateImage] - Total avarage elaboration time: 23
+[ElaborateImage] - Rate: 42.5532 frames/sec
+[ElaborateImage] - Correctly recognized 0
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275656032
+[ElaborateImage] - Start elaborating 1147718
+[ElaborateImage] - End elaborating 1148156
+[ElaborateImage] - Total elaboration time: 438 - 3 frames
+[ElaborateImage] - Total avarage elaboration time: 146
+[ElaborateImage] - Rate: 6.84932 frames/sec
+[ElaborateImage] - Correctly recognized 0
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275656032
+[ElaborateImage] - Start elaborating 1148171
+[ElaborateImage] - End elaborating 1148281
+[ElaborateImage] - Total elaboration time: 110 - 4 frames
+[ElaborateImage] - Total avarage elaboration time: 27
+[ElaborateImage] - Rate: 36.3636 frames/sec
+[ElaborateImage] - Correctly recognized 0
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275656032
+[ElaborateImage] - Start elaborating 1148296
+[ElaborateImage] - End elaborating 1148421
+[ElaborateImage] - Total elaboration time: 125 - 5 frames
+[ElaborateImage] - Total avarage elaboration time: 25
+[ElaborateImage] - Rate: 40 frames/sec
+[ElaborateImage] - Correctly recognized 0
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275656032
+[ElaborateImage] - Start elaborating 1148453
+[ElaborateImage] - End elaborating 1148609
+[ElaborateImage] - Total elaboration time: 156 - 6 frames
+[ElaborateImage] - Total avarage elaboration time: 26
+[ElaborateImage] - Rate: 38.4615 frames/sec
+[ElaborateImage] - Correctly recognized 0
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275656032
+[ElaborateImage] - Start elaborating 1148625
+[ElaborateImage] - End elaborating 1149031
+[ElaborateImage] - Total elaboration time: 406 - 7 frames
+[ElaborateImage] - Total avarage elaboration time: 58
+[ElaborateImage] - Rate: 17.2414 frames/sec
+[ElaborateImage] - Correctly recognized 0
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275664452
+[ElaborateImage] - Start elaborating 1195078
+[ElaborateImage] - End elaborating 1196281
+[ElaborateImage] - Total elaboration time: 1203 - 10 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.31255 frames/sec
+[ElaborateImage] - Correctly recognized 10
+[ElaborateImage] - Wasted Time: 15
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275664452
+[ElaborateImage] - Start elaborating 1196312
+[ElaborateImage] - End elaborating 1201015
+[ElaborateImage] - Total elaboration time: 4703 - 50 frames
+[ElaborateImage] - Total avarage elaboration time: 94
+[ElaborateImage] - Rate: 10.6315 frames/sec
+[ElaborateImage] - Correctly recognized 50
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275664452
+[ElaborateImage] - Start elaborating 1201031
+[ElaborateImage] - End elaborating 1210250
+[ElaborateImage] - Total elaboration time: 9219 - 100 frames
+[ElaborateImage] - Total avarage elaboration time: 92
+[ElaborateImage] - Rate: 10.8472 frames/sec
+[ElaborateImage] - Correctly recognized 100
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275664452
+[ElaborateImage] - Start elaborating 1210296
+[ElaborateImage] - End elaborating 1236125
+[ElaborateImage] - Total elaboration time: 25829 - 250 frames
+[ElaborateImage] - Total avarage elaboration time: 103
+[ElaborateImage] - Rate: 9.67904 frames/sec
+[ElaborateImage] - Correctly recognized 250
+[ElaborateImage] - Wasted Time: 16
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275664452
+[ElaborateImage] - Start elaborating 1236171
+[ElaborateImage] - End elaborating 1308515
+[ElaborateImage] - Total elaboration time: 72344 - 500 frames
+[ElaborateImage] - Total avarage elaboration time: 144
+[ElaborateImage] - Rate: 6.91142 frames/sec
+[ElaborateImage] - Correctly recognized 500
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275664452
+[ElaborateImage] - Start elaborating 1308531
+[ElaborateImage] - End elaborating 1388562
+[ElaborateImage] - Total elaboration time: 80031 - 750 frames
+[ElaborateImage] - Total avarage elaboration time: 106
+[ElaborateImage] - Rate: 9.37137 frames/sec
+[ElaborateImage] - Correctly recognized 750
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 - 1275664452
+[ElaborateImage] - Start elaborating 1388593
+[ElaborateImage] - End elaborating 1477812
+[ElaborateImage] - Total elaboration time: 89219 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 89
+[ElaborateImage] - Rate: 11.2084 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275666412
+[ElaborateImage] - Start elaborating 903734
+[ElaborateImage] - End elaborating 904937
+[ElaborateImage] - Total elaboration time: 1203 - 10 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.31255 frames/sec
+[ElaborateImage] - Correctly recognized 10
+[ElaborateImage] - Wasted Time: 156
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275666412
+[ElaborateImage] - Start elaborating 905000
+[ElaborateImage] - End elaborating 911312
+[ElaborateImage] - Total elaboration time: 6312 - 50 frames
+[ElaborateImage] - Total avarage elaboration time: 126
+[ElaborateImage] - Rate: 7.92142 frames/sec
+[ElaborateImage] - Correctly recognized 50
+[ElaborateImage] - Wasted Time: 110
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275666412
+[ElaborateImage] - Start elaborating 911437
+[ElaborateImage] - End elaborating 923515
+[ElaborateImage] - Total elaboration time: 12078 - 100 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.27952 frames/sec
+[ElaborateImage] - Correctly recognized 100
+[ElaborateImage] - Wasted Time: 3177
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275666412
+[ElaborateImage] - Start elaborating 923609
+[ElaborateImage] - End elaborating 953640
+[ElaborateImage] - Total elaboration time: 30031 - 250 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.32473 frames/sec
+[ElaborateImage] - Correctly recognized 250
+[ElaborateImage] - Wasted Time: 9590
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275666412
+[ElaborateImage] - Start elaborating 953796
+[ElaborateImage] - End elaborating 1013843
+[ElaborateImage] - Total elaboration time: 60047 - 500 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.32681 frames/sec
+[ElaborateImage] - Correctly recognized 500
+[ElaborateImage] - Wasted Time: 16075
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275666412
+[ElaborateImage] - Start elaborating 1014015
+[ElaborateImage] - End elaborating 1133640
+[ElaborateImage] - Total elaboration time: 119625 - 750 frames
+[ElaborateImage] - Total avarage elaboration time: 159
+[ElaborateImage] - Rate: 6.26959 frames/sec
+[ElaborateImage] - Correctly recognized 750
+[ElaborateImage] - Wasted Time: 10979
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275666412
+[ElaborateImage] - Start elaborating 1133687
+[ElaborateImage] - End elaborating 1252203
+[ElaborateImage] - Total elaboration time: 118516 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 118
+[ElaborateImage] - Rate: 8.43768 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 17918
+
+Test Start - queue<IplImage*> - 1/2.5 frames elaborated - 320x240 - 1275668778
+[ElaborateImage] - Start elaborating 872828
+Test Start - queue<IplImage*> - 1/2.5 frames elaborated - 320x240 - 1275669798
+[ElaborateImage] - Start elaborating 1054671
+[ElaborateImage] - End elaborating 1055968
+[ElaborateImage] - Total elaboration time: 1297 - 10 frames
+[ElaborateImage] - Total avarage elaboration time: 129
+[ElaborateImage] - Rate: 7.7101 frames/sec
+[ElaborateImage] - Correctly recognized 10
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - 1/2.5 frames elaborated - 320x240 - 1275669798
+[ElaborateImage] - Start elaborating 1056015
+[ElaborateImage] - End elaborating 1066468
+[ElaborateImage] - Total elaboration time: 10453 - 50 frames
+[ElaborateImage] - Total avarage elaboration time: 209
+[ElaborateImage] - Rate: 4.78332 frames/sec
+[ElaborateImage] - Correctly recognized 50
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - 1/2.5 frames elaborated - 320x240 - 1275669798
+[ElaborateImage] - Start elaborating 1066640
+[ElaborateImage] - End elaborating 1080625
+[ElaborateImage] - Total elaboration time: 13985 - 100 frames
+[ElaborateImage] - Total avarage elaboration time: 139
+[ElaborateImage] - Rate: 7.15052 frames/sec
+[ElaborateImage] - Correctly recognized 100
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - 1/2.5 frames elaborated - 320x240 - 1275669798
+[ElaborateImage] - Start elaborating 1080671
+[ElaborateImage] - End elaborating 1125890
+[ElaborateImage] - Total elaboration time: 45219 - 250 frames
+[ElaborateImage] - Total avarage elaboration time: 180
+[ElaborateImage] - Rate: 5.52865 frames/sec
+[ElaborateImage] - Correctly recognized 250
+[ElaborateImage] - Wasted Time: 47
+
+Test Start - queue<IplImage*> - 1/2.5 frames elaborated - 320x240 - 1275669798
+[ElaborateImage] - Start elaborating 1125937
+[ElaborateImage] - End elaborating 1213375
+[ElaborateImage] - Total elaboration time: 87438 - 500 frames
+[ElaborateImage] - Total avarage elaboration time: 174
+[ElaborateImage] - Rate: 5.71834 frames/sec
+[ElaborateImage] - Correctly recognized 500
+[ElaborateImage] - Wasted Time: 47
+
+Test Start - queue<IplImage*> - 1/2.5 frames elaborated - 320x240 - 1275669798
+[ElaborateImage] - Start elaborating 1213468
+[ElaborateImage] - End elaborating 1347890
+[ElaborateImage] - Total elaboration time: 134422 - 750 frames
+[ElaborateImage] - Total avarage elaboration time: 179
+[ElaborateImage] - Rate: 5.57944 frames/sec
+[ElaborateImage] - Correctly recognized 750
+[ElaborateImage] - Wasted Time: 141
+
+Test Start - queue<IplImage*> - 1/2.5 frames elaborated - 320x240 - 1275669798
+[ElaborateImage] - Start elaborating 1347937
+[ElaborateImage] - End elaborating 1487671
+[ElaborateImage] - Total elaboration time: 139734 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 139
+[ElaborateImage] - Rate: 7.15645 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 0
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275671658
+[ElaborateImage] - Start elaborating 1247781
+[ElaborateImage] - End elaborating 1248765
+[ElaborateImage] - Total elaboration time: 984 - 10 frames
+[ElaborateImage] - Total avarage elaboration time: 98
+[ElaborateImage] - Rate: 10.1626 frames/sec
+[ElaborateImage] - Correctly recognized 10
+[ElaborateImage] - Wasted Time: 62
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275671658
+[ElaborateImage] - Start elaborating 1248875
+[ElaborateImage] - End elaborating 1255062
+[ElaborateImage] - Total elaboration time: 6187 - 50 frames
+[ElaborateImage] - Total avarage elaboration time: 123
+[ElaborateImage] - Rate: 8.08146 frames/sec
+[ElaborateImage] - Correctly recognized 50
+[ElaborateImage] - Wasted Time: 1310
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275671658
+[ElaborateImage] - Start elaborating 1255156
+[ElaborateImage] - End elaborating 1267093
+[ElaborateImage] - Total elaboration time: 11937 - 100 frames
+[ElaborateImage] - Total avarage elaboration time: 119
+[ElaborateImage] - Rate: 8.37731 frames/sec
+[ElaborateImage] - Correctly recognized 100
+[ElaborateImage] - Wasted Time: 2736
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275671658
+[ElaborateImage] - Start elaborating 1267281
+[ElaborateImage] - End elaborating 1297484
+[ElaborateImage] - Total elaboration time: 30203 - 250 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.27732 frames/sec
+[ElaborateImage] - Correctly recognized 250
+[ElaborateImage] - Wasted Time: 4763
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275671658
+[ElaborateImage] - Start elaborating 1297578
+[ElaborateImage] - End elaborating 1357718
+[ElaborateImage] - Total elaboration time: 60140 - 500 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.31393 frames/sec
+[ElaborateImage] - Correctly recognized 500
+[ElaborateImage] - Wasted Time: 4988
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275671658
+[ElaborateImage] - Start elaborating 1357859
+[ElaborateImage] - End elaborating 1447812
+[ElaborateImage] - Total elaboration time: 89953 - 750 frames
+[ElaborateImage] - Total avarage elaboration time: 119
+[ElaborateImage] - Rate: 8.33769 frames/sec
+[ElaborateImage] - Correctly recognized 750
+[ElaborateImage] - Wasted Time: 26037
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275671658
+[ElaborateImage] - Start elaborating 1447875
+[ElaborateImage] - End elaborating 1567906
+[ElaborateImage] - Total elaboration time: 120031 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.33118 frames/sec
+[ElaborateImage] - Correctly recognized 82
+[ElaborateImage] - Wasted Time: 89809
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275730528
+[ElaborateImage] - Start elaborating 522953
+[ElaborateImage] - End elaborating 523890
+[ElaborateImage] - Total elaboration time: 937 - 10 frames
+[ElaborateImage] - Total avarage elaboration time: 93
+[ElaborateImage] - Rate: 10.6724 frames/sec
+[ElaborateImage] - Correctly recognized 0
+[ElaborateImage] - Wasted Time: 533 - Empty Clicles: 463827
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275730528
+[ElaborateImage] - Start elaborating 524046
+[ElaborateImage] - End elaborating 530062
+[ElaborateImage] - Total elaboration time: 6016 - 50 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.31117 frames/sec
+[ElaborateImage] - Correctly recognized 42
+[ElaborateImage] - Wasted Time: 733 - Empty Clicles: 544177
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275730528
+[ElaborateImage] - Start elaborating 530187
+[ElaborateImage] - End elaborating 542140
+[ElaborateImage] - Total elaboration time: 11953 - 100 frames
+[ElaborateImage] - Total avarage elaboration time: 119
+[ElaborateImage] - Rate: 8.3661 frames/sec
+[ElaborateImage] - Correctly recognized 100
+[ElaborateImage] - Wasted Time: 2439 - Empty Clicles: 2236675
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275730528
+[ElaborateImage] - Start elaborating 542265
+[ElaborateImage] - End elaborating 572421
+[ElaborateImage] - Total elaboration time: 30156 - 250 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.29022 frames/sec
+[ElaborateImage] - Correctly recognized 250
+[ElaborateImage] - Wasted Time: 5329 - Empty Clicles: 4756202
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275730528
+[ElaborateImage] - Start elaborating 572453
+[ElaborateImage] - End elaborating 632406
+[ElaborateImage] - Total elaboration time: 59953 - 500 frames
+[ElaborateImage] - Total avarage elaboration time: 119
+[ElaborateImage] - Rate: 8.33987 frames/sec
+[ElaborateImage] - Correctly recognized 477
+[ElaborateImage] - Wasted Time: 16009 - Empty Clicles: 14227958
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275730528
+[ElaborateImage] - Start elaborating 632484
+[ElaborateImage] - End elaborating 722640
+[ElaborateImage] - Total elaboration time: 90156 - 750 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.31891 frames/sec
+[ElaborateImage] - Correctly recognized 750
+[ElaborateImage] - Wasted Time: 21644 - Empty Clicles: 19276421
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275730528
+[ElaborateImage] - Start elaborating 722687
+[ElaborateImage] - End elaborating 842937
+[ElaborateImage] - Total elaboration time: 120250 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.31601 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 27720 - Empty Clicles: 25516031
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated -no showImage- 320x240 - 1275731810
+[ElaborateImage] - Start elaborating 1068843
+[ElaborateImage] - End elaborating 1069921
+[ElaborateImage] - Total elaboration time: 1078 - 10 frames
+[ElaborateImage] - Total avarage elaboration time: 107
+[ElaborateImage] - Rate: 9.27644 frames/sec
+[ElaborateImage] - Correctly recognized 0
+[ElaborateImage] - Wasted Time: 375 - Empty Clicles: 251978
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated -no showImage- 320x240 - 1275731810
+[ElaborateImage] - Start elaborating 1070031
+[ElaborateImage] - End elaborating 1080828
+[ElaborateImage] - Total elaboration time: 10797 - 50 frames
+[ElaborateImage] - Total avarage elaboration time: 215
+[ElaborateImage] - Rate: 4.63092 frames/sec
+[ElaborateImage] - Correctly recognized 50
+[ElaborateImage] - Wasted Time: 515 - Empty Clicles: 419889
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated -no showImage- 320x240 - 1275731810
+[ElaborateImage] - Start elaborating 1080890
+[ElaborateImage] - End elaborating 1106953
+[ElaborateImage] - Total elaboration time: 26063 - 100 frames
+[ElaborateImage] - Total avarage elaboration time: 260
+[ElaborateImage] - Rate: 3.83686 frames/sec
+[ElaborateImage] - Correctly recognized 99
+[ElaborateImage] - Wasted Time: 0 - Empty Clicles: 0
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated -no showImage- 320x240 - 1275731810
+[ElaborateImage] - Start elaborating 1107046
+[ElaborateImage] - End elaborating 1157031
+[ElaborateImage] - Total elaboration time: 49985 - 250 frames
+[ElaborateImage] - Total avarage elaboration time: 199
+[ElaborateImage] - Rate: 5.0015 frames/sec
+[ElaborateImage] - Correctly recognized 250
+[ElaborateImage] - Wasted Time: 0 - Empty Clicles: 0
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated -no showImage- 320x240 - 1275731810
+[ElaborateImage] - Start elaborating 1157078
+[ElaborateImage] - End elaborating 1267828
+[ElaborateImage] - Total elaboration time: 110750 - 500 frames
+[ElaborateImage] - Total avarage elaboration time: 221
+[ElaborateImage] - Rate: 4.51467 frames/sec
+[ElaborateImage] - Correctly recognized 500
+[ElaborateImage] - Wasted Time: 31 - Empty Clicles: 0
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated -no showImage- 320x240 - 1275731810
+[ElaborateImage] - Start elaborating 1267875
+[ElaborateImage] - End elaborating 1425421
+[ElaborateImage] - Total elaboration time: 157546 - 750 frames
+[ElaborateImage] - Total avarage elaboration time: 210
+[ElaborateImage] - Rate: 4.76051 frames/sec
+[ElaborateImage] - Correctly recognized 750
+[ElaborateImage] - Wasted Time: 0 - Empty Clicles: 0
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated -no showImage- 320x240 - 1275731810
+[ElaborateImage] - Start elaborating 1425468
+[ElaborateImage] - End elaborating 1606796
+[ElaborateImage] - Total elaboration time: 181328 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 181
+[ElaborateImage] - Rate: 5.51487 frames/sec
+[ElaborateImage] - Correctly recognized 997
+[ElaborateImage] - Wasted Time: 31 - Empty Clicles: 4761
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736480
+[ElaborateImage] - Start elaborating 1007843
+[ElaborateImage] - End elaborating 1128828
+[ElaborateImage] - Total elaboration time: 120985 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.26549 frames/sec
+[ElaborateImage] - Correctly recognized 525
+[ElaborateImage] - Wasted Time: 47579 - Empty Clicles: 41568132
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736480
+[ElaborateImage] - Start elaborating 1128921
+[ElaborateImage] - End elaborating 1250265
+[ElaborateImage] - Total elaboration time: 121344 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 121
+[ElaborateImage] - Rate: 8.24103 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 766 - Empty Clicles: 663286
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736480
+[ElaborateImage] - Start elaborating 1250406
+[ElaborateImage] - End elaborating 1371562
+[ElaborateImage] - Total elaboration time: 121156 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 121
+[ElaborateImage] - Rate: 8.25382 frames/sec
+[ElaborateImage] - Correctly recognized 992
+[ElaborateImage] - Wasted Time: 9806 - Empty Clicles: 8096493
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736480
+[ElaborateImage] - Start elaborating 1371703
+[ElaborateImage] - End elaborating 1493843
+[ElaborateImage] - Total elaboration time: 122140 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 122
+[ElaborateImage] - Rate: 8.18733 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 10268 - Empty Clicles: 8544610
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736480
+[ElaborateImage] - Start elaborating 1493890
+[ElaborateImage] - End elaborating 1614031
+[ElaborateImage] - Total elaboration time: 120141 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 120
+[ElaborateImage] - Rate: 8.32355 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 19788 - Empty Clicles: 17318690
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736480
+[ElaborateImage] - Start elaborating 1614140
+[ElaborateImage] - End elaborating 1738531
+[ElaborateImage] - Total elaboration time: 124391 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 124
+[ElaborateImage] - Rate: 8.03917 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 3390 - Empty Clicles: 2922969
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736480
+[ElaborateImage] - Start elaborating 1738578
+[ElaborateImage] - End elaborating 1965421
+[ElaborateImage] - Total elaboration time: 226843 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 226
+[ElaborateImage] - Rate: 4.40834 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 486 - Empty Clicles: 310867
+

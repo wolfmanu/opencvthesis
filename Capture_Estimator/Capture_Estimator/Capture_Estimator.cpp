@@ -401,7 +401,7 @@ bool Calibrator::File_Exists(const char *sPath)
 
 string cameraIp = "192.168.1.160";
 string rtspProto = "rtsp://";
-string imgNameBase="Capture__0306__", imgName, ext=".jpeg";
+string imgNameBase="Capture__0506__", imgName, ext=".jpeg";
 string folder="images";
 string imgNameBaseToLoad="Capture_F";
 Calibrator *calibrator;
@@ -414,7 +414,7 @@ queue<IplImage*> imageQueue;
 CriticalSection imageQueueCS;
 FTPSender *ftps;
 time_t testTime;
-string testDescription=" - queue<IplImage*> - all frames elaborated - 320x240 - ";
+string testDescription=" - queue<IplImage*> - 1/3 frames elaborated - 320x240 - ";
 
 
 long lTimeout;
@@ -481,11 +481,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			//cout<<"capture number "<<u<<endl;
 			//CvCapture *cap;
-			setAlarm();
+			//setAlarm();
 			startCapture=clock();			
 			cap=cvCreateFileCapture_FFMPEG(cameraRtspIp.c_str());
 			endCapture=clock();
-			stopAlarm();
+			//stopAlarm();
 			fcapt<<"cvCreateFileCapture_FFMPEG took "<<double(endCapture-startCapture)<<" milliseconds = "<<double(endCapture-startCapture)/1000<<" sec"<<endl;
 			//cvReleaseCapture_FFMPEG(&cap);
 		}
@@ -539,8 +539,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout<< "Playing video" << endl;
 	IplImage *image;
 
-	int toElab[7]={1,2,3,4,5,6,7};
-	int elabIndex=0;
+	int toElab[7]={1000,1000,1000,1000,1000,1000,1000};
+	int elabIndex=0,rateIndex=-1,rateLimit=3;
 
 	while( key != 'q' /*&& elaboratedFrame<numFrameToElab */) 
 	{
@@ -563,27 +563,32 @@ int _tmain(int argc, _TCHAR* argv[])
 			switch (key2)
 			{
 			case 'e':
-				aux_t=clock();
-				image = cvCreateImage( cvSize( frame->width, frame->height ),
-								   frame->depth, frame->nChannels );
-				cvCopyImage( frame, image);
+				rateIndex=((rateIndex+1)%rateLimit);
+				if(rateIndex==0)
 				{
-					Guard p(imageQueueCS);
-					imageQueue.push(image);
+					aux_t=clock();
+					image = cvCreateImage( cvSize( frame->width, frame->height ),
+									   frame->depth, frame->nChannels );
+					cvCopyImage( frame, image);
+					{
+						Guard p(imageQueueCS);
+						imageQueue.push(image);
+					}
+					
+					//found=ElaborateImage(image);
+					//t2=clock();
+					//diff=t2-t1;
+					//f<<"Elaborating took for " << diff << " milliseconds - pattern found "<<found<<endl;
+					//tot+=diff;
+					if(elaboratedFrame==0)
+					{
+						QueueUserWorkItem(ElaborateImage, 0,0); //faccio partire elavorazione la prima volta
+						start_e=aux_t;
+						f<<"[Capture_Estimator] - Start elaborating "<<start_e<<endl;
+					}
+					elaboratedFrame++; 
+					//rateLimit==3 ? rateLimit=2 : rateLimit=3 ;
 				}
-				
-				//found=ElaborateImage(image);
-				//t2=clock();
-				//diff=t2-t1;
-				//f<<"Elaborating took for " << diff << " milliseconds - pattern found "<<found<<endl;
-				//tot+=diff;
-				if(elaboratedFrame==0)
-				{
-					QueueUserWorkItem(ElaborateImage, 0,0); //faccio partire elavorazione la prima volta
-					start_e=aux_t;
-					f<<"[Capture_Estimator] - Start elaborating "<<start_e<<endl;
-				}
-				elaboratedFrame++; 
 
 				break;
 
@@ -593,25 +598,28 @@ int _tmain(int argc, _TCHAR* argv[])
 				f<<"[Capture_Estimator] - End elaborating "<<end_e<<endl;
 				f<<"[Capture_Estimator] - Total elaboration time: "<<double(end_e-start_e)<<" milliseconds - "<<elaboratedFrame<<" frames"<<endl;
 				f<<"[Capture_Estimator] - Avarage elaboration time: "<<double(end_e-start_e)/elaboratedFrame<<" milliseconds"<<endl;
-				f<<"[Capture_Estimator] - Rate: "<<elaboratedFrame/double((end_e-start_e)/1000)<<" frames/sec"<<endl<<endl;
+				f<<"[Capture_Estimator] - Rate: "<<(elaboratedFrame/double(end_e-start_e))*1000<<" frames/sec"<<endl<<endl;
 				
 				elaboratedFrame=0;
 			}
 		}
-
+	
 		key=' ';
 	
-		cvShowImage( wndName.c_str(), frame );
+		//if(key2!='e')
+			cvShowImage( wndName.c_str(), frame );
 
 		key = cvWaitKey(1);
+		if(elabIndex==7)
+			key='q';
 	}
-	toStop=true;		//serve per segnalare all'altro thread che non saranno piu inseriti altri frame
-	end_e=clock();
-	f<<"[Capture_Estimator] - End elaborating "<<end_e<<endl;
-	f<<"[Capture_Estimator] - Total elaboration time: "<<double(end_e-start_e)<<" milliseconds - "<<elaboratedFrame<<" frames"<<endl;
-	f<<"[Capture_Estimator] - Avarage elaboration time: "<<double(end_e-start_e)/elaboratedFrame<<" milliseconds"<<endl;
-	f<<"[Capture_Estimator] - Rate: "<<elaboratedFrame/double((end_e-start_e)/1000)<<" frames/sec"<<endl;
-	f<<"Test end"<<endl<<endl;
+	//toStop=true;		//serve per segnalare all'altro thread che non saranno piu inseriti altri frame
+	//end_e=clock();
+	//f<<"[Capture_Estimator] - End elaborating "<<end_e<<endl;
+	//f<<"[Capture_Estimator] - Total elaboration time: "<<double(end_e-start_e)<<" milliseconds - "<<elaboratedFrame<<" frames"<<endl;
+	//f<<"[Capture_Estimator] - Avarage elaboration time: "<<double(end_e-start_e)/elaboratedFrame<<" milliseconds"<<endl;
+	//f<<"[Capture_Estimator] - Rate: "<<double((elaboratedFrame/(end_e-start_e))*1000))<<" frames/sec"<<endl;
+	//f<<"Test end"<<endl<<endl;
 	f.close();
 	cvDestroyWindow( wndName.c_str() );
 #else
@@ -672,7 +680,7 @@ DWORD WINAPI WaitThread ( LPVOID )
 void setAlarm()
 {	
 	DWORD dwTID;
-	lTimeout=180000; //3 min
+	lTimeout=240000; //4 min
 	hThread = CreateThread( NULL,0, WaitThread, 0, 0, &dwTID);
 }
 
@@ -758,7 +766,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	//f2<<"[ElaborateImage] - Test start"<<endl;
 	IplImage* inImage;//=reinterpret_cast<IplImage*>(lpParam);
 	double tot=0 ;
-	int frames=0;
+	int frames=0,emptyCicle=0;
 	endTask=false;
 	clock_t start_ElaborateImage=clock(),t5,t6;
 	f3<<"Test Start"<<testDescription<<testTime<<endl;
@@ -780,7 +788,10 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 				break;
 			}
 			else
+			{
 				inImage=0;
+				emptyCicle++;
+			}
 		}
 		if(inImage)
 		{
@@ -802,15 +813,11 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	f3<<"[ElaborateImage] - End elaborating "<<end_ElaborateImage<<endl;
 	f3<<"[ElaborateImage] - Total elaboration time: "<<double(end_ElaborateImage-start_ElaborateImage)<<" - "<<frames<<" frames"<<endl;
 	f3<<"[ElaborateImage] - Total avarage elaboration time: "<<double((end_ElaborateImage-start_ElaborateImage)/frames)<<endl;
-	f3<<"[ElaborateImage] - Rate: "<<double(frames/((end_ElaborateImage-start_ElaborateImage)/1000))<<" frames/sec"<<endl;
+	f3<<"[ElaborateImage] - Rate: "<<(frames/double(end_ElaborateImage-start_ElaborateImage))*1000<<" frames/sec"<<endl;
 	f3<<"[ElaborateImage] - Correctly recognized "<<recognized<<endl;
-	f3<<"[ElaborateImage] - Wasted Time: "<<double(end_ElaborateImage-start_ElaborateImage-tot)<<endl<<endl;
+	f3<<"[ElaborateImage] - Wasted Time: "<<double(end_ElaborateImage-start_ElaborateImage-tot)<<" - Empty Clicles: "<<emptyCicle<<endl<<endl;
 			
-
-	if(!pose)
-		return 0; 
-	else
-		return 1;
+	return 1;
 }
 
 void SendViaFTP(Pose_Marker* pose)

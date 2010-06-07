@@ -56,9 +56,7 @@ avcodec_find_decoder() - 0 ms
 End CvCapture_FFMPEG::open() - 168032 ms
 
 
-Start CvCapture_FFMPEG::open()
-av_register_all() - 0 ms
-av_open_input_file() - 453 ms
+
 Start CvCapture_FFMPEG::open()
 av_register_all() - 0 ms
 av_open_input_file() - 984 ms
@@ -66,15 +64,7 @@ av_find_stream_info() - 112016 ms
 avcodec_find_decoder() - 0 ms
 End CvCapture_FFMPEG::open() - 113000 ms
 
-Start CvCapture_FFMPEG::open()
-av_register_all() - 16 ms
-av_open_input_file() - 906 ms
-Start CvCapture_FFMPEG::open()
-av_register_all() - 0 ms
-av_open_input_file() - 187 ms
-Start CvCapture_FFMPEG::open()
-av_register_all() - 0 ms
-av_open_input_file() - 391 ms
+
 Start CvCapture_FFMPEG::open()
 av_register_all() - 0 ms
 av_open_input_file() - 172 ms
@@ -82,18 +72,102 @@ av_find_stream_info() - 126219 ms
 avcodec_find_decoder() - 0 ms
 End CvCapture_FFMPEG::open() - 126391 ms
 
-Start CvCapture_FFMPEG::open()
-av_register_all() - 0 ms
-av_open_input_file() - 156 ms
-Start CvCapture_FFMPEG::open()
-av_register_all() - 0 ms
-av_open_input_file() - 187 ms
-Start CvCapture_FFMPEG::open()
-av_register_all() - 0 ms
-av_open_input_file() - 203 ms
-Start CvCapture_FFMPEG::open()
-av_register_all() - 0 ms
-av_open_input_file() - 188 ms
+
 Start CvCapture_FFMPEG::open()
 av_register_all() - 0 ms
 av_open_input_file() - 187 ms
+av_find_stream_info() - 500500 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 500687 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 1000 ms
+av_find_stream_info() - 761453 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 762453 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 172 ms
+av_find_stream_info() - 788203 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 788375 ms
+
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 219 ms
+av_find_stream_info() - 848718 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 848937 ms
+
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 235 ms
+av_find_stream_info() - 480078 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 480313 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 797 ms
+av_find_stream_info() - 453734 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 454546 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 281 ms
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 218 ms
+av_find_stream_info() - 487860 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 488078 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 609 ms
+av_find_stream_info() - 638063 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 638672 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 312 ms
+av_find_stream_info() - 800797 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 801109 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 47 ms
+av_open_input_file() - 234 ms
+av_find_stream_info() - 325391 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 325672 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 219 ms
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 250 ms
+av_find_stream_info() - 635938 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 636188 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 234 ms
+av_find_stream_info() - 611453 ms
+avcodec_find_decoder() - 0 ms
+End CvCapture_FFMPEG::open() - 611687 ms
+
