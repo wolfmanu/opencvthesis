@@ -32,39 +32,352 @@ Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275572712
 [Capture_Estimator] - Rate: 25.2727 frames/sec
 Test end
 
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275656032
+[Capture_Estimator] - Start elaborating 1147484
+[Capture_Estimator] - End elaborating 1147531
+[Capture_Estimator] - Total elaboration time: 47 milliseconds - 1 frames
+[Capture_Estimator] - Avarage elaboration time: 47 milliseconds
+[Capture_Estimator] - Rate: 21.2766 frames/sec
 
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578136
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578345
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578378
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578549
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578620
-[Capture_Estimator] - End elaborating 3640
-[Capture_Estimator] - Total elaboration time: 8.58997e+008 milliseconds - 0 frames
-[Capture_Estimator] - Avarage elaboration time: 1.#INF milliseconds
-[Capture_Estimator] - Rate: 0 frames/sec
-Test end
+[Capture_Estimator] - Start elaborating 1147656
+[Capture_Estimator] - End elaborating 1147687
+[Capture_Estimator] - Total elaboration time: 31 milliseconds - 2 frames
+[Capture_Estimator] - Avarage elaboration time: 15.5 milliseconds
+[Capture_Estimator] - Rate: 64.5161 frames/sec
 
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578688
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578710
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578919
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275578931
-[Capture_Estimator] - Start elaborating 194171
-[Capture_Estimator] - Start elaborating 202015
-[Capture_Estimator] - Start elaborating 221109
-[Capture_Estimator] - End elaborating 269921
-[Capture_Estimator] - Total elaboration time: 48812 milliseconds - 0 frames
-[Capture_Estimator] - Avarage elaboration time: 1.#INF milliseconds
-[Capture_Estimator] - Rate: 0 frames/sec
+[Capture_Estimator] - Start elaborating 1147718
+[Capture_Estimator] - End elaborating 1147890
+[Capture_Estimator] - Total elaboration time: 172 milliseconds - 3 frames
+[Capture_Estimator] - Avarage elaboration time: 57.3333 milliseconds
+[Capture_Estimator] - Rate: 17.4419 frames/sec
 
-[Capture_Estimator] - End elaborating 288593
-[Capture_Estimator] - Total elaboration time: 67484 milliseconds - 0 frames
-[Capture_Estimator] - Avarage elaboration time: 1.#INF milliseconds
-[Capture_Estimator] - Rate: 0 frames/sec
-Test end
+[Capture_Estimator] - Start elaborating 1148171
+[Capture_Estimator] - End elaborating 1148234
+[Capture_Estimator] - Total elaboration time: 63 milliseconds - 4 frames
+[Capture_Estimator] - Avarage elaboration time: 15.75 milliseconds
+[Capture_Estimator] - Rate: 63.4921 frames/sec
 
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579315
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579329
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579513
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579764
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275579960
-Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275580146
+[Capture_Estimator] - Start elaborating 1148296
+[Capture_Estimator] - End elaborating 1148375
+[Capture_Estimator] - Total elaboration time: 79 milliseconds - 5 frames
+[Capture_Estimator] - Avarage elaboration time: 15.8 milliseconds
+[Capture_Estimator] - Rate: 63.2911 frames/sec
+
+[Capture_Estimator] - Start elaborating 1148437
+[Capture_Estimator] - End elaborating 1148546
+[Capture_Estimator] - Total elaboration time: 109 milliseconds - 6 frames
+[Capture_Estimator] - Avarage elaboration time: 18.1667 milliseconds
+[Capture_Estimator] - Rate: 55.0459 frames/sec
+
+[Capture_Estimator] - Start elaborating 1148625
+[Capture_Estimator] - End elaborating 1148750
+[Capture_Estimator] - Total elaboration time: 125 milliseconds - 7 frames
+[Capture_Estimator] - Avarage elaboration time: 17.8571 milliseconds
+[Capture_Estimator] - Rate: 56 frames/sec
+
+
+Test start - queue<IplImage*> - all frames elaborated - 320x240 - 1275664452
+[Capture_Estimator] - Start elaborating 1195015
+[Capture_Estimator] - End elaborating 1195328
+[Capture_Estimator] - Total elaboration time: 313 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 31.3 milliseconds
+[Capture_Estimator] - Rate: 31.9489 frames/sec
+
+[Capture_Estimator] - Start elaborating 1196312
+[Capture_Estimator] - End elaborating 1198187
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 50 frames
+[Capture_Estimator] - Avarage elaboration time: 37.5 milliseconds
+[Capture_Estimator] - Rate: 26.6667 frames/sec
+
+[Capture_Estimator] - Start elaborating 1201031
+[Capture_Estimator] - End elaborating 1205125
+[Capture_Estimator] - Total elaboration time: 4094 milliseconds - 100 frames
+[Capture_Estimator] - Avarage elaboration time: 40.94 milliseconds
+[Capture_Estimator] - Rate: 24.426 frames/sec
+
+[Capture_Estimator] - Start elaborating 1210296
+[Capture_Estimator] - End elaborating 1220328
+[Capture_Estimator] - Total elaboration time: 10032 milliseconds - 250 frames
+[Capture_Estimator] - Avarage elaboration time: 40.128 milliseconds
+[Capture_Estimator] - Rate: 24.9203 frames/sec
+
+[Capture_Estimator] - Start elaborating 1236171
+[Capture_Estimator] - End elaborating 1256484
+[Capture_Estimator] - Total elaboration time: 20313 milliseconds - 500 frames
+[Capture_Estimator] - Avarage elaboration time: 40.626 milliseconds
+[Capture_Estimator] - Rate: 24.6148 frames/sec
+
+[Capture_Estimator] - Start elaborating 1308531
+[Capture_Estimator] - End elaborating 1334531
+[Capture_Estimator] - Total elaboration time: 26000 milliseconds - 750 frames
+[Capture_Estimator] - Avarage elaboration time: 34.6667 milliseconds
+[Capture_Estimator] - Rate: 28.8462 frames/sec
+
+[Capture_Estimator] - Start elaborating 1388578
+[Capture_Estimator] - End elaborating 1428531
+[Capture_Estimator] - Total elaboration time: 39953 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 39.953 milliseconds
+[Capture_Estimator] - Rate: 25.0294 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275666412
+[Capture_Estimator] - Start elaborating 903703
+[Capture_Estimator] - End elaborating 904796
+[Capture_Estimator] - Total elaboration time: 1093 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 109.3 milliseconds
+[Capture_Estimator] - Rate: 9.14913 frames/sec
+
+[Capture_Estimator] - Start elaborating 905000
+[Capture_Estimator] - End elaborating 910906
+[Capture_Estimator] - Total elaboration time: 5906 milliseconds - 50 frames
+[Capture_Estimator] - Avarage elaboration time: 118.12 milliseconds
+[Capture_Estimator] - Rate: 8.46597 frames/sec
+
+[Capture_Estimator] - Start elaborating 911437
+[Capture_Estimator] - End elaborating 923406
+[Capture_Estimator] - Total elaboration time: 11969 milliseconds - 100 frames
+[Capture_Estimator] - Avarage elaboration time: 119.69 milliseconds
+[Capture_Estimator] - Rate: 8.35492 frames/sec
+
+[Capture_Estimator] - Start elaborating 923609
+[Capture_Estimator] - End elaborating 953593
+[Capture_Estimator] - Total elaboration time: 29984 milliseconds - 250 frames
+[Capture_Estimator] - Avarage elaboration time: 119.936 milliseconds
+[Capture_Estimator] - Rate: 8.33778 frames/sec
+
+[Capture_Estimator] - Start elaborating 953796
+[Capture_Estimator] - End elaborating 1013734
+[Capture_Estimator] - Total elaboration time: 59938 milliseconds - 500 frames
+[Capture_Estimator] - Avarage elaboration time: 119.876 milliseconds
+[Capture_Estimator] - Rate: 8.34195 frames/sec
+
+[Capture_Estimator] - Start elaborating 1014015
+[Capture_Estimator] - End elaborating 1112250
+[Capture_Estimator] - Total elaboration time: 98235 milliseconds - 750 frames
+[Capture_Estimator] - Avarage elaboration time: 130.98 milliseconds
+[Capture_Estimator] - Rate: 7.63475 frames/sec
+
+[Capture_Estimator] - Start elaborating 1133687
+[Capture_Estimator] - End elaborating 1252203
+[Capture_Estimator] - Total elaboration time: 118516 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 118.516 milliseconds
+[Capture_Estimator] - Rate: 8.43768 frames/sec
+
+Test start - queue<IplImage*> - 1/2.5 frames elaborated - 320x240 - 1275669798
+[Capture_Estimator] - Start elaborating 1054625
+[Capture_Estimator] - End elaborating 1055484
+[Capture_Estimator] - Total elaboration time: 859 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 85.9 milliseconds
+[Capture_Estimator] - Rate: 11.6414 frames/sec
+
+[Capture_Estimator] - Start elaborating 1056000
+[Capture_Estimator] - End elaborating 1061000
+[Capture_Estimator] - Total elaboration time: 5000 milliseconds - 50 frames
+[Capture_Estimator] - Avarage elaboration time: 100 milliseconds
+[Capture_Estimator] - Rate: 10 frames/sec
+
+[Capture_Estimator] - Start elaborating 1066625
+[Capture_Estimator] - End elaborating 1076484
+[Capture_Estimator] - Total elaboration time: 9859 milliseconds - 100 frames
+[Capture_Estimator] - Avarage elaboration time: 98.59 milliseconds
+[Capture_Estimator] - Rate: 10.143 frames/sec
+
+[Capture_Estimator] - Start elaborating 1080671
+[Capture_Estimator] - End elaborating 1105765
+[Capture_Estimator] - Total elaboration time: 25094 milliseconds - 250 frames
+[Capture_Estimator] - Avarage elaboration time: 100.376 milliseconds
+[Capture_Estimator] - Rate: 9.96254 frames/sec
+
+[Capture_Estimator] - Start elaborating 1125937
+[Capture_Estimator] - End elaborating 1177750
+[Capture_Estimator] - Total elaboration time: 51813 milliseconds - 500 frames
+[Capture_Estimator] - Avarage elaboration time: 103.626 milliseconds
+[Capture_Estimator] - Rate: 9.65009 frames/sec
+
+[Capture_Estimator] - Start elaborating 1213468
+[Capture_Estimator] - End elaborating 1288109
+[Capture_Estimator] - Total elaboration time: 74641 milliseconds - 750 frames
+[Capture_Estimator] - Avarage elaboration time: 99.5213 milliseconds
+[Capture_Estimator] - Rate: 10.0481 frames/sec
+
+[Capture_Estimator] - Start elaborating 1347937
+[Capture_Estimator] - End elaborating 1440578
+[Capture_Estimator] - Total elaboration time: 92641 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 92.641 milliseconds
+[Capture_Estimator] - Rate: 10.7944 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275671658
+[Capture_Estimator] - Start elaborating 1247734
+[Capture_Estimator] - End elaborating 1248718
+[Capture_Estimator] - Total elaboration time: 984 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 98.4 milliseconds
+[Capture_Estimator] - Rate: 10.1626 frames/sec
+
+[Capture_Estimator] - Start elaborating 1248875
+[Capture_Estimator] - End elaborating 1254921
+[Capture_Estimator] - Total elaboration time: 6046 milliseconds - 50 frames
+[Capture_Estimator] - Avarage elaboration time: 120.92 milliseconds
+[Capture_Estimator] - Rate: 8.26993 frames/sec
+
+[Capture_Estimator] - Start elaborating 1255156
+[Capture_Estimator] - End elaborating 1267093
+[Capture_Estimator] - Total elaboration time: 11937 milliseconds - 100 frames
+[Capture_Estimator] - Avarage elaboration time: 119.37 milliseconds
+[Capture_Estimator] - Rate: 8.37731 frames/sec
+
+[Capture_Estimator] - Start elaborating 1267281
+[Capture_Estimator] - End elaborating 1297156
+[Capture_Estimator] - Total elaboration time: 29875 milliseconds - 250 frames
+[Capture_Estimator] - Avarage elaboration time: 119.5 milliseconds
+[Capture_Estimator] - Rate: 8.3682 frames/sec
+
+[Capture_Estimator] - Start elaborating 1297578
+[Capture_Estimator] - End elaborating 1357671
+[Capture_Estimator] - Total elaboration time: 60093 milliseconds - 500 frames
+[Capture_Estimator] - Avarage elaboration time: 120.186 milliseconds
+[Capture_Estimator] - Rate: 8.32044 frames/sec
+
+[Capture_Estimator] - Start elaborating 1357859
+[Capture_Estimator] - End elaborating 1447750
+[Capture_Estimator] - Total elaboration time: 89891 milliseconds - 750 frames
+[Capture_Estimator] - Avarage elaboration time: 119.855 milliseconds
+[Capture_Estimator] - Rate: 8.34344 frames/sec
+
+[Capture_Estimator] - Start elaborating 1447875
+[Capture_Estimator] - End elaborating 1567875
+[Capture_Estimator] - Total elaboration time: 120000 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 120 milliseconds
+[Capture_Estimator] - Rate: 8.33333 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275730528
+[Capture_Estimator] - Start elaborating 522890
+[Capture_Estimator] - End elaborating 523875
+[Capture_Estimator] - Total elaboration time: 985 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 98.5 milliseconds
+[Capture_Estimator] - Rate: 10.1523 frames/sec
+
+[Capture_Estimator] - Start elaborating 524046
+[Capture_Estimator] - End elaborating 529984
+[Capture_Estimator] - Total elaboration time: 5938 milliseconds - 50 frames
+[Capture_Estimator] - Avarage elaboration time: 118.76 milliseconds
+[Capture_Estimator] - Rate: 8.42034 frames/sec
+
+[Capture_Estimator] - Start elaborating 530187
+[Capture_Estimator] - End elaborating 542078
+[Capture_Estimator] - Total elaboration time: 11891 milliseconds - 100 frames
+[Capture_Estimator] - Avarage elaboration time: 118.91 milliseconds
+[Capture_Estimator] - Rate: 8.40972 frames/sec
+
+[Capture_Estimator] - Start elaborating 542265
+[Capture_Estimator] - End elaborating 572375
+[Capture_Estimator] - Total elaboration time: 30110 milliseconds - 250 frames
+[Capture_Estimator] - Avarage elaboration time: 120.44 milliseconds
+[Capture_Estimator] - Rate: 8.30289 frames/sec
+
+[Capture_Estimator] - Start elaborating 572453
+[Capture_Estimator] - End elaborating 632328
+[Capture_Estimator] - Total elaboration time: 59875 milliseconds - 500 frames
+[Capture_Estimator] - Avarage elaboration time: 119.75 milliseconds
+[Capture_Estimator] - Rate: 8.35073 frames/sec
+
+[Capture_Estimator] - Start elaborating 632484
+[Capture_Estimator] - End elaborating 722625
+[Capture_Estimator] - Total elaboration time: 90141 milliseconds - 750 frames
+[Capture_Estimator] - Avarage elaboration time: 120.188 milliseconds
+[Capture_Estimator] - Rate: 8.3203 frames/sec
+
+[Capture_Estimator] - Start elaborating 722687
+[Capture_Estimator] - End elaborating 842656
+[Capture_Estimator] - Total elaboration time: 119969 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 119.969 milliseconds
+[Capture_Estimator] - Rate: 8.33549 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated -no showImage- 320x240 - 1275731797
+Test start - queue<IplImage*> - 1/3 frames elaborated -no showImage- 320x240 - 1275731810
+[Capture_Estimator] - Start elaborating 1068796
+[Capture_Estimator] - End elaborating 1069796
+[Capture_Estimator] - Total elaboration time: 1000 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 100 milliseconds
+[Capture_Estimator] - Rate: 10 frames/sec
+
+[Capture_Estimator] - Start elaborating 1070031
+[Capture_Estimator] - End elaborating 1075968
+[Capture_Estimator] - Total elaboration time: 5937 milliseconds - 50 frames
+[Capture_Estimator] - Avarage elaboration time: 118.74 milliseconds
+[Capture_Estimator] - Rate: 8.42176 frames/sec
+
+[Capture_Estimator] - Start elaborating 1080859
+[Capture_Estimator] - End elaborating 1093062
+[Capture_Estimator] - Total elaboration time: 12203 milliseconds - 100 frames
+[Capture_Estimator] - Avarage elaboration time: 122.03 milliseconds
+[Capture_Estimator] - Rate: 8.19471 frames/sec
+
+[Capture_Estimator] - Start elaborating 1107046
+[Capture_Estimator] - End elaborating 1138937
+[Capture_Estimator] - Total elaboration time: 31891 milliseconds - 250 frames
+[Capture_Estimator] - Avarage elaboration time: 127.564 milliseconds
+[Capture_Estimator] - Rate: 7.8392 frames/sec
+
+[Capture_Estimator] - Start elaborating 1157078
+[Capture_Estimator] - End elaborating 1223109
+[Capture_Estimator] - Total elaboration time: 66031 milliseconds - 500 frames
+[Capture_Estimator] - Avarage elaboration time: 132.062 milliseconds
+[Capture_Estimator] - Rate: 7.5722 frames/sec
+
+[Capture_Estimator] - Start elaborating 1267875
+[Capture_Estimator] - End elaborating 1362046
+[Capture_Estimator] - Total elaboration time: 94171 milliseconds - 750 frames
+[Capture_Estimator] - Avarage elaboration time: 125.561 milliseconds
+[Capture_Estimator] - Rate: 7.96424 frames/sec
+
+[Capture_Estimator] - Start elaborating 1425468
+[Capture_Estimator] - End elaborating 1552875
+[Capture_Estimator] - Total elaboration time: 127407 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 127.407 milliseconds
+[Capture_Estimator] - Rate: 7.84886 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736349
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736360
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736369
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 - 1275736480
+[Capture_Estimator] - Start elaborating 1007812
+[Capture_Estimator] - End elaborating 1127359
+[Capture_Estimator] - Total elaboration time: 119547 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 119.547 milliseconds
+[Capture_Estimator] - Rate: 8.36491 frames/sec
+
+[Capture_Estimator] - Start elaborating 1128921
+[Capture_Estimator] - End elaborating 1249140
+[Capture_Estimator] - Total elaboration time: 120219 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 120.219 milliseconds
+[Capture_Estimator] - Rate: 8.31815 frames/sec
+
+[Capture_Estimator] - Start elaborating 1250406
+[Capture_Estimator] - End elaborating 1370312
+[Capture_Estimator] - Total elaboration time: 119906 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 119.906 milliseconds
+[Capture_Estimator] - Rate: 8.33987 frames/sec
+
+[Capture_Estimator] - Start elaborating 1371703
+[Capture_Estimator] - End elaborating 1491828
+[Capture_Estimator] - Total elaboration time: 120125 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 120.125 milliseconds
+[Capture_Estimator] - Rate: 8.32466 frames/sec
+
+[Capture_Estimator] - Start elaborating 1493890
+[Capture_Estimator] - End elaborating 1613984
+[Capture_Estimator] - Total elaboration time: 120094 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 120.094 milliseconds
+[Capture_Estimator] - Rate: 8.32681 frames/sec
+
+[Capture_Estimator] - Start elaborating 1614140
+[Capture_Estimator] - End elaborating 1734109
+[Capture_Estimator] - Total elaboration time: 119969 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 119.969 milliseconds
+[Capture_Estimator] - Rate: 8.33549 frames/sec
+
+[Capture_Estimator] - Start elaborating 1738578
+[Capture_Estimator] - End elaborating 1858718
+[Capture_Estimator] - Total elaboration time: 120140 milliseconds - 1000 frames
+[Capture_Estimator] - Avarage elaboration time: 120.14 milliseconds
+[Capture_Estimator] - Rate: 8.32362 frames/sec
+
