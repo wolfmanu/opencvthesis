@@ -65,8 +65,8 @@ public:
 
 Calibrator::Calibrator(void)
 {
-	inputImgName="frame4.png";
-	inputImgPath="D:\\Documenti\\Politecnico\\anno5\\Tesi\\Capture_Estimator\\Capture_Estimator\\";
+	//inputImgName="frame4.png";
+	inputImgPath="D:\\Documenti\\Politecnico\\anno5\\Tesi\\Capture_Estimator_svn\\Capture_Estimator\\Capture_Estimator\\";
 
 //#ifdef LOAD_IMAGE
 //	AICONCalibName="CAM_RIGHT_AIR_CALIB.ini";
@@ -92,7 +92,7 @@ void Calibrator::Calibrator_(void)
 	numMrkFound = -1;
 
 
-	inputImage = inputImgPath + inputImgName;
+	//inputImage = inputImgPath + inputImgName;
 	AICONcalib = inputImgPath + AICONCalibName;
 	ARTKPcalib = inputImgPath + ARTKPCalibName;
 
@@ -225,11 +225,13 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 	while(!stop)
 	{
 		cvCopyImage(calcImg, c->rawimg);
+		
 		UndistortedImageAICON(c, true, CV_RGB(255,0,0));
+	
 		memcpy((uchar*)calcImg->imageData, (uchar*)(c->unimg->imageData), CAM_W*CAM_H);
 		
 		cvThreshold(calcImg, treshImg, tracker->getThreshold(), 255, CV_THRESH_BINARY);
-
+		
 		markerIdfound = trackerLite->calc((uchar*)calcImg->imageData, MARKER_ID, false, &MI, &numMrkFound);
 
 		if(markerIdfound != -1)
@@ -249,12 +251,12 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 		{
 			WriteTMatrixFromFloat((float*)tracker->getModelViewMatrix(), &Testimation);
 
-			double teta_x=atan2(Testimation.rev.r.col.j.a[2],Testimation.rev.r.col.k.a[2]);
+			/*double teta_x=atan2(Testimation.rev.r.col.j.a[2],Testimation.rev.r.col.k.a[2]);
 			double teta_y=atan2((-cos(teta_x)*Testimation.rev.r.col.j.a[0]+sin(teta_x)*Testimation.rev.r.col.k.a[0]),
 								(cos(teta_x)*Testimation.rev.r.col.j.a[1]-sin(teta_x)*Testimation.rev.r.col.k.a[1]));
 			double teta_z=atan2(-(Testimation.rev.r.col.i.a[2]),
 								(sin(teta_x)*Testimation.rev.r.col.j.a[2]+cos(teta_x)*Testimation.rev.r.col.k.a[2]));
-
+*/
 			Tmatrix2Vect(Testimation, &Xestimation);
 			
 			printf( "Found Marker %d\n\n", markerIdfound);
@@ -401,7 +403,7 @@ bool Calibrator::File_Exists(const char *sPath)
 
 string cameraIp = "192.168.1.160";
 string rtspProto = "rtsp://";
-string imgNameBase="Capture__0706__", imgName, ext=".jpeg";
+string imgNameBase="Capture__0806__", imgName, ext=".jpeg";
 string folder="images";
 string imgNameBaseToLoad="Capture_F";
 Calibrator *calibrator;
@@ -414,7 +416,7 @@ queue<IplImage*> imageQueue;
 CriticalSection imageQueueCS;
 FTPSender *ftps;
 time_t testTime;
-string testDescription=" - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20- ";
+string testDescription=" - queue<IplImage*> - all frames elaborated - 320x240 HighQuality- Mod- search for M20- ";
 
 
 long lTimeout;
@@ -481,11 +483,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		//{
 			//cout<<"capture number "<<u<<endl;
 			//CvCapture *cap;
-			//setAlarm();
+			setAlarm();
 			startCapture=clock();			
 			cap=cvCreateFileCapture_FFMPEG(cameraRtspIp.c_str());
 			endCapture=clock();
-			//stopAlarm();
+			stopAlarm();
 			fcapt<<"cvCreateFileCapture_FFMPEG took "<<double(endCapture-startCapture)<<" milliseconds = "<<double(endCapture-startCapture)/1000<<" sec"<<endl;
 			//cvReleaseCapture_FFMPEG(&cap);
 		//}
@@ -507,7 +509,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		cerr<<"Error opening file " << cameraIp<< endl;
 		return 0;
 	}
-	cvSetCaptureProperty_FFMPEG(cap, CV_CAP_PROP_FPS, 60);
+	//cvSetCaptureProperty_FFMPEG(cap, CV_CAP_PROP_FPS, 60);
 #endif
 
 /*#ifdef DISPLAY_FRAME
@@ -540,7 +542,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout<< "Playing video" << endl;
 	IplImage *image;
 
-	int toElab[7]={1000,1000,1000,1000,1000,1000,1000};
+	int toElab[1]={5000};//,1000,1000,1000,1000,1000,1000};
 	int elabIndex=0,rateIndex=-1,rateLimit=3;
 
 	while( key != 'q' /*&& elaboratedFrame<numFrameToElab */) 
@@ -588,7 +590,6 @@ int _tmain(int argc, _TCHAR* argv[])
 						f<<"[Capture_Estimator] - Start elaborating "<<start_e<<endl;
 					}
 					elaboratedFrame++; 
-					cout<<double(elaboratedFrame*elabIndex);
 					//rateLimit==3 ? rateLimit=2 : rateLimit=3 ;
 				}
 
@@ -612,7 +613,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			cvShowImage( wndName.c_str(), frame );
 
 		key = cvWaitKey(1);
-		if(elabIndex==7)
+		if(elabIndex==1)
 			key='q';
 	}
 	//toStop=true;		//serve per segnalare all'altro thread che non saranno piu inseriti altri frame
@@ -682,7 +683,7 @@ DWORD WINAPI WaitThread ( LPVOID )
 void setAlarm()
 {	
 	DWORD dwTID;
-	lTimeout=240000; //4 min
+	lTimeout=30000; //30sec
 	hThread = CreateThread( NULL,0, WaitThread, 0, 0, &dwTID);
 }
 
@@ -734,7 +735,7 @@ int SaveFile(IplImage* image, Pose_Marker *pose)
 		comment="Pattern not found";
 	else{
 		comment=pose->toString();
-		filename[8]='F';
+		filename[8]='F';			//per riconoscere se la posa è stata trovata dal nome del file
 	}
 	writeJpegFile ((char*)(filename.c_str()), *cvimage, options, comment);
 	cout<<"Saved image "<<filename<<endl;
@@ -801,14 +802,17 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 			cvCvtColor(inImage,image,CV_BGR2GRAY);
 			pose=calibrator->FindPattern(image); //devo ritornare anche la posa per metterla nel file jpeg
 			SaveFile(image, pose);
+			cvReleaseImage(&inImage);
+			
 		#ifdef USEFTP
 			SendViaFTP(pose);
 		#endif
 			t6=clock();
 			//f2<<"[ElaborateImage] - Elaborazione: "<<double(t6-t5)<<endl;
 			tot+=(t6-t5);
-			if(pose)
-				recognized++;
+			if(pose){
+				free(pose);
+				recognized++;}
 		}
 	}
 	clock_t end_ElaborateImage=clock();

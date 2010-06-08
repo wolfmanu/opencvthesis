@@ -157,3 +157,83 @@ cvCreateFileCapture_FFMPEG took 781 milliseconds = 0.781 sec
 
 cvCreateFileCapture_FFMPEG took 375 milliseconds = 0.375 sec
 
+cvCreateFileCapture_FFMPEG took 390 milliseconds = 0.39 sec
+
+cvCreateFileCapture_FFMPEG took 406 milliseconds = 0.406 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 734 milliseconds = 0.734 sec
+
+cvCreateFileCapture_FFMPEG took 484 milliseconds = 0.484 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 281 milliseconds = 0.281 sec
+
+cvCreateFileCapture_FFMPEG took 453 milliseconds = 0.453 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 297 milliseconds = 0.297 sec
+
+cvCreateFileCapture_FFMPEG took 344 milliseconds = 0.344 sec
+
+cvCreateFileCapture_FFMPEG took 375 milliseconds = 0.375 sec
+
+cvCreateFileCapture_FFMPEG took 312 milliseconds = 0.312 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 437 milliseconds = 0.437 sec
+
+cvCreateFileCapture_FFMPEG took 328 milliseconds = 0.328 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 281 milliseconds = 0.281 sec
+
+cvCreateFileCapture_FFMPEG took 359 milliseconds = 0.359 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 359 milliseconds = 0.359 sec
+
+cvCreateFileCapture_FFMPEG took 469 milliseconds = 0.469 sec
+
+cvCreateFileCapture_FFMPEG took 344 milliseconds = 0.344 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 484 milliseconds = 0.484 sec
+
+cvCreateFileCapture_FFMPEG took 344 milliseconds = 0.344 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 422 milliseconds = 0.422 sec
+
+cvCreateFileCapture_FFMPEG took 438 milliseconds = 0.438 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 328 milliseconds = 0.328 sec
+
+cvCreateFileCapture_FFMPEG took 375 milliseconds = 0.375 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 312 milliseconds = 0.312 sec
+
+cvCreateFileCapture_FFMPEG took 328 milliseconds = 0.328 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 375 milliseconds = 0.375 sec
+
+cvCreateFileCapture_FFMPEG took 391 milliseconds = 0.391 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 343 milliseconds = 0.343 sec
+
+cvCreateFileCapture_FFMPEG took 375 milliseconds = 0.375 sec
+
+cvCreateFileCapture_FFMPEG took 610 milliseconds = 0.61 sec
+
+cvCreateFileCapture_FFMPEG took 422 milliseconds = 0.422 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 485 milliseconds = 0.485 sec
+
+cvCreateFileCapture_FFMPEG took 344 milliseconds = 0.344 sec
+

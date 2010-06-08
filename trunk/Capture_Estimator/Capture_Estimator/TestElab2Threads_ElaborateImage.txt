@@ -723,11 +723,7 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mo
 [ElaborateImage] - Correctly recognized 772
 [ElaborateImage] - Wasted Time: 73545 - Empty Clicles: 53787913
 
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod1275924274
-[ElaborateImage] - Start elaborating 121640
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M201275924633
-[ElaborateImage] - Start elaborating 12984
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M201275924722
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20 1275924722
 [ElaborateImage] - Start elaborating 15937
 [ElaborateImage] - End elaborating 84687
 [ElaborateImage] - Delay 31
@@ -737,7 +733,7 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mo
 [ElaborateImage] - Correctly recognized 230
 [ElaborateImage] - Wasted Time: 20577 - Empty Clicles: 16152512
 
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M201275924865
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20 1275924865
 [ElaborateImage] - Start elaborating 14734
 [ElaborateImage] - End elaborating 212796
 [ElaborateImage] - Delay 76500
@@ -747,9 +743,7 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mo
 [ElaborateImage] - Correctly recognized 283
 [ElaborateImage] - Wasted Time: 0 - Empty Clicles: 0
 
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M201275926129
-[ElaborateImage] - Start elaborating 9671
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M201275927103
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20 1275927103
 [ElaborateImage] - Start elaborating 14281
 [ElaborateImage] - End elaborating 139203
 [ElaborateImage] - Delay 5203
@@ -759,7 +753,7 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod
 [ElaborateImage] - Correctly recognized 959
 [ElaborateImage] - Wasted Time: 2640 - Empty Clicles: 1967769
 
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M201275927103
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20 1275927103
 [ElaborateImage] - Start elaborating 139359
 [ElaborateImage] - End elaborating 259156
 [ElaborateImage] - Delay 78
@@ -769,7 +763,7 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod
 [ElaborateImage] - Correctly recognized 1000
 [ElaborateImage] - Wasted Time: 7016 - Empty Clicles: 5427470
 
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M201275927103
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20 1275927103
 [ElaborateImage] - Start elaborating 259281
 [ElaborateImage] - End elaborating 379187
 [ElaborateImage] - Delay 109
@@ -779,7 +773,7 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod
 [ElaborateImage] - Correctly recognized 1000
 [ElaborateImage] - Wasted Time: 14483 - Empty Clicles: 11027593
 
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M201275927103
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20 1275927103
 [ElaborateImage] - Start elaborating 379281
 [ElaborateImage] - End elaborating 501328
 [ElaborateImage] - Delay 2250
@@ -789,7 +783,7 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod
 [ElaborateImage] - Correctly recognized 1000
 [ElaborateImage] - Wasted Time: 14365 - Empty Clicles: 11308477
 
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M201275927103
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20 1275927103
 [ElaborateImage] - Start elaborating 501468
 [ElaborateImage] - End elaborating 713781
 [ElaborateImage] - Delay 77547
@@ -799,7 +793,7 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod
 [ElaborateImage] - Correctly recognized 1000
 [ElaborateImage] - Wasted Time: 0 - Empty Clicles: 0
 
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M201275927103
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20 1275927103
 [ElaborateImage] - Start elaborating 714125
 [ElaborateImage] - End elaborating 920937
 [ElaborateImage] - Delay 85578
@@ -809,7 +803,7 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod
 [ElaborateImage] - Correctly recognized 1000
 [ElaborateImage] - Wasted Time: 0 - Empty Clicles: 0
 
-Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M201275927103
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20 1275927103
 [ElaborateImage] - Start elaborating 921468
 [ElaborateImage] - End elaborating 1137546
 [ElaborateImage] - Delay 96593
@@ -888,4 +882,48 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod
 [ElaborateImage] - Rate: 6.71209 frames/sec
 [ElaborateImage] - Correctly recognized 1000
 [ElaborateImage] - Wasted Time: 15 - Empty Clicles: 0
+
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BaseQuality- Mod- search for M20- 1276003247
+[ElaborateImage] - Start elaborating 4031
+[ElaborateImage] - End elaborating 295828
+[ElaborateImage] - Delay 92000
+[ElaborateImage] - Total elaboration time: 291797 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 291
+[ElaborateImage] - Rate: 3.42704 frames/sec
+[ElaborateImage] - Correctly recognized 994
+[ElaborateImage] - Wasted Time: 16 - Empty Clicles: 0
+
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BaseQuality- Mod- search for M20- 1276003247
+[ElaborateImage] - Start elaborating 296109
+[ElaborateImage] - End elaborating 630671
+[ElaborateImage] - Delay 134750
+[ElaborateImage] - Total elaboration time: 334562 - 1000 frames
+[ElaborateImage] - Total avarage elaboration time: 334
+[ElaborateImage] - Rate: 2.98898 frames/sec
+[ElaborateImage] - Correctly recognized 1000
+[ElaborateImage] - Wasted Time: 0 - Empty Clicles: 0
+Test Start - queue<IplImage*> - all frames elaborated - 640x480 BaseQuality- Mod- search for M20- 1276005606
+[ElaborateImage] - Start elaborating 5718
+Test Start - queue<IplImage*> - all frames elaborated - 640x480 BaseQuality- Mod- search for M20- 1276005700
+[ElaborateImage] - Start elaborating 5937
+Test Start - queue<IplImage*> - all frames elaborated - 640x480 BaseQuality- Mod- search for M20- 1276005841
+[ElaborateImage] - Start elaborating 3703
+[ElaborateImage] - End elaborating 133875
+[ElaborateImage] - Delay 96891
+[ElaborateImage] - Total elaboration time: 130172 - 500 frames
+[ElaborateImage] - Total avarage elaboration time: 260
+[ElaborateImage] - Rate: 3.84107 frames/sec
+[ElaborateImage] - Correctly recognized 500
+[ElaborateImage] - Wasted Time: 0 - Empty Clicles: 0
+
+Test Start - queue<IplImage*> - all frames elaborated - 320x240 HighQuality- Mod- search for M20- 1276007457
+[ElaborateImage] - Start elaborating 27640
+[ElaborateImage] - End elaborating 626859
+[ElaborateImage] - Delay 47
+[ElaborateImage] - Total elaboration time: 599219 - 5000 frames
+[ElaborateImage] - Total avarage elaboration time: 119
+[ElaborateImage] - Rate: 8.34419 frames/sec
+[ElaborateImage] - Correctly recognized 4999
+[ElaborateImage] - Wasted Time: 122204 - Empty Clicles: 104388271
 
