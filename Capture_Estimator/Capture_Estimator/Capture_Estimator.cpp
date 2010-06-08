@@ -401,7 +401,7 @@ bool Calibrator::File_Exists(const char *sPath)
 
 string cameraIp = "192.168.1.160";
 string rtspProto = "rtsp://";
-string imgNameBase="Capture__0506__", imgName, ext=".jpeg";
+string imgNameBase="Capture__0706__", imgName, ext=".jpeg";
 string folder="images";
 string imgNameBaseToLoad="Capture_F";
 Calibrator *calibrator;
@@ -414,7 +414,7 @@ queue<IplImage*> imageQueue;
 CriticalSection imageQueueCS;
 FTPSender *ftps;
 time_t testTime;
-string testDescription=" - queue<IplImage*> - 1/3 frames elaborated - 320x240 - ";
+string testDescription=" - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20- ";
 
 
 long lTimeout;
@@ -437,12 +437,12 @@ ofstream fcapt("TestTimeCapt.txt", ios::app);
 
 //globali x cercare una pseudo-sincronizzazione cn l'elaborazione
 int elaboratedFrame=0;
-clock_t aux_t;
+clock_t aux_t, end_e;
 
 int _tmain(int argc, _TCHAR* argv[])
 {		
 	
-	clock_t end_e,start_e;
+	clock_t start_e;
 	double tot=0,diff=0;
 	IplImage  *frame;
 	int key=0, key2=0;
@@ -478,7 +478,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		}    
 		clock_t startCapture,endCapture;
 		//for(int u=0;u<20;u++)
-		{
+		//{
 			//cout<<"capture number "<<u<<endl;
 			//CvCapture *cap;
 			//setAlarm();
@@ -488,9 +488,10 @@ int _tmain(int argc, _TCHAR* argv[])
 			//stopAlarm();
 			fcapt<<"cvCreateFileCapture_FFMPEG took "<<double(endCapture-startCapture)<<" milliseconds = "<<double(endCapture-startCapture)/1000<<" sec"<<endl;
 			//cvReleaseCapture_FFMPEG(&cap);
-		}
+		//}
 		fcapt<<endl;
 		fcapt.close();
+		// return 0;
 		
 #endif
 	
@@ -587,6 +588,7 @@ int _tmain(int argc, _TCHAR* argv[])
 						f<<"[Capture_Estimator] - Start elaborating "<<start_e<<endl;
 					}
 					elaboratedFrame++; 
+					cout<<double(elaboratedFrame*elabIndex);
 					//rateLimit==3 ? rateLimit=2 : rateLimit=3 ;
 				}
 
@@ -811,6 +813,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	}
 	clock_t end_ElaborateImage=clock();
 	f3<<"[ElaborateImage] - End elaborating "<<end_ElaborateImage<<endl;
+	f3<<"[ElaborateImage] - Delay "<<double(end_ElaborateImage-end_e)<<endl;
 	f3<<"[ElaborateImage] - Total elaboration time: "<<double(end_ElaborateImage-start_ElaborateImage)<<" - "<<frames<<" frames"<<endl;
 	f3<<"[ElaborateImage] - Total avarage elaboration time: "<<double((end_ElaborateImage-start_ElaborateImage)/frames)<<endl;
 	f3<<"[ElaborateImage] - Rate: "<<(frames/double(end_ElaborateImage-start_ElaborateImage))*1000<<" frames/sec"<<endl;

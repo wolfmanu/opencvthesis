@@ -10,7 +10,7 @@
 #define INITIAL_THRESHOLD 127
 #define MARKER_BORDER 0.250f
 #define RAD2DEG	(57.29577951)
-#define MARKER_ID -1
+#define MARKER_ID 20	//-1 to search for all
 #define MAX_NUM_THRESH 5
 
 #include "targetver.h"
