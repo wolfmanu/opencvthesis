@@ -610,11 +610,7 @@ Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BaseQuality- Mod
 [Capture_Estimator] - Avarage elaboration time: 199.828 milliseconds
 [Capture_Estimator] - Rate: 5.0043 frames/sec
 
-Test start - queue<IplImage*> - all frames elaborated - 640x480 BaseQuality- Mod- search for M20- 1276005606
-[Capture_Estimator] - Start elaborating 5671
-Test start - queue<IplImage*> - all frames elaborated - 640x480 BaseQuality- Mod- search for M20- 1276005700
-[Capture_Estimator] - Start elaborating 5906
-Test start - queue<IplImage*> - all frames elaborated - 640x480 BaseQuality- Mod- search for M20- 1276005790
+
 Test start - queue<IplImage*> - all frames elaborated - 640x480 BaseQuality- Mod- search for M20- 1276005841
 [Capture_Estimator] - Start elaborating 3656
 [Capture_Estimator] - End elaborating 36984
@@ -628,4 +624,286 @@ Test start - queue<IplImage*> - all frames elaborated - 320x240 HighQuality- Mod
 [Capture_Estimator] - Total elaboration time: 599203 milliseconds - 5000 frames
 [Capture_Estimator] - Avarage elaboration time: 119.841 milliseconds
 [Capture_Estimator] - Rate: 8.34442 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20- 1276072609
+[Capture_Estimator] - Start elaborating 112343
+[Capture_Estimator] - End elaborating 113500
+[Capture_Estimator] - Total elaboration time: 1157 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 115.7 milliseconds
+[Capture_Estimator] - Rate: 8.64304 frames/sec
+
+[Capture_Estimator] - Start elaborating 129328
+[Capture_Estimator] - End elaborating 130718
+[Capture_Estimator] - Total elaboration time: 1390 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 139 milliseconds
+[Capture_Estimator] - Rate: 7.19424 frames/sec
+
+[Capture_Estimator] - Start elaborating 150765
+[Capture_Estimator] - End elaborating 151937
+[Capture_Estimator] - Total elaboration time: 1172 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 117.2 milliseconds
+[Capture_Estimator] - Rate: 8.53242 frames/sec
+
+[Capture_Estimator] - Start elaborating 166171
+[Capture_Estimator] - End elaborating 167531
+[Capture_Estimator] - Total elaboration time: 1360 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 136 milliseconds
+[Capture_Estimator] - Rate: 7.35294 frames/sec
+
+[Capture_Estimator] - Start elaborating 183109
+[Capture_Estimator] - End elaborating 184265
+[Capture_Estimator] - Total elaboration time: 1156 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 115.6 milliseconds
+[Capture_Estimator] - Rate: 8.65052 frames/sec
+
+[Capture_Estimator] - Start elaborating 204468
+[Capture_Estimator] - End elaborating 205562
+[Capture_Estimator] - Total elaboration time: 1094 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 109.4 milliseconds
+[Capture_Estimator] - Rate: 9.14077 frames/sec
+
+[Capture_Estimator] - Start elaborating 209703
+[Capture_Estimator] - End elaborating 210828
+[Capture_Estimator] - Total elaboration time: 1125 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 112.5 milliseconds
+[Capture_Estimator] - Rate: 8.88889 frames/sec
+
+[Capture_Estimator] - Start elaborating 213500
+[Capture_Estimator] - End elaborating 215000
+[Capture_Estimator] - Total elaboration time: 1500 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 150 milliseconds
+[Capture_Estimator] - Rate: 6.66667 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20- 1276073172
+[Capture_Estimator] - Start elaborating 23109
+[Capture_Estimator] - End elaborating 24234
+[Capture_Estimator] - Total elaboration time: 1125 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 112.5 milliseconds
+[Capture_Estimator] - Rate: 8.88889 frames/sec
+
+[Capture_Estimator] - Start elaborating 27453
+[Capture_Estimator] - End elaborating 28625
+[Capture_Estimator] - Total elaboration time: 1172 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 117.2 milliseconds
+[Capture_Estimator] - Rate: 8.53242 frames/sec
+
+[Capture_Estimator] - Start elaborating 30546
+[Capture_Estimator] - End elaborating 31687
+[Capture_Estimator] - Total elaboration time: 1141 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 114.1 milliseconds
+[Capture_Estimator] - Rate: 8.76424 frames/sec
+
+[Capture_Estimator] - Start elaborating 34093
+[Capture_Estimator] - End elaborating 35265
+[Capture_Estimator] - Total elaboration time: 1172 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 117.2 milliseconds
+[Capture_Estimator] - Rate: 8.53242 frames/sec
+
+[Capture_Estimator] - Start elaborating 42234
+[Capture_Estimator] - End elaborating 43390
+[Capture_Estimator] - Total elaboration time: 1156 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 115.6 milliseconds
+[Capture_Estimator] - Rate: 8.65052 frames/sec
+
+[Capture_Estimator] - Start elaborating 46875
+[Capture_Estimator] - End elaborating 48015
+[Capture_Estimator] - Total elaboration time: 1140 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 114 milliseconds
+[Capture_Estimator] - Rate: 8.77193 frames/sec
+
+[Capture_Estimator] - Start elaborating 51937
+[Capture_Estimator] - End elaborating 53031
+[Capture_Estimator] - Total elaboration time: 1094 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 109.4 milliseconds
+[Capture_Estimator] - Rate: 9.14077 frames/sec
+
+[Capture_Estimator] - Start elaborating 63203
+[Capture_Estimator] - End elaborating 64359
+[Capture_Estimator] - Total elaboration time: 1156 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 115.6 milliseconds
+[Capture_Estimator] - Rate: 8.65052 frames/sec
+
+[Capture_Estimator] - Start elaborating 68703
+[Capture_Estimator] - End elaborating 69921
+[Capture_Estimator] - Total elaboration time: 1218 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 121.8 milliseconds
+[Capture_Estimator] - Rate: 8.21018 frames/sec
+
+[Capture_Estimator] - Start elaborating 78953
+[Capture_Estimator] - End elaborating 80062
+[Capture_Estimator] - Total elaboration time: 1109 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 110.9 milliseconds
+[Capture_Estimator] - Rate: 9.01713 frames/sec
+
+[Capture_Estimator] - Start elaborating 86171
+[Capture_Estimator] - End elaborating 87265
+[Capture_Estimator] - Total elaboration time: 1094 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 109.4 milliseconds
+[Capture_Estimator] - Rate: 9.14077 frames/sec
+
+[Capture_Estimator] - Start elaborating 93140
+[Capture_Estimator] - End elaborating 94265
+[Capture_Estimator] - Total elaboration time: 1125 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 112.5 milliseconds
+[Capture_Estimator] - Rate: 8.88889 frames/sec
+
+[Capture_Estimator] - Start elaborating 101312
+[Capture_Estimator] - End elaborating 102500
+[Capture_Estimator] - Total elaboration time: 1188 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 118.8 milliseconds
+[Capture_Estimator] - Rate: 8.41751 frames/sec
+
+[Capture_Estimator] - Start elaborating 107015
+[Capture_Estimator] - End elaborating 108218
+[Capture_Estimator] - Total elaboration time: 1203 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 120.3 milliseconds
+[Capture_Estimator] - Rate: 8.31255 frames/sec
+
+[Capture_Estimator] - Start elaborating 125062
+[Capture_Estimator] - End elaborating 126390
+[Capture_Estimator] - Total elaboration time: 1328 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 132.8 milliseconds
+[Capture_Estimator] - Rate: 7.53012 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 320x240 HighQuality- Mod- search for M20- 1276087658
+[Capture_Estimator] - Start elaborating 168796
+[Capture_Estimator] - End elaborating 169812
+[Capture_Estimator] - Total elaboration time: 1016 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 101.6 milliseconds
+[Capture_Estimator] - Rate: 9.84252 frames/sec
+
+[Capture_Estimator] - Start elaborating 179562
+[Capture_Estimator] - End elaborating 180796
+[Capture_Estimator] - Total elaboration time: 1234 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 123.4 milliseconds
+[Capture_Estimator] - Rate: 8.10373 frames/sec
+
+[Capture_Estimator] - Start elaborating 205437
+[Capture_Estimator] - End elaborating 206562
+[Capture_Estimator] - Total elaboration time: 1125 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 112.5 milliseconds
+[Capture_Estimator] - Rate: 8.88889 frames/sec
+
+[Capture_Estimator] - Start elaborating 226156
+[Capture_Estimator] - End elaborating 227296
+[Capture_Estimator] - Total elaboration time: 1140 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 114 milliseconds
+[Capture_Estimator] - Rate: 8.77193 frames/sec
+
+[Capture_Estimator] - Start elaborating 260500
+[Capture_Estimator] - End elaborating 261640
+[Capture_Estimator] - Total elaboration time: 1140 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 114 milliseconds
+[Capture_Estimator] - Rate: 8.77193 frames/sec
+
+[Capture_Estimator] - Start elaborating 276609
+[Capture_Estimator] - End elaborating 277796
+[Capture_Estimator] - Total elaboration time: 1187 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 118.7 milliseconds
+[Capture_Estimator] - Rate: 8.4246 frames/sec
+
+[Capture_Estimator] - Start elaborating 293218
+[Capture_Estimator] - End elaborating 294343
+[Capture_Estimator] - Total elaboration time: 1125 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 112.5 milliseconds
+[Capture_Estimator] - Rate: 8.88889 frames/sec
+
+[Capture_Estimator] - Start elaborating 300375
+[Capture_Estimator] - End elaborating 301468
+[Capture_Estimator] - Total elaboration time: 1093 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 109.3 milliseconds
+[Capture_Estimator] - Rate: 9.14913 frames/sec
+
+[Capture_Estimator] - Start elaborating 306828
+[Capture_Estimator] - End elaborating 307921
+[Capture_Estimator] - Total elaboration time: 1093 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 109.3 milliseconds
+[Capture_Estimator] - Rate: 9.14913 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276158746
+[Capture_Estimator] - Start elaborating 16906
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276158852
+[Capture_Estimator] - Start elaborating 23437
+[Capture_Estimator] - End elaborating 25343
+[Capture_Estimator] - Total elaboration time: 1906 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 190.6 milliseconds
+[Capture_Estimator] - Rate: 5.24659 frames/sec
+
+[Capture_Estimator] - Start elaborating 30828
+[Capture_Estimator] - End elaborating 32687
+[Capture_Estimator] - Total elaboration time: 1859 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 185.9 milliseconds
+[Capture_Estimator] - Rate: 5.37924 frames/sec
+
+[Capture_Estimator] - Start elaborating 56500
+[Capture_Estimator] - End elaborating 58359
+[Capture_Estimator] - Total elaboration time: 1859 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 185.9 milliseconds
+[Capture_Estimator] - Rate: 5.37924 frames/sec
+
+[Capture_Estimator] - Start elaborating 74343
+[Capture_Estimator] - End elaborating 76234
+[Capture_Estimator] - Total elaboration time: 1891 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 189.1 milliseconds
+[Capture_Estimator] - Rate: 5.28821 frames/sec
+
+[Capture_Estimator] - Start elaborating 83453
+[Capture_Estimator] - End elaborating 85328
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+[Capture_Estimator] - Start elaborating 96781
+[Capture_Estimator] - End elaborating 98656
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+[Capture_Estimator] - Start elaborating 112562
+[Capture_Estimator] - End elaborating 114437
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+[Capture_Estimator] - Start elaborating 120218
+[Capture_Estimator] - End elaborating 122093
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+[Capture_Estimator] - Start elaborating 127890
+[Capture_Estimator] - End elaborating 129765
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+[Capture_Estimator] - Start elaborating 147234
+[Capture_Estimator] - End elaborating 149093
+[Capture_Estimator] - Total elaboration time: 1859 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 185.9 milliseconds
+[Capture_Estimator] - Rate: 5.37924 frames/sec
+
+[Capture_Estimator] - Start elaborating 152828
+[Capture_Estimator] - End elaborating 154687
+[Capture_Estimator] - Total elaboration time: 1859 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 185.9 milliseconds
+[Capture_Estimator] - Rate: 5.37924 frames/sec
+
+[Capture_Estimator] - Start elaborating 164281
+[Capture_Estimator] - End elaborating 166125
+[Capture_Estimator] - Total elaboration time: 1844 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 184.4 milliseconds
+[Capture_Estimator] - Rate: 5.42299 frames/sec
+
+[Capture_Estimator] - Start elaborating 170140
+[Capture_Estimator] - End elaborating 172000
+[Capture_Estimator] - Total elaboration time: 1860 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 186 milliseconds
+[Capture_Estimator] - Rate: 5.37634 frames/sec
+
+[Capture_Estimator] - Start elaborating 175937
+[Capture_Estimator] - End elaborating 177765
+[Capture_Estimator] - Total elaboration time: 1828 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 182.8 milliseconds
+[Capture_Estimator] - Rate: 5.47046 frames/sec
 
