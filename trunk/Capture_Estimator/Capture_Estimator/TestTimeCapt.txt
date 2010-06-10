@@ -237,3 +237,14 @@ cvCreateFileCapture_FFMPEG took 485 milliseconds = 0.485 sec
 
 cvCreateFileCapture_FFMPEG took 344 milliseconds = 0.344 sec
 
+cvCreateFileCapture_FFMPEG took 390 milliseconds = 0.39 sec
+
+cvCreateFileCapture_FFMPEG took 250 milliseconds = 0.25 sec
+
+cvCreateFileCapture_FFMPEG is lasting too long...Terminated.
+cvCreateFileCapture_FFMPEG took 312 milliseconds = 0.312 sec
+
+cvCreateFileCapture_FFMPEG took 515 milliseconds = 0.515 sec
+
+cvCreateFileCapture_FFMPEG took 359 milliseconds = 0.359 sec
+

@@ -12,8 +12,8 @@
 	#define CAM_H 768
 	#define CAM_W 1024
 #else*/
-	#define CAM_H 240
-	#define CAM_W 320
+	#define CAM_H 480
+	#define CAM_W 640
 //#endif
 
 #include "stdafx.h"
@@ -403,7 +403,7 @@ bool Calibrator::File_Exists(const char *sPath)
 
 string cameraIp = "192.168.1.160";
 string rtspProto = "rtsp://";
-string imgNameBase="Capture__0806__", imgName, ext=".jpeg";
+string imgNameBase="Capture__1006__", imgName, ext=".jpeg";
 string folder="images";
 string imgNameBaseToLoad="Capture_F";
 Calibrator *calibrator;
@@ -416,7 +416,7 @@ queue<IplImage*> imageQueue;
 CriticalSection imageQueueCS;
 FTPSender *ftps;
 time_t testTime;
-string testDescription=" - queue<IplImage*> - all frames elaborated - 320x240 HighQuality- Mod- search for M20- ";
+string testDescription=" - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- ";
 
 
 long lTimeout;
@@ -435,6 +435,8 @@ DWORD testConnectivity(string ip);
 string getUniqueFileName();
 void SendViaFTP(Pose_Marker* pose);
 
+void changeFileNameToPose(int n);
+
 ofstream fcapt("TestTimeCapt.txt", ios::app);
 
 //globali x cercare una pseudo-sincronizzazione cn l'elaborazione
@@ -443,7 +445,11 @@ clock_t aux_t, end_e;
 
 int _tmain(int argc, _TCHAR* argv[])
 {		
-	
+	/**/
+	changeFileNameToPose(140);
+	return 0;
+	/**/
+
 	clock_t start_e;
 	double tot=0,diff=0;
 	IplImage  *frame;
@@ -542,7 +548,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout<< "Playing video" << endl;
 	IplImage *image;
 
-	int toElab[1]={5000};//,1000,1000,1000,1000,1000,1000};
+	int toElab[1]={10};//,1000,1000,1000,1000,1000,1000};
 	int elabIndex=0,rateIndex=-1,rateLimit=3;
 
 	while( key != 'q' /*&& elaboratedFrame<numFrameToElab */) 
@@ -553,7 +559,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		if(elaboratedFrame==toElab[elabIndex])
 		{
 			key='s';
-			elabIndex++;
+			//elabIndex++;
 		}
 		if(elabIndex>0 && elaboratedFrame==0 && endTask)
 			key='e';
@@ -613,8 +619,8 @@ int _tmain(int argc, _TCHAR* argv[])
 			cvShowImage( wndName.c_str(), frame );
 
 		key = cvWaitKey(1);
-		if(elabIndex==1)
-			key='q';
+		/*if(elabIndex==1)
+			key='q';*/
 	}
 	//toStop=true;		//serve per segnalare all'altro thread che non saranno piu inseriti altri frame
 	//end_e=clock();
@@ -905,3 +911,27 @@ string getTimeFileName()
 	return ss.str();
 }
 
+void changeFileNameToPose(int n)
+{
+	string comment;
+	string options="quality=90";
+	float r,p,y;
+
+	for(int k=0;k<n; k++)
+	{
+		stringstream ss;
+		ss<<"images\\Fapture__1006__"<<k<<".jpeg";
+		
+		CvImage img = readJpegFile((char*)(ss.str().c_str()),comment);
+
+		if(img)
+		{
+			sscanf(comment.c_str(),"roll:%f\npitch:%f\nyaw:%f\n",&r,&p,&y);
+			stringstream tt;
+			tt<<"test\\"<<k<<"_640x480_"<<r<<"_"<<p<<"_"<<y<<"_"<<".jpeg";
+
+			writeJpegFile ((char*)(tt.str().c_str()), img,options, comment);
+		}
+	}
+
+}
