@@ -907,3 +907,165 @@ Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mo
 [Capture_Estimator] - Avarage elaboration time: 182.8 milliseconds
 [Capture_Estimator] - Rate: 5.47046 frames/sec
 
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276249924
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276250030
+[Capture_Estimator] - Start elaborating 11765
+[Capture_Estimator] - End elaborating 13640
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+[Capture_Estimator] - Start elaborating 23687
+[Capture_Estimator] - End elaborating 25562
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+[Capture_Estimator] - Start elaborating 36812
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276250183
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276250197
+[Capture_Estimator] - Start elaborating 14406
+[Capture_Estimator] - End elaborating 16343
+[Capture_Estimator] - Total elaboration time: 1937 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 193.7 milliseconds
+[Capture_Estimator] - Rate: 5.16262 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276250530
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276250574
+[Capture_Estimator] - Start elaborating 10500
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276251419
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276251465
+[Capture_Estimator] - Start elaborating 11046
+[Capture_Estimator] - End elaborating 12921
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276251638
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276251683
+[Capture_Estimator] - Start elaborating 14046
+[Capture_Estimator] - End elaborating 15906
+[Capture_Estimator] - Total elaboration time: 1860 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 186 milliseconds
+[Capture_Estimator] - Rate: 5.37634 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276251744
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276251759
+[Capture_Estimator] - Start elaborating 11968
+[Capture_Estimator] - End elaborating 13875
+[Capture_Estimator] - Total elaboration time: 1907 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 190.7 milliseconds
+[Capture_Estimator] - Rate: 5.24384 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276251980
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276252012
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276252119
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276252217
+[Capture_Estimator] - Start elaborating 12203
+[Capture_Estimator] - End elaborating 14078
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276333399
+[Capture_Estimator] - Start elaborating 11593
+[Capture_Estimator] - End elaborating 13453
+[Capture_Estimator] - Total elaboration time: 1860 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 186 milliseconds
+[Capture_Estimator] - Rate: 5.37634 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276333510
+[Capture_Estimator] - Start elaborating 7890
+[Capture_Estimator] - End elaborating 9843
+[Capture_Estimator] - Total elaboration time: 1953 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 195.3 milliseconds
+[Capture_Estimator] - Rate: 5.12033 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276333628
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276333684
+[Capture_Estimator] - Start elaborating 9515
+[Capture_Estimator] - End elaborating 11437
+[Capture_Estimator] - Total elaboration time: 1922 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 192.2 milliseconds
+[Capture_Estimator] - Rate: 5.20291 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276333784
+[Capture_Estimator] - Start elaborating 7031
+[Capture_Estimator] - End elaborating 8937
+[Capture_Estimator] - Total elaboration time: 1906 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 190.6 milliseconds
+[Capture_Estimator] - Rate: 5.24659 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276335873
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276335886
+[Capture_Estimator] - Start elaborating 6656
+[Capture_Estimator] - End elaborating 8593
+[Capture_Estimator] - Total elaboration time: 1937 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 193.7 milliseconds
+[Capture_Estimator] - Rate: 5.16262 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276336150
+[Capture_Estimator] - Start elaborating 10796
+[Capture_Estimator] - End elaborating 12671
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276336258
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276336774
+[Capture_Estimator] - Start elaborating 10281
+[Capture_Estimator] - End elaborating 12140
+[Capture_Estimator] - Total elaboration time: 1859 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 185.9 milliseconds
+[Capture_Estimator] - Rate: 5.37924 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276337001
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276337204
+[Capture_Estimator] - Start elaborating 6312
+[Capture_Estimator] - End elaborating 8187
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276337395
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276337461
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276337488
+[Capture_Estimator] - Start elaborating 9078
+[Capture_Estimator] - End elaborating 11000
+[Capture_Estimator] - Total elaboration time: 1922 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 192.2 milliseconds
+[Capture_Estimator] - Rate: 5.20291 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276338121
+[Capture_Estimator] - Start elaborating 33250
+[Capture_Estimator] - End elaborating 35203
+[Capture_Estimator] - Total elaboration time: 1953 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 195.3 milliseconds
+[Capture_Estimator] - Rate: 5.12033 frames/sec
+
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276338522
+Test start - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- 1276338580
+[Capture_Estimator] - Start elaborating 8796
+[Capture_Estimator] - End elaborating 10671
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
+[Capture_Estimator] - Start elaborating 23062
+[Capture_Estimator] - End elaborating 24921
+[Capture_Estimator] - Total elaboration time: 1859 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 185.9 milliseconds
+[Capture_Estimator] - Rate: 5.37924 frames/sec
+
+[Capture_Estimator] - Start elaborating 118750
+[Capture_Estimator] - End elaborating 120546
+[Capture_Estimator] - Total elaboration time: 1796 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 179.6 milliseconds
+[Capture_Estimator] - Rate: 5.56793 frames/sec
+
+[Capture_Estimator] - Start elaborating 207625
+[Capture_Estimator] - End elaborating 209500
+[Capture_Estimator] - Total elaboration time: 1875 milliseconds - 10 frames
+[Capture_Estimator] - Avarage elaboration time: 187.5 milliseconds
+[Capture_Estimator] - Rate: 5.33333 frames/sec
+
