@@ -1,9 +1,10 @@
 // Capture_Estimator.cpp : Defines the entry point for the console application.
 //
 
-//#define LOAD_IMAGE
+#define LOAD_IMAGE
 //#define DISPLAY_FRAME
 #define PLAY_VIDEO
+//#define USE_SQUARE
 //#define GRAB_RETRIEVE
 #define DEBUG
 //#define USEFTP
@@ -221,6 +222,10 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 {
 	Pose_Marker *pose = 0;
 	bool stop=false;
+	bool usedSq=false;
+	Squares sq;
+	IplImage* backupImg=cvCloneImage(calcImg);
+	set<Square_Area*,Square_Area::classcomp>::iterator it;
 
 	while(!stop)
 	{
@@ -231,17 +236,22 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 		memcpy((uchar*)calcImg->imageData, (uchar*)(c->unimg->imageData), CAM_W*CAM_H);
 		
 		cvThreshold(calcImg, treshImg, tracker->getThreshold(), 255, CV_THRESH_BINARY);
-		
+#ifdef USE_SQUARE
+		cvShowImage("squared",calcImg);
+		cvWaitKey();
+#endif
 		markerIdfound = trackerLite->calc((uchar*)calcImg->imageData, MARKER_ID, false, &MI, &numMrkFound);
 
-		if(markerIdfound != -1)
+#ifndef USE_SQUARE
+		if(markerIdfound != -1 )
 		{
 			/////////////////////////////////THRESHOLDING/////////////////////////////////////////
 			trackerLite->activateAutoThreshold(false);
 			tracker->setThreshold(trackerLite->getThreshold());
 			/////////////////////////////////THRESHOLDING/////////////////////////////////////////
+			
 		}
-		
+#endif
 		//The estimator searches only for a specific marker (whose id is specified by the argument markerID)
 		//or for any marker if markerID is equal to -1
 		
@@ -273,12 +283,36 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 		}
 		else
 		{
+#ifdef USE_SQUARE
+			if(!usedSq)
+			{
+				sq.findSquare(calcImg);
+				usedSq=true;
+			}
+			if(!sq.SqAreaSet.empty())
+			{
+				it=sq.SqAreaSet.begin();
+				
+				cvCopyImage(backupImg,calcImg);
+				sq.MydrawSquares(calcImg, (*it)->corners);
+				cout<<"Using squares:"<<(*it)->corners[0].x<<" "<<(*it)->corners[0].y<<" "<<(*it)->corners[2].x<<" "<<(*it)->corners[2].y<<"\n";
+				
+				cvDestroyWindow("squared");
+				sq.SqAreaSet.erase(it);
+				
+			}
+			else
+			{
+				stop = true;
+				printf( "Marker not detected\n");
+			}
+#else
 			///////////////////////////////THRESHOLDING/////////////////////////////////////////
 			if(threshCounter >= MAX_NUM_THRESH)
 			{
 				countNumberThresh++;
 				if(countNumberThresh >= 5)
-					stop = true;
+						stop = true;
 				
 				trackerLite->activateAutoThreshold(true);
 				tracker->setThreshold(trackerLite->getThreshold());
@@ -293,13 +327,18 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 			threshCounter++;
 			///////////////////////////////THRESHOLDING/////////////////////////////////////////
 			printf( "Marker not detected with threshold %d\n", tracker->getThreshold());
+#endif
+			
 		}
 	}
 	//cvReleaseImage(&calcImg);
 	/*cvReleaseImage(&c->rawimg);
 	cvReleaseImage(&c->unimg);
 	cvReleaseImage(&maskImg);*/
-
+	//cvCopyImage(c->rawimg,calcImg);
+#ifdef USE_SQUARE
+	cvReleaseImage(&backupImg);
+#endif
 	return pose; //devo ritornare anche la posa per metterla nel file jpeg
 }
 		
@@ -403,7 +442,7 @@ bool Calibrator::File_Exists(const char *sPath)
 
 string cameraIp = "192.168.1.160";
 string rtspProto = "rtsp://";
-string imgNameBase="Capture__1006__", imgName, ext=".jpeg";
+string imgNameBase="Capture__1206__", imgName, ext=".jpeg";
 string folder="images";
 string imgNameBaseToLoad="Capture_F";
 Calibrator *calibrator;
@@ -446,8 +485,10 @@ clock_t aux_t, end_e;
 int _tmain(int argc, _TCHAR* argv[])
 {		
 	/**/
-	changeFileNameToPose(140);
-	return 0;
+	//changeFileNameToPose(140);
+	//Squares sq;
+	//sq.vvv();
+	//return 0;
 	/**/
 
 	clock_t start_e;
@@ -689,7 +730,7 @@ DWORD WINAPI WaitThread ( LPVOID )
 void setAlarm()
 {	
 	DWORD dwTID;
-	lTimeout=30000; //30sec
+	lTimeout=10000; //10sec
 	hThread = CreateThread( NULL,0, WaitThread, 0, 0, &dwTID);
 }
 
@@ -807,7 +848,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 			frames++;
 			cvCvtColor(inImage,image,CV_BGR2GRAY);
 			pose=calibrator->FindPattern(image); //devo ritornare anche la posa per metterla nel file jpeg
-			SaveFile(image, pose);
+			SaveFile(inImage, pose);
 			cvReleaseImage(&inImage);
 			
 		#ifdef USEFTP

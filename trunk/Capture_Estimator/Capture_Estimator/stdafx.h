@@ -23,6 +23,7 @@
 #include <conio.h>
 #include <string>
 #include <queue>
+#include <set>
 
 #include <winsock2.h>
 #include <iphlpapi.h>
@@ -44,5 +45,7 @@
 #include "CriticalSection.h"
 #include "Guard.h"
 
+#include "squares.h"
+#include "Square_Area.h"
 
 // TODO: reference additional headers your program requires here
