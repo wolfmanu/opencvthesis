@@ -1,6 +1,8 @@
 // Capture_Estimator.cpp : Defines the entry point for the console application.
 //
 
+//#define HTTP_IMAGE
+//#define CAPT_IMAGE
 #define LOAD_IMAGE
 //#define DISPLAY_FRAME
 #define PLAY_VIDEO
@@ -14,10 +16,11 @@
 	#define CAM_W 1024
 #else*/
 	#define CAM_H 480
-	#define CAM_W 640
+	#define CAM_W 704
 //#endif
 
 #include "stdafx.h"
+
 
 #include "jpegFunctions.h"
 #include <ARToolKitPlus/TrackerSingleMarkerImpl.h>
@@ -35,6 +38,7 @@ class Calibrator{
 
 	string AICONcalib, ARTKPcalib, inputImage;
 
+	int poseN;
 	int threshold[MAX_NUM_THRESH];
 	int threshCounter;
 	int countNumberThresh;
@@ -73,8 +77,8 @@ Calibrator::Calibrator(void)
 //	AICONCalibName="CAM_RIGHT_AIR_CALIB.ini";
 //	ARTKPCalibName="EurobotCamAICONUndistortion2.cal";
 //#else
-	AICONCalibName="camera.ini";
-	ARTKPCalibName="camera.cal";
+	AICONCalibName="cameraAICON.ini";
+	ARTKPCalibName="cameraTOOLBOX.cal";
 //#endif
 
 	Calibrator_();
@@ -82,7 +86,8 @@ Calibrator::Calibrator(void)
 
 void Calibrator::Calibrator_(void)
 {
-	
+	poseN=1;
+
 	threshold[0] = 64;
 	threshold[1] = 96;
 	threshold[2] = 127;
@@ -147,7 +152,7 @@ int Calibrator::Initialize()
 	tracker->activateVignettingCompensation(true);	  
     tracker->setBorderWidth(MARKER_BORDER);
     tracker->setThreshold(INITIAL_THRESHOLD);
-    tracker->setUndistortionMode(ARToolKitPlus::UNDIST_STD);
+	tracker->setUndistortionMode(ARToolKitPlus::UNDIST_NONE);//UNDIST_STD
 	tracker->setPoseEstimator(ARToolKitPlus::POSE_ESTIMATOR_RPP);
     tracker->setMarkerMode(ARToolKitPlus::MARKER_ID_SIMPLE);
 	tracker->setImageProcessingMode(ARToolKitPlus::IMAGE_FULL_RES);
@@ -156,7 +161,7 @@ int Calibrator::Initialize()
 	trackerLite->activateVignettingCompensation(true);	  
     trackerLite->setBorderWidth(MARKER_BORDER);
 	trackerLite->setThreshold(INITIAL_THRESHOLD);
-    trackerLite->setUndistortionMode(ARToolKitPlus::UNDIST_STD);
+    trackerLite->setUndistortionMode(ARToolKitPlus::UNDIST_NONE);//
 	trackerLite->setPoseEstimator(ARToolKitPlus::POSE_ESTIMATOR_ORIGINAL_CONT);
     trackerLite->setMarkerMode(ARToolKitPlus::MARKER_ID_SIMPLE);
 	trackerLite->setImageProcessingMode(ARToolKitPlus::IMAGE_HALF_RES);
@@ -194,8 +199,8 @@ IplImage* Calibrator::LoadMyImage()
 {
 	IplImage *im;
 	inputImage=getFileNameToLoad();
-	//im = cvLoadImage(inputImage.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
-	im = cvLoadImage(inputImage.c_str());
+	
+	im = cvLoadImage(inputImage.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
 	if(!im)
 	{
 		printf("Image file does not exist. Press any key to exit.\n");
@@ -213,10 +218,12 @@ IplImage* Calibrator::LoadMyImage()
 	{
 		printf("NULL image dimension\n");
 	}
-	else
-		printf("Img size %dx%d\n", im->width, im->height);
+	//else
+	//	printf("Img size %dx%d\n", im->width, im->height);
 	return im;
 }
+
+
 
 Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 {
@@ -231,15 +238,19 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 	{
 		cvCopyImage(calcImg, c->rawimg);
 		
-		UndistortedImageAICON(c, true, CV_RGB(255,0,0));
-	
-		memcpy((uchar*)calcImg->imageData, (uchar*)(c->unimg->imageData), CAM_W*CAM_H);
+		//UndistortedImageAICON(c, false, CV_RGB(255,0,0));
+
+		//memcpy((uchar*)calcImg->imageData, (uchar*)(c->unimg->imageData), CAM_W*CAM_H);
 		
+		/*#ifdef USE_SQUARE
+			cvShowImage("squared",calcImg);
+			cvWaitKey();
+			cvDestroyWindow("squared");
+		#endif*/
+
 		cvThreshold(calcImg, treshImg, tracker->getThreshold(), 255, CV_THRESH_BINARY);
-#ifdef USE_SQUARE
-		cvShowImage("squared",calcImg);
-		cvWaitKey();
-#endif
+
+		
 		markerIdfound = trackerLite->calc((uchar*)calcImg->imageData, MARKER_ID, false, &MI, &numMrkFound);
 
 #ifndef USE_SQUARE
@@ -276,7 +287,7 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 */
 			pose = new Pose_Marker(Xestimation.a[0]*RAD2DEG, Xestimation.a[1]*RAD2DEG, Xestimation.a[2]*RAD2DEG, 
 							Xestimation.l.x/10.0, Xestimation.l.y/10.0, Xestimation.l.z/10.0,
-							markerIdfound);
+							markerIdfound,poseN++);
 
 			stop = true;	
 			Sleep(0);
@@ -297,7 +308,10 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 				sq.MydrawSquares(calcImg, (*it)->corners);
 				cout<<"Using squares:"<<(*it)->corners[0].x<<" "<<(*it)->corners[0].y<<" "<<(*it)->corners[2].x<<" "<<(*it)->corners[2].y<<"\n";
 				
-				cvDestroyWindow("squared");
+				cvShowImage("sq",calcImg);
+				cvWaitKey();
+				cvDestroyWindow("sq");
+				
 				sq.SqAreaSet.erase(it);
 				
 			}
@@ -440,22 +454,22 @@ bool Calibrator::File_Exists(const char *sPath)
 /************************************************************************************/
 
 
-string cameraIp = "192.168.1.160";
-string rtspProto = "rtsp://";
-string imgNameBase="Capture__1206__", imgName, ext=".jpeg";
+string cameraIp = "192.168.0.199";
+string rtspProto = "http://";
+string imgNameBase="Capture__2206__", imgName, ext=".jpg";
 string folder="images";
-string imgNameBaseToLoad="Capture_F";
+string imgNameBaseToLoad="images/Fapture__1806_AICON_";
 Calibrator *calibrator;
 CriticalSection fileNumbCS;
-volatile LONG fileNumber;
-LONG fileNumberToLoad;
+volatile LONG fileNumber=1;
+LONG fileNumberToLoad=1;
 bool toStop=false;
 bool endTask=true;
 queue<IplImage*> imageQueue;
 CriticalSection imageQueueCS;
 FTPSender *ftps;
 time_t testTime;
-string testDescription=" - queue<IplImage*> - 1/3 frames elaborated - 640x480 BasicQuality- Mod- search for M20- ";
+string testDescription=" - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- ";
 
 
 long lTimeout;
@@ -470,16 +484,16 @@ int CalibrateCamera(); //DWORD WINAPI CalibrateCamera( LPVOID lpParam );
 int SaveFile(IplImage* image, Pose_Marker *pose);
 /*int ElaborateImage(IplImage* inImage); */ DWORD WINAPI ElaborateImage( LPVOID lpParam );
 string getTimeFileName();
-DWORD testConnectivity(string ip);
+//DWORD testConnectivity(string ip);
 string getUniqueFileName();
-void SendViaFTP(Pose_Marker* pose);
+//void SendViaFTP(Pose_Marker* pose);
 
 void changeFileNameToPose(int n);
 
 ofstream fcapt("TestTimeCapt.txt", ios::app);
 
 //globali x cercare una pseudo-sincronizzazione cn l'elaborazione
-int elaboratedFrame=0;
+int elaboratedFrame=1;
 clock_t aux_t, end_e;
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -500,7 +514,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	CvCapture *cap;
 	
 	#ifdef USEFTP
-		ftps=new FTPSender();
+		ftps=new FTPSender(ftpServer,ftpPort);
 	#endif
 
 	calibrator = new Calibrator();
@@ -514,27 +528,31 @@ int _tmain(int argc, _TCHAR* argv[])
 	f<<"Test start"<<testDescription<<testTime<<endl;
 
 	cout<<endl<< "Capturing file " << cameraIp << endl;
-	try{ 	
+		
 		//QueueUserWorkItem(CalibrateCamera,0,0);
-		CalibrateCamera();
-#ifndef LOAD_IMAGE
+		if(CalibrateCamera()==-1)
+			return -1;
 		/*test connettività camera */
-		if(testConnectivity(cameraIp)==0){
+		
+		/*if(Network::testConnectivity(cameraIp)==0){
 			cout<<"camera not connected at ip:"<<cameraIp<<endl;
 			cout<<"aborting"<<endl;
 			system("pause");
 			return 0;
-		}    
+		}*/   
+#ifdef CAPT_IMAGE
+		 
 		clock_t startCapture,endCapture;
 		//for(int u=0;u<20;u++)
 		//{
 			//cout<<"capture number "<<u<<endl;
 			//CvCapture *cap;
-			setAlarm();
-			startCapture=clock();			
+			//setAlarm();
+		
+			startCapture=clock();	
 			cap=cvCreateFileCapture_FFMPEG(cameraRtspIp.c_str());
 			endCapture=clock();
-			stopAlarm();
+			//stopAlarm();
 			fcapt<<"cvCreateFileCapture_FFMPEG took "<<double(endCapture-startCapture)<<" milliseconds = "<<double(endCapture-startCapture)/1000<<" sec"<<endl;
 			//cvReleaseCapture_FFMPEG(&cap);
 		//}
@@ -544,14 +562,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		
 #endif
 	
-	}catch(char* str)
-	{
-		cout << "Exception raised: " << str << '\n';
-		system("pause");
-		return 0;
-	}
 
-#ifndef LOAD_IMAGE
+#ifdef CAPT_IMAGE
 	if(!cap){
 		cerr<<"Error opening file " << cameraIp<< endl;
 		return 0;
@@ -580,8 +592,80 @@ int _tmain(int argc, _TCHAR* argv[])
 	cvDestroyWindow( "frame" );	
 #else*/
 #ifdef PLAY_VIDEO
-	int numFrameToElab=5;
-#ifndef LOAD_IMAGE
+	int numFrameToElab=34;
+#ifdef HTTP_IMAGE
+	//IplImage *image;
+	char recvbuf[BUFLEN];
+	FILE* imageFile; 
+	int iResult;
+	int headerLen = 207;
+	CvImage imgJ;
+	string bu="GET /cgi-bin/video.jpg HTTP/1.1\r\n";
+			bu+="Accept: */*\r\n";
+			bu+="Referer: http://192.168.0.199/snapshot.vspx\r\n";
+			bu+="Accept-Language: it\r\n";
+			bu+="Accept-Encoding: gzip, deflate\r\n";
+			bu+="User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152)\r\n";
+			bu+="Host: 192.168.0.199\r\n";
+			bu+="Connection: Keep-Alive\r\n\r\n";
+
+
+	Network cameraNet(cameraIp,"80");
+
+	CvPoint pt[1], *rect = pt;
+	int count=1;
+	pt[0].x=367;
+	pt[0].y=245;
+	int o;
+	
+	unsigned char* bufJpeg;
+	int jpegSize = 47720;
+	string comment="";
+
+	while( key != 'q' ) 
+	{
+		cameraNet.NWConnect();
+		cameraNet.NWsendData(bu.c_str(),bu.length());
+		iResult = cameraNet.NWrcvData(recvbuf,BUFLEN); //header
+		comment="";
+		
+		bufJpeg=(unsigned char*)malloc((iResult-headerLen)*sizeof(unsigned char));
+		if(iResult>headerLen)
+			memcpy(bufJpeg,&(recvbuf[headerLen]),(iResult-headerLen));
+			
+		o=iResult-headerLen;
+		while(iResult > 0)
+		{
+			iResult = cameraNet.NWrcvData(recvbuf, BUFLEN);	
+			bufJpeg=(unsigned char*)realloc(bufJpeg,(o+iResult)*sizeof(unsigned char));
+			memcpy(&(bufJpeg[o]), recvbuf,iResult);
+			o+=iResult;
+		}
+
+		imgJ =readJpegMem (bufJpeg,o,comment);
+		cvPolyLine(imgJ, (&rect), &count, 1, 1, CV_RGB(255,255,255), 3, CV_AA, 0 );
+		cvShowImage( "wnd", imgJ );
+		key = cvWaitKey(1);
+		
+		cameraNet.NWCloseConnection();
+		if(key=='e')
+		{
+			IplImage *image = cvCreateImage(imgJ.size(), imgJ.depth(), imgJ.channels() );
+			cvCopyImage(imgJ, image);
+			{
+				Guard p(imageQueueCS);
+				imageQueue.push(image);
+			}
+			if(elaboratedFrame==1)
+				QueueUserWorkItem(ElaborateImage, 0,0);
+			key=0;
+			elaboratedFrame++;
+		}
+		free(bufJpeg);
+	}
+	cvDestroyAllWindows();
+#endif
+#ifdef CAPT_IMAGE
 
 	int found;
 	string wndName = "video _ 's'ave, 'e'laborate, 'q'uit";
@@ -673,19 +757,23 @@ int _tmain(int argc, _TCHAR* argv[])
 	f.close();
 	cvDestroyWindow( wndName.c_str() );
 #else
-	while(elaboratedFrame<numFrameToElab)
+#ifdef LOAD_IMAGE
+	while(elaboratedFrame<=numFrameToElab)
 	{
 		frame=calibrator->LoadMyImage();
-		IplImage *image = cvCreateImage( cvSize( frame->width, frame->height ),
-                               frame->depth, frame->nChannels );
-		cvCopyImage( frame, image);
-		//{
-		//	Guard p(imageQueueCS);
-		//	imageQueue.push(image);
-		//}
-		ElaborateImage(image);
-		//if(elaboratedFrame==0)
-		//	QueueUserWorkItem(ElaborateImage, 0,0); //faccio partire elavorazione la prima volta
+		if(frame)
+		{
+			IplImage *image = cvCreateImage( cvSize( frame->width, frame->height ),
+								   frame->depth, frame->nChannels );
+			cvCopyImage( frame, image);
+			{
+				Guard p(imageQueueCS);
+				imageQueue.push(image);
+			}
+		}
+		//ElaborateImage(image);
+		if(elaboratedFrame==1)
+			QueueUserWorkItem(ElaborateImage, 0,0); //faccio partire elavorazione la prima volta
 		elaboratedFrame++; 
 
 	//QueueUserWorkItem(ElaborateImage, calibrator->LoadMyImage(),0);
@@ -693,11 +781,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 #endif
 #endif
+#endif
 ////#endif
-#ifndef LOAD_IMAGE
+#ifdef CAPT_IMAGE
 	cvReleaseCapture(&cap);
 #endif	
-	cout<<"elaborated "<<elaboratedFrame<<" frames"<<endl;
+	//cout<<"elaborated "<<elaboratedFrame<<" frames"<<endl;
 	system("pause");
 	return 0;
 }
@@ -739,35 +828,36 @@ void stopAlarm()
 	TerminateThread(hThread,0); // cancel thread
 }
 
-DWORD testConnectivity(string ip)
-{
-	HANDLE hIcmpFile;
-    unsigned long ipaddr = INADDR_NONE;
-    DWORD dwRetVal = 0;
-    char SendData[] = "Data Buffer";
-    LPVOID ReplyBuffer = NULL;
-    DWORD ReplySize = 0;
+//DWORD testConnectivity(string ip)
+//{
+//	HANDLE hIcmpFile;
+//    unsigned long ipaddr = INADDR_NONE;
+//    DWORD dwRetVal = 0;
+//    char SendData[] = "Data Buffer";
+//    LPVOID ReplyBuffer = NULL;
+//    DWORD ReplySize = 0;
+//
+//	ipaddr = inet_addr(ip.c_str());
+//    
+//    hIcmpFile = IcmpCreateFile();
+//    if (hIcmpFile == INVALID_HANDLE_VALUE) {
+//        printf("\tUnable to open handle.\n");
+//        printf("IcmpCreatefile returned error: %ld\n", GetLastError() );
+//        return 0;
+//    }    
+//
+//    ReplySize = sizeof(ICMP_ECHO_REPLY) + sizeof(SendData);
+//    ReplyBuffer = (VOID*) malloc(ReplySize);
+//    if (ReplyBuffer == NULL) {
+//        printf("\tUnable to allocate memory\n");
+//        return 0;
+//    }    
+//	
+//	return IcmpSendEcho(hIcmpFile, ipaddr, SendData, sizeof(SendData), 
+//						NULL, ReplyBuffer, ReplySize, 1000);
+//
+//}
 
-	ipaddr = inet_addr(ip.c_str());
-    
-    hIcmpFile = IcmpCreateFile();
-    if (hIcmpFile == INVALID_HANDLE_VALUE) {
-        printf("\tUnable to open handle.\n");
-        printf("IcmpCreatefile returned error: %ld\n", GetLastError() );
-        return 0;
-    }    
-
-    ReplySize = sizeof(ICMP_ECHO_REPLY) + sizeof(SendData);
-    ReplyBuffer = (VOID*) malloc(ReplySize);
-    if (ReplyBuffer == NULL) {
-        printf("\tUnable to allocate memory\n");
-        return 0;
-    }    
-	
-	return IcmpSendEcho(hIcmpFile, ipaddr, SendData, sizeof(SendData), 
-						NULL, ReplyBuffer, ReplySize, 1000);
-
-}
 
 
 int SaveFile(IplImage* image, Pose_Marker *pose)
@@ -803,7 +893,8 @@ int SaveFile(IplImage* image, Pose_Marker *pose)
 DWORD WINAPI ElaborateImage( LPVOID lpParam )
 //int ElaborateImage(IplImage* inImage)
 {
-	int recognized=0;
+	ofstream filePose("FilePoseAICON.txt",ios::app);
+	int recognized=0, n=1;
 	//ofstream f2("TestElab2Threads_ElaborateImage_Timing.txt", ios::app);
 	ofstream f3("TestElab2Threads_ElaborateImage.txt", ios::app);
 	IplImage *image = cvCreateImage(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
@@ -821,6 +912,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	clock_t start_ElaborateImage=clock(),t5,t6;
 	f3<<"Test Start"<<testDescription<<testTime<<endl;
 	f3<<"[ElaborateImage] - Start elaborating "<<start_ElaborateImage<<endl;
+	filePose<<endl<<"Parametri non coerenti - tracker UNDIST_NONE - no AICON undist"<<endl;
 	while(true)
 	{
 		{
@@ -846,8 +938,14 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 		if(inImage)
 		{
 			frames++;
-			cvCvtColor(inImage,image,CV_BGR2GRAY);
+			cvCopyImage(inImage,image);
 			pose=calibrator->FindPattern(image); //devo ritornare anche la posa per metterla nel file jpeg
+			filePose<<"image "<<n<<" ";
+			if (pose)
+				filePose<<pose->toLine();
+			else 
+				filePose<<endl;
+			n++;
 			SaveFile(inImage, pose);
 			cvReleaseImage(&inImage);
 			
@@ -890,17 +988,17 @@ void SendViaFTP(Pose_Marker* pose)
 		msg=pose->toString();
 	}
 	
-	if(!ftps->connectFTP(ftpServer,ftpPort,ftpUser,ftpPass))
+	if(!ftps->FTPconnect(ftpUser,ftpPass))
 	{
 		cerr<<"[SendViaFTP] Error: connectFTP()"<<endl;
 		return;
 	}
-	ftps->sendData(msg);
+	ftps->FTPsendData(msg);
 
 
 	for(int i=0;i<maxRcv;i++)
 	{
-		ftps->rcvData(&received);
+		ftps->FTPrcvData(&received);
 		cout<<"Received: "<<received<<endl;
 	}
 }

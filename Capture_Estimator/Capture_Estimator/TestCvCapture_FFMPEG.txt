@@ -400,3 +400,15 @@ av_find_stream_info_MY() - 140 ms
 avcodec_find_decoder() - 0 ms
 End CvCapture_FFMPEG::open() - 375 ms
 
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 188 ms
+av_find_stream_info() - 172 ms
+End CvCapture_FFMPEG::open() - 375 ms
+
+Start CvCapture_FFMPEG::open()
+av_register_all() - 0 ms
+av_open_input_file() - 297 ms
+av_find_stream_info() - 172 ms
+End CvCapture_FFMPEG::open() - 469 ms
+

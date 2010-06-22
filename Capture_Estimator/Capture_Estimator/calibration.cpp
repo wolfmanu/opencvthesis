@@ -503,23 +503,23 @@ void UndistortedImageAICON(cameraInfo *c, bool filled, CvScalar color )
           && (yi >= 0) && (yi < height))
       {
        //rectimg[x+y*width] = oriimg[xi+yi*width];// original
-       rectimg[x*channels+y*step+0] = oriimg[xi*channels+yi*step+0];
-       rectimg[x*channels+y*step+1] = oriimg[xi*channels+yi*step+1];
-       rectimg[x*channels+y*step+2] = oriimg[xi*channels+yi*step+2];
+		   rectimg[x*channels+y*step+0] = oriimg[xi*channels+yi*step+0];
+		   rectimg[x*channels+y*step+1] = oriimg[xi*channels+yi*step+1];
+		   rectimg[x*channels+y*step+2] = oriimg[xi*channels+yi*step+2];
       }
       else
       {
         if (filled==false)
         {
-        rectimg[x*channels+y*step+0] = (unsigned char) color.val[0];
-        rectimg[x*channels+y*step+1] = (unsigned char) color.val[1];
-        rectimg[x*channels+y*step+2] = (unsigned char) color.val[2];
+			rectimg[x*channels+y*step+0] = (unsigned char) color.val[0];
+			rectimg[x*channels+y*step+1] = (unsigned char) color.val[1];
+			rectimg[x*channels+y*step+2] = (unsigned char) color.val[2];
         }
         else{
         //rectimg[x+y*width] = oriimg[x+y*width];
-       rectimg[x*channels+y*step+0] = oriimg[x*channels+y*step+0];
-       rectimg[x*channels+y*step+1] = oriimg[x*channels+y*step+1];
-       rectimg[x*channels+y*step+2] = oriimg[x*channels+y*step+2];
+		   rectimg[x*channels+y*step+0] = oriimg[x*channels+y*step+0];
+		   rectimg[x*channels+y*step+1] = oriimg[x*channels+y*step+1];
+		   rectimg[x*channels+y*step+2] = oriimg[x*channels+y*step+2];
         }
       }
     }

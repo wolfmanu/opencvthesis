@@ -171,7 +171,7 @@ void Squares::MydrawSquares( IplImage* cpy, CvPoint pt[] )
 	CvRect roiRect=extractRectFromPoints(pt[0], pt[1], pt[2], pt[3]);
 		
 		cpy2 = cvCloneImage( cpy );
-		cvRectangle(cpy,cvPoint(0,0),cvPoint(cpy->width,cpy->height),CV_RGB(0,0,0),CV_FILLED);
+		cvRectangle(cpy,cvPoint(0,0),cvPoint(cpy->width,cpy->height),CV_RGB(255,255,255),CV_FILLED);
 		cvSetImageROI(cpy,roiRect);
 		cvSetImageROI(cpy2,roiRect);
 		cvCopy(cpy2,cpy);

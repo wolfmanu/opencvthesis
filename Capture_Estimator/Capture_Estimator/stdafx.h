@@ -6,11 +6,11 @@
 #pragma once
 
 #define N_PATTERN 2
-#define MARKER_SIZE 22//45
+#define MARKER_SIZE 99.6//164.6//dimensione totale del pattern con bordo
 #define INITIAL_THRESHOLD 127
 #define MARKER_BORDER 0.250f
 #define RAD2DEG	(57.29577951)
-#define MARKER_ID 20	//-1 to search for all
+#define MARKER_ID -1	//-1 to search for all
 #define MAX_NUM_THRESH 5
 
 #include "targetver.h"
@@ -40,7 +40,9 @@
 #include "CartesianLib.h" //Matrix manipulation
 #include "Calibration.h"
 #include "Pose_Marker.h"
+#include "Network.h"
 #include "FTPSender.h"
+
 
 #include "CriticalSection.h"
 #include "Guard.h"
