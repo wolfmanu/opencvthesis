@@ -1,9 +1,9 @@
 // Capture_Estimator.cpp : Defines the entry point for the console application.
 //
 
-//#define HTTP_IMAGE
+#define HTTP_IMAGE
 //#define CAPT_IMAGE
-#define LOAD_IMAGE
+//#define LOAD_IMAGE
 //#define DISPLAY_FRAME
 #define PLAY_VIDEO
 //#define USE_SQUARE
@@ -77,7 +77,7 @@ Calibrator::Calibrator(void)
 //	AICONCalibName="CAM_RIGHT_AIR_CALIB.ini";
 //	ARTKPCalibName="EurobotCamAICONUndistortion2.cal";
 //#else
-	AICONCalibName="cameraAICON.ini";
+	AICONCalibName="cameraAICON2.ini";
 	ARTKPCalibName="cameraTOOLBOX.cal";
 //#endif
 
@@ -152,7 +152,7 @@ int Calibrator::Initialize()
 	tracker->activateVignettingCompensation(true);	  
     tracker->setBorderWidth(MARKER_BORDER);
     tracker->setThreshold(INITIAL_THRESHOLD);
-	tracker->setUndistortionMode(ARToolKitPlus::UNDIST_NONE);//UNDIST_STD
+	tracker->setUndistortionMode(ARToolKitPlus::UNDIST_STD);//UNDIST_STD
 	tracker->setPoseEstimator(ARToolKitPlus::POSE_ESTIMATOR_RPP);
     tracker->setMarkerMode(ARToolKitPlus::MARKER_ID_SIMPLE);
 	tracker->setImageProcessingMode(ARToolKitPlus::IMAGE_FULL_RES);
@@ -161,7 +161,7 @@ int Calibrator::Initialize()
 	trackerLite->activateVignettingCompensation(true);	  
     trackerLite->setBorderWidth(MARKER_BORDER);
 	trackerLite->setThreshold(INITIAL_THRESHOLD);
-    trackerLite->setUndistortionMode(ARToolKitPlus::UNDIST_NONE);//
+    trackerLite->setUndistortionMode(ARToolKitPlus::UNDIST_STD);//
 	trackerLite->setPoseEstimator(ARToolKitPlus::POSE_ESTIMATOR_ORIGINAL_CONT);
     trackerLite->setMarkerMode(ARToolKitPlus::MARKER_ID_SIMPLE);
 	trackerLite->setImageProcessingMode(ARToolKitPlus::IMAGE_HALF_RES);
@@ -231,7 +231,7 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 	bool stop=false;
 	bool usedSq=false;
 	Squares sq;
-	IplImage* backupImg=cvCloneImage(calcImg);
+	//IplImage* backupImg=cvCloneImage(calcImg);
 	set<Square_Area*,Square_Area::classcomp>::iterator it;
 
 	while(!stop)
@@ -456,13 +456,14 @@ bool Calibrator::File_Exists(const char *sPath)
 
 string cameraIp = "192.168.0.199";
 string rtspProto = "http://";
-string imgNameBase="Capture__2206__", imgName, ext=".jpg";
-string folder="images";
-string imgNameBaseToLoad="images/Fapture__1806_AICON_";
+string imgNameBase="Capture__2906r_", imgName, ext=".jpg";
+string folder="analized";
+string imgNameBaseToLoad="images/Fapture__2906b_";
 Calibrator *calibrator;
 CriticalSection fileNumbCS;
-volatile LONG fileNumber=1;
+volatile LONG fileNumber=400;
 LONG fileNumberToLoad=1;
+int numFrameToElab=150;
 bool toStop=false;
 bool endTask=true;
 queue<IplImage*> imageQueue;
@@ -534,12 +535,14 @@ int _tmain(int argc, _TCHAR* argv[])
 			return -1;
 		/*test connettività camera */
 		
-		/*if(Network::testConnectivity(cameraIp)==0){
+#ifdef HTTP_IMAGE
+		if(Network::testConnectivity(cameraIp)==0){
 			cout<<"camera not connected at ip:"<<cameraIp<<endl;
 			cout<<"aborting"<<endl;
 			system("pause");
 			return 0;
-		}*/   
+		}   
+#endif
 #ifdef CAPT_IMAGE
 		 
 		clock_t startCapture,endCapture;
@@ -592,7 +595,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	cvDestroyWindow( "frame" );	
 #else*/
 #ifdef PLAY_VIDEO
-	int numFrameToElab=34;
+
 #ifdef HTTP_IMAGE
 	//IplImage *image;
 	char recvbuf[BUFLEN];
@@ -662,6 +665,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			elaboratedFrame++;
 		}
 		free(bufJpeg);
+		
 	}
 	cvDestroyAllWindows();
 #endif
@@ -872,7 +876,7 @@ int SaveFile(IplImage* image, Pose_Marker *pose)
 		comment="Pattern not found";
 	else{
 		comment=pose->toString();
-		filename[8]='F';			//per riconoscere se la posa è stata trovata dal nome del file
+		filename[9]='F';			//per riconoscere se la posa è stata trovata dal nome del file
 	}
 	writeJpegFile ((char*)(filename.c_str()), *cvimage, options, comment);
 	cout<<"Saved image "<<filename<<endl;
@@ -893,12 +897,14 @@ int SaveFile(IplImage* image, Pose_Marker *pose)
 DWORD WINAPI ElaborateImage( LPVOID lpParam )
 //int ElaborateImage(IplImage* inImage)
 {
-	ofstream filePose("FilePoseAICON.txt",ios::app);
+	
+	int count=4,xcount=2, ycount=2;
+	ofstream filePose("Test_relativeMeasure_2906_complete.txt",ios::app);
 	int recognized=0, n=1;
 	//ofstream f2("TestElab2Threads_ElaborateImage_Timing.txt", ios::app);
 	ofstream f3("TestElab2Threads_ElaborateImage.txt", ios::app);
 	IplImage *image = cvCreateImage(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
-	Pose_Marker *pose;
+	Pose_Marker *pose, *pose2;
 	if(!f3) {
         cout<<"Errore nell'apertura del file!";
 		f3.close();
@@ -912,7 +918,14 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	clock_t start_ElaborateImage=clock(),t5,t6;
 	f3<<"Test Start"<<testDescription<<testTime<<endl;
 	f3<<"[ElaborateImage] - Start elaborating "<<start_ElaborateImage<<endl;
-	filePose<<endl<<"Parametri non coerenti - tracker UNDIST_NONE - no AICON undist"<<endl;
+	filePose<<endl<<"Parametri [380,45102 246,24552 846,63525 765,88469 -0,23620   0,36864   -0,00032   0,00024  0,00000 0,0 5](toolbox) -no undist AICON - relative test"<<endl;
+	double xcentro=381.5066, ycentro=230.9;
+	/****/
+	double alpha=23;//degree
+	double b_tan_alpha;
+
+	/****/
+	
 	while(true)
 	{
 		{
@@ -942,7 +955,65 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 			pose=calibrator->FindPattern(image); //devo ritornare anche la posa per metterla nel file jpeg
 			filePose<<"image "<<n<<" ";
 			if (pose)
+			{
+				/*CvPoint pt[4], *rect = pt;
+				CvPoint xpt[2], *xline = xpt;
+				CvPoint ypt[2], *yline = ypt;
+				xpt[0]=cvPoint(xcentro,0);
+				xpt[1]=cvPoint(xcentro,480);
+				ypt[0]=cvPoint(0,ycentro);
+				ypt[1]=cvPoint(704,ycentro);
+				b_tan_alpha= 352/(pose->distZ*tan(alpha*PI/180));
+				double xc=xcentro+(b_tan_alpha*pose->distX);
+				double yc=ycentro+(b_tan_alpha*pose->distY);
+	
+				pt[0]=cvPoint(xc-2,yc-2);
+				pt[1]=cvPoint(xc+2,yc-2);
+				pt[2]=cvPoint(xc+2,yc+2);
+				pt[3]=cvPoint(xc-2,yc+2);
+				cout<<pose->distX<<" "<<pose->distY<<" ";
+				cout<<xc<<" "<<yc<<endl;
+				cvPolyLine(image, (&rect), &count, 1, 1, CV_RGB(255,255,255), 1, CV_AA, 0 );
+				cvPolyLine(image, (&xline), &xcount, 1, 1, CV_RGB(255,255,255), 1, CV_AA, 0 );
+				cvPolyLine(image, (&yline), &ycount, 1, 1, CV_RGB(255,255,255), 1, CV_AA, 0 );
+				cvCircle(image,cvPoint(xc,yc),2,CV_RGB(0,0,0));*/
+				//cvShowImage("center",image);
+				//cvWaitKey();
+				//cvDestroyWindow("center");
+
+				//test resize image
+				//if (pose->distZ>70)
+				//{//pp 381.5066 230.9
+				//	/* da prove empiriche ricavo che 
+				//		distanza_da_marker_in_cm * dimensione_marker_in_pixel = 12500 (circa)
+				//		distanza_da_marker_in_cm / 75 = cm_al_pixel_sull_immagine
+				//	*/
+				//	/*resize cercando di centrare il marker*/
+				//	/*double cm_al_pixel=pose->distZ/75;
+				//	double xc=381.5066+(cm_al_pixel*pose->distX);
+				//	double yc=230.9+(cm_al_pixel*pose->distY);
+				//	double x,y;
+				//	
+				//	(xc>(inImage->width/4))? x=xc-(inImage->width/4) : x=0;
+				//	(yc>(inImage->height/4))? y=yc-(inImage->height/4): y=0 ;
+				//	CvRect roi=cvRect(x, y, inImage->width/2, inImage->height/2);*/
+
+				//	/*resize verso centro*/
+				//	CvRect roi=cvRect(inImage->width/4, inImage->height/4, inImage->width/2, inImage->height/2);
+				//	cvSetImageROI(inImage,roi);
+				//	cvResize(inImage,image);
+				//	//cvShowImage("resized",image);
+				//	//cvWaitKey();
+				//	cvResetImageROI(inImage);
+				//	pose2=calibrator->FindPattern(image);
+				//	if(pose2)
+				//	{
+				//		filePose<<"resized";
+				//		pose=pose2;
+				//	}
+				//}
 				filePose<<pose->toLine();
+			}
 			else 
 				filePose<<endl;
 			n++;
@@ -960,7 +1031,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 				recognized++;}
 		}
 	}
-	clock_t end_ElaborateImage=clock();
+	/*clock_t end_ElaborateImage=clock();
 	f3<<"[ElaborateImage] - End elaborating "<<end_ElaborateImage<<endl;
 	f3<<"[ElaborateImage] - Delay "<<double(end_ElaborateImage-end_e)<<endl;
 	f3<<"[ElaborateImage] - Total elaboration time: "<<double(end_ElaborateImage-start_ElaborateImage)<<" - "<<frames<<" frames"<<endl;
@@ -968,7 +1039,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	f3<<"[ElaborateImage] - Rate: "<<(frames/double(end_ElaborateImage-start_ElaborateImage))*1000<<" frames/sec"<<endl;
 	f3<<"[ElaborateImage] - Correctly recognized "<<recognized<<endl;
 	f3<<"[ElaborateImage] - Wasted Time: "<<double(end_ElaborateImage-start_ElaborateImage-tot)<<" - Empty Clicles: "<<emptyCicle<<endl<<endl;
-			
+	*/
 	return 1;
 }
 

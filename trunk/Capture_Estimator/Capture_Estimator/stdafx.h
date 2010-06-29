@@ -6,7 +6,7 @@
 #pragma once
 
 #define N_PATTERN 2
-#define MARKER_SIZE 99.6//164.6//dimensione totale del pattern con bordo
+#define MARKER_SIZE 164.6//99.6//164.6//dimensione totale del pattern con bordo
 #define INITIAL_THRESHOLD 127
 #define MARKER_BORDER 0.250f
 #define RAD2DEG	(57.29577951)

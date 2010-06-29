@@ -35,13 +35,13 @@ std::string Pose_Marker::toString()
 std::string Pose_Marker::toLine()
 {
 	std::stringstream s;
-	s << " "<< roll ;
-	s << " "<< pitch ;
-	s << " "<< yaw ;
-	s << " "<< distX ;
-	s << " "<< distY;
-	s << " "<< distZ ;
-	s << " "<< markerId ;
-	s << " "<< poseNumber << std::endl;
+	s << "\t"<< roll ;
+	s << "\t"<< pitch ;
+	s << "\t"<< yaw ;
+	s << "\t"<< distX ;
+	s << "\t"<< distY;
+	s << "\t"<< distZ ;
+	s << "\t"<< markerId ;
+	s << "\t"<< poseNumber << std::endl;
 	return s.str();
 }
