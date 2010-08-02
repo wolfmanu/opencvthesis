@@ -287,7 +287,7 @@ void CImageViewerView::OnDraw(CDC* pDC)
                     ++rc.bottom;
                 }
 
-                for (int x = to_x * 100; x < (to_x + to_w) * 100; x += ZoomRatios[CurrentZoomRatio])
+                for (int x = to_x * 100; x < (to_x + to_w) * 100; x += ZoomRatios[CurrentZoomRatio] )
                 {
                     rc.left = x / 100 - 1;
                     rc.right = rc.left + 2;
@@ -786,15 +786,15 @@ LRESULT CImageViewerView::OnGetPointData(WPARAM, LPARAM lp)
                     // if we are dealing with just a region or one that that has negative coordinates
                     // then adjust the tooltip's reported coordinates to reflect the region
                     CImageData *pImageData = GetDocument()->GetImageData(CurrentImage);
-                    CBitmapInfoHeader BitmapInfoHeader(pImageData->GetBitmapInfoHeader());
+                    //CBitmapInfoHeader BitmapInfoHeader(pImageData->GetBitmapInfoHeader());
                     CRect RegionRect(pImageData->GetRegionRect());
 
-                    if (RegionRect.left < 0 || RegionRect.Width() == BitmapInfoHeader.biWidth)
+                    if (RegionRect.left < 0 || RegionRect.Width() == pImageData->getImageWidth()/*BitmapInfoHeader.biWidth*/)
                     {
                         PointData->Point.x += RegionRect.left;
                     }
 
-                    if (RegionRect.top < 0 || RegionRect.Height() == BitmapInfoHeader.biHeight)
+                    if (RegionRect.top < 0 || RegionRect.Height() == pImageData->getImageHeight()/*BitmapInfoHeader.biHeight*/)
                     {
                         PointData->Point.y += RegionRect.top;
                     }
@@ -885,8 +885,8 @@ void CImageViewerView::OnImageDelete()
         case 3: // range of images
             {
 
-                UINT From = min(Dlg.From, Dlg.To);
-                UINT To = max(Dlg.From, Dlg.To);
+                UINT From = MIN(Dlg.From, Dlg.To);
+                UINT To = MAX(Dlg.From, Dlg.To);
                 pDoc->DeleteImageData(From - 1, To - 1);
             }
             break;
@@ -1186,7 +1186,7 @@ BOOL CImageViewerView::OnMouseWheel(UINT nFlags, short zDelta, CPoint /*pt*/)
     {
         if (abs(Cumulative) >= WHEEL_DELTA)
         {
-            if (Cumulative < 0)
+            if (Cumulative > 0)
             {
                 OnZoomZoomIn();
             }

@@ -26,6 +26,7 @@ fix would be nice.
 #include "BitmapInfoHeader.h"
 #include "Resource.h"
 
+
 #include "..\common files\pja_dc.h"
 #include "..\common files\pja_bitmap.h"
 #include "..\common files\pja_format.h"
@@ -139,7 +140,7 @@ void CChildStatusBar::UpdatePaneText(CImageData *pImageData)
     }
 
     GetPaneInfo(CurrentPane, nID, nStyle, cxWidth);
-    cxWidth = min(GetPaneWidth(Text), 50);
+	cxWidth = MIN(GetPaneWidth(Text), 50);
     SetPaneInfo(CurrentPane, nID, SBPS_STRETCH, cxWidth);
     SetPaneText(CurrentPane++, Text.c_str());
 
@@ -181,11 +182,11 @@ void CChildStatusBar::UpdatePaneText(CImageData *pImageData)
 
     if (Panes & CSBP_SIZE)
     {
-        CBitmapInfoHeader BitmapInfoHeader(pImageData->GetBitmapInfoHeader());
+        //CBitmapInfoHeader BitmapInfoHeader(pImageData->GetBitmapInfoHeader());
         pja::CFormat cf;
         Text = cf.MakeMessage(_T("%1 x %2"), 2,
-                              cf.TS(BitmapInfoHeader.biWidth),
-                              cf.TS(BitmapInfoHeader.biHeight));
+                              cf.TS(/*BitmapInfoHeader.biWidth*/pImageData->getImageWidth()),
+                              cf.TS(/*BitmapInfoHeader.biHeight*/pImageData->getImageHeight()));
         GetPaneInfo(CurrentPane, nID, nStyle, cxWidth);
         SetPaneInfo(CurrentPane, nID, nStyle, GetPaneWidth(Text));
         SetPaneText(CurrentPane, Text.c_str());
