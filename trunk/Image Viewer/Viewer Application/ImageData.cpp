@@ -31,6 +31,76 @@ fix would be nice.
 
 size_t CImageData::MemUsage = 0;
 
+IplImage* CImageData::DIB2IplImage(HBITMAP hbmp, HDC hdc = NULL) 
+{ 
+	IplImage* Image = NULL; 
+
+	bool mustrelease = false; 
+	BITMAPINFO bmi; 
+	BITMAPINFOHEADER* bmih = &(bmi.bmiHeader); 
+	if (hdc == NULL) 
+	{ 
+		hdc = GetDC(NULL); 
+		mustrelease = true; 
+	} 
+	ZeroMemory(bmih, sizeof(BITMAPINFOHEADER)); 
+	bmih->biSize = sizeof(BITMAPINFOHEADER); 
+	if (GetDIBits(hdc, hbmp, 0, 0, NULL, &bmi, DIB_RGB_COLORS)) 
+	{ 
+		int height = (bmih->biHeight > 0) ? bmih->biHeight : -bmih->biHeight; 
+		Image = cvCreateImage(cvSize(bmih->biWidth, height), IPL_DEPTH_8U, 3); 
+		Image->origin = (bmih->biHeight > 0); 
+		bmih->biBitCount = 24; 
+		bmih->biCompression = BI_RGB; 
+		GetDIBits(hdc, hbmp, 0, height, Image->imageData, &bmi, DIB_RGB_COLORS); 
+	} 
+
+	if (mustrelease) 
+		ReleaseDC(NULL, hdc); 
+
+	/*cvShowImage("eee",Image);
+	cvWaitKey();
+	cvDestroyWindow("eee");*/
+	return Image; 
+}
+
+HBITMAP CImageData::IplImage2DIB(IplImage *Image)
+{
+        int bpp = Image->nChannels * 8;
+        assert(Image->width >= 0 && Image->height >= 0 &&
+                (bpp == 8 || bpp == 24 || bpp == 32));
+        CvMat dst;
+        void* dst_ptr = 0;
+        HBITMAP hbmp = NULL;
+        unsigned char buffer[sizeof(BITMAPINFO) + 255*sizeof(RGBQUAD)];
+        BITMAPINFO* bmi = (BITMAPINFO*)buffer;
+        BITMAPINFOHEADER* bmih = &(bmi->bmiHeader);
+        
+        ZeroMemory(bmih, sizeof(BITMAPINFOHEADER));
+        bmih->biSize = sizeof(BITMAPINFOHEADER);
+        bmih->biWidth = Image->width;
+        bmih->biHeight = Image->origin ? abs(Image->height) :-abs(Image->height);
+        bmih->biPlanes = 1;
+        bmih->biBitCount = bpp;
+        bmih->biCompression = BI_RGB;
+        
+        if (bpp == 8) {
+                RGBQUAD* palette = bmi->bmiColors;
+                int i;
+                for (i = 0; i < 256; i++) {
+                        palette[i].rgbRed = palette[i].rgbGreen = palette[i].rgbBlue = (BYTE)i;
+                        palette[i].rgbReserved = 0;
+                }
+        }
+        
+        hbmp = CreateDIBSection(NULL, bmi, DIB_RGB_COLORS, &dst_ptr, 0, 0);
+        cvInitMatHeader(&dst, Image->height, Image->width, CV_8UC3,
+                dst_ptr, (Image->width * Image->nChannels + 3) & -4);
+        cvConvertImage(Image, &dst, Image->origin ?  0:CV_CVTIMG_FLIP );
+        
+        return hbmp;
+}
+
 // default c'tor
 CImageData::CImageData()
 : pCriticalSection(NULL)
@@ -38,6 +108,7 @@ CImageData::CImageData()
 , Bitmap(NULL)
 , DataSize(0)
 , BPP(0)
+, immagine(NULL)
 {
 }
 
@@ -48,6 +119,7 @@ CImageData::CImageData(const CImageData &ImageData)
 , Bitmap(NULL)
 , DataSize(0)
 , BPP(0)
+,immagine(NULL)
 {
     *this = ImageData;
 }
@@ -58,20 +130,56 @@ CImageData::CImageData(HBITMAP hBitmap, WORD Bits)
 , Bitmap(NULL)
 , DataSize(0)
 , BPP(Bits)
+,immagine(NULL)
 {
-    BITMAP bm;
-    if (GetObject(hBitmap, sizeof(BITMAP), &bm))
+   // BITMAP bm;
+   // if (GetObject(hBitmap, sizeof(BITMAP), &bm))
+   // {
+        //pCriticalSection = new CCriticalSection;
+        //ULONG *pRef = new ULONG(1);
+        //pData = (LPBYTE)pRef;
+       // Bitmap = (HBITMAP)CopyImage(hBitmap, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+        //DataSize = ((bm.bmWidth * bm.bmBitsPixel +31) & (~31)) / 8 * bm.bmHeight;
+
+        //MemUsage += GetSize();
+   // }
+
+	if((immagine=DIB2IplImage((HBITMAP)hBitmap))!=NULL) 
+	{
+		pCriticalSection = new CCriticalSection;
+        ULONG *pRef = new ULONG(1);
+        pData = (LPBYTE)pRef;
+		//cvCopyImage(im, immagine);
+		DataSize = immagine->imageSize;
+
+        //MemUsage += GetSize();
+	/*	cvShowImage("eee",immagine);
+		cvWaitKey();
+		cvDestroyWindow("eee");*/
+		MemUsage += GetSize();
+	}
+}
+
+CImageData::CImageData(IplImage* iplImg)
+: pCriticalSection(NULL)
+, pData(NULL)
+, Bitmap(NULL)
+, DataSize(0)
+, BPP(0)
+,immagine(NULL)
+{
+    if (iplImg)
     {
         pCriticalSection = new CCriticalSection;
         ULONG *pRef = new ULONG(1);
         pData = (LPBYTE)pRef;
-        Bitmap = (HBITMAP)CopyImage(hBitmap, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
-        DataSize = ((bm.bmWidth * bm.bmBitsPixel +31) & (~31)) / 8 * bm.bmHeight;
+		cvCopyImage(iplImg, immagine);
+		
+		DataSize = immagine->imageSize;
 
         MemUsage += GetSize();
     }
 }
-
 // d'tor
 CImageData::~CImageData()
 {
@@ -91,9 +199,20 @@ CImageData& CImageData::operator =(const CImageData &ImageData)
             pData = ImageData.pData;
             DataSize = ImageData.DataSize;
             pCriticalSection = ImageData.pCriticalSection;
-            Bitmap = ImageData.Bitmap;
+           // Bitmap = ImageData.Bitmap;
             BPP = ImageData.BPP;
-
+			
+			immagine = cvCreateImage( cvSize( ImageData.immagine->width, ImageData.immagine->height ),
+									   ImageData.immagine->depth, ImageData.immagine->nChannels );
+			immagine->origin=ImageData.immagine->origin;
+			cvCopyImage( ImageData.immagine, immagine);
+			
+	/*	cvShowImage("eee",immagine);
+		cvWaitKey();
+		cvDestroyWindow("eee");
+		cvShowImage("eee",ImageData.immagine);
+		cvWaitKey();
+		cvDestroyWindow("eee");*/
             IncrementReferenceCount();
         }
     }
@@ -153,6 +272,7 @@ bool CImageData::CopyData(const size_t &Size, LPBYTE Data)
         delete[] pData;
         pData = NULL;
         DataSize = 0;
+		immagine=NULL;
 
         delete pCriticalSection;
         pCriticalSection = NULL;
@@ -189,20 +309,25 @@ void CImageData::DeleteData()
                 SingleLock.Unlock();
                 delete pCriticalSection;
 
-                if (NULL != Bitmap)
-                {
-                    DeleteObject(Bitmap);
-                }
-
+               // if (NULL != Bitmap)
+               // {
+               //     DeleteObject(Bitmap);
+               // }
+				
+				if(NULL!=immagine)
+				{
+					cvReleaseImage(&immagine);
+				}
                 MemUsage -= GetSize();
             }
         }
     }
 
+	immagine=NULL;
     pData = NULL;
     DataSize = 0;
     pCriticalSection = NULL;
-    Bitmap = NULL;
+    //Bitmap = NULL;
     BPP = 0;
 }
 
@@ -223,7 +348,8 @@ DWORD CImageData::GetProcessID() const
 {
     DWORD ProcessID = 0;
 
-    if (NULL == Bitmap && NULL != pCriticalSection)
+   // if (NULL == Bitmap && NULL != pCriticalSection)
+	if (NULL == immagine && NULL != pCriticalSection)
     {
         CSingleLock SingleLock(pCriticalSection, TRUE);
         if (NULL != pData)
@@ -239,7 +365,8 @@ RECT CImageData::GetRegionRect() const
 {
     RECT RegionRect = {0};
 
-    if (NULL == Bitmap && NULL != pCriticalSection)
+   // if (NULL == Bitmap && NULL != pCriticalSection)
+	if (NULL == immagine && NULL != pCriticalSection)
     {
         CSingleLock SingleLock(pCriticalSection, TRUE);
 
@@ -261,7 +388,8 @@ std::tstring CImageData::GetSourceFilePath() const
 {
     std::tstring ret;
 
-    if (NULL == Bitmap && NULL != pCriticalSection)
+    //if (NULL == Bitmap && NULL != pCriticalSection)
+	if (NULL == immagine && NULL != pCriticalSection)
     {
         CSingleLock SingleLock(pCriticalSection, TRUE);
 
@@ -302,7 +430,8 @@ std::tstring CImageData::GetSourceLine() const
 {
     std::tstring ret;
 
-    if (NULL == Bitmap && NULL != pCriticalSection)
+    //if (NULL == Bitmap && NULL != pCriticalSection)
+	if (NULL == immagine && NULL != pCriticalSection)
     {
         CSingleLock SingleLock(pCriticalSection, TRUE);
         if (NULL != pData)
@@ -323,7 +452,8 @@ std::tstring CImageData::GetSourceFunction() const
 {
     std::tstring ret;
 
-    if (NULL == Bitmap && NULL != pCriticalSection)
+    //if (NULL == Bitmap && NULL != pCriticalSection)
+	if (NULL == immagine && NULL != pCriticalSection)
     {
         CSingleLock SingleLock(pCriticalSection, TRUE);
         if (NULL != pData)
@@ -345,7 +475,8 @@ std::tstring CImageData::GetTime() const
 {
     std::tstring ret;
 
-    if (NULL == Bitmap && NULL != pCriticalSection)
+   // if (NULL == Bitmap && NULL != pCriticalSection)
+	if (NULL == immagine && NULL != pCriticalSection)
     {
         CSingleLock SingleLock(pCriticalSection, TRUE);
         if (NULL != pData)
@@ -368,7 +499,8 @@ std::tstring CImageData::GetText() const
 {
     std::tstring ret;
 
-    if (NULL == Bitmap && NULL != pCriticalSection)
+   // if (NULL == Bitmap && NULL != pCriticalSection)
+	if (NULL == immagine && NULL != pCriticalSection)
     {
         CSingleLock SingleLock(pCriticalSection, TRUE);
         if (NULL != pData)
@@ -405,7 +537,7 @@ std::tstring CImageData::GetText() const
     return ret;
 }
 
-CBitmapInfoHeader CImageData::GetBitmapInfoHeader() const
+/*CBitmapInfoHeader CImageData::GetBitmapInfoHeader() const
 {
     CBitmapInfoHeader BitmapInfoHeader;
 
@@ -436,11 +568,14 @@ CBitmapInfoHeader CImageData::GetBitmapInfoHeader() const
     }
 
     return BitmapInfoHeader;
-}
+}*/
 
-HBITMAP CImageData::GetBitmap() const
+HBITMAP CImageData::GetBitmap() 
 {
-    if (NULL != Bitmap)
+	HBITMAP bm=NULL;
+	bm=IplImage2DIB(immagine);
+	return bm;
+   /* if (NULL != Bitmap)
     {
         HBITMAP ret = (HBITMAP)CopyImage(Bitmap, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
         return ret;
@@ -488,7 +623,17 @@ HBITMAP CImageData::GetBitmap() const
         }
     }
 
-    return hBitmap;
+    return hBitmap;*/
+}
+
+int CImageData::getImageWidth()
+{
+	return immagine->width;
+}
+
+int CImageData::getImageHeight()
+{
+	return immagine->height;
 }
 
 // write the data into a CArchive. See CImageViewerDoc::Serialize()
@@ -499,7 +644,7 @@ void CImageData::SaveData(CArchive &ar)
         CSingleLock SingleLock(pCriticalSection, TRUE);
         if (NULL != pData)
         {
-            ar << DataSize;
+			ar << DataSize;
             ar.Write(pData + sizeof(ULONG), DataSize);
         }
     }

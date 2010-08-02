@@ -32,8 +32,9 @@ private:
     LPBYTE pData;                                   // pointer to the data
     CCriticalSection *pCriticalSection;             // controls access to the data
 
+	IplImage* immagine;
     HBITMAP Bitmap;
-    WORD BPP;
+    WORD BPP;										// Bit Per Point
 
     static size_t MemUsage;                         // running total of memory used by all CImageData objects
 
@@ -46,6 +47,7 @@ public:
     CImageData();                                   // default c'tor
     CImageData(const CImageData &);                 // copy c'tor - calls operator =(const CImageData &)
     CImageData(HBITMAP, WORD Bits = 0);             // Create from an HBITMAP
+	CImageData(IplImage*);
 
     ~CImageData();                                  // d'tor - calls DeleteData()
 
@@ -55,10 +57,11 @@ public:
     void SaveData(CArchive &ar);                    // saves the image data into an archive
     bool ReadData(CArchive &ar);                    // reads the image data from an archive
 
-    HBITMAP GetBitmap() const;                      // handle to the bitmap - call DeleteObject() when you are done with it.
+	//IplImage* GetImmagine() const;
+	HBITMAP GetBitmap() ;                      // handle to the bitmap - call DeleteObject() when you are done with it.
     DWORD GetProcessID() const;                     // the process ID of the app that generated the image
     RECT GetRegionRect() const;                     // the bounding rectangle coordinates of the contained region
-    CBitmapInfoHeader GetBitmapInfoHeader() const;  // the BITMAPINFOHEADER that describes the contained image
+    //CBitmapInfoHeader GetBitmapInfoHeader() const;  // the BITMAPINFOHEADER that describes the contained image
     std::tstring GetSourceFilePath() const;         // the complete path of the source file that contains the Show* macro
     std::tstring GetSourceFile() const;
     std::tstring GetSourcePath() const;
@@ -66,6 +69,11 @@ public:
     std::tstring GetSourceFunction() const;
     std::tstring GetTime() const;                   // system time that the image was generated
     std::tstring GetText() const;                   // descriptive text associated with the image
+
+	IplImage* DIB2IplImage(HBITMAP hbmp, HDC hdc);
+	HBITMAP IplImage2DIB(IplImage *Image);
+	int getImageWidth();
+	int getImageHeight();
 
     static size_t GetMemUsage()                     // retrieves the total memory used by all CImageData objects
     {

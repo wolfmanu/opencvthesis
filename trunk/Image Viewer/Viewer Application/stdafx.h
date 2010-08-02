@@ -60,6 +60,12 @@
 
 #include "GdiplusStartup.h"
 
+/****/
+#include <cv.h>
+#include <cvaux.h>
+#include <highgui.h>
+/****/
+
 
 #ifdef _UNICODE
 #if defined _M_IX86

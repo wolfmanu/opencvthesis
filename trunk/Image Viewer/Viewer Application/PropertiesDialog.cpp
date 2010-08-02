@@ -76,11 +76,11 @@ LRESULT CPropertiesDialog::OnSetProperties(WPARAM, LPARAM lp)
     if (NULL != lp)
     {
         CImageData *pData = reinterpret_cast<CImageData *>(lp);
-        CBitmapInfoHeader BitmapInfoHeader(pData->GetBitmapInfoHeader());
+        //CBitmapInfoHeader BitmapInfoHeader(pData->GetBitmapInfoHeader());
 
-        SetDlgItemInt(IDC_EDITWIDTH, BitmapInfoHeader.biWidth, FALSE);
-        SetDlgItemInt(IDC_EDITHEIGHT, BitmapInfoHeader.biHeight, FALSE);
-        SetDlgItemInt(IDC_EDITBITS, BitmapInfoHeader.biBitCount, FALSE);
+        SetDlgItemInt(IDC_EDITWIDTH, pData->getImageWidth()/*BitmapInfoHeader.biWidth*/, FALSE);
+        SetDlgItemInt(IDC_EDITHEIGHT, pData->getImageHeight()/*BitmapInfoHeader.biHeight*/, FALSE);
+        //SetDlgItemInt(IDC_EDITBITS, BitmapInfoHeader.biBitCount, FALSE);
         SetDlgItemText(IDC_EDITPATH, pData->GetSourcePath().c_str());
         SetDlgItemText(IDC_EDITFILE, pData->GetSourceFile().c_str());
         SetDlgItemText(IDC_EDITLINE, pData->GetSourceLine().c_str());
