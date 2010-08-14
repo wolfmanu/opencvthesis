@@ -11,3 +11,12 @@ Principal point:       cc = [ 380.45102   246.24552 ] ± [ 3.18064   2.23428 ]
 Skew:             alpha_c = [ 0.00000 ] ± [ 0.00000  ]   => angle of pixel axes = 90.00000 ± 0.00000 degrees
 Distortion:            kc = [ -0.23620   0.36864   -0.00032   0.00024  0.00000 ] ± [ 0.01008   0.05780   0.00062   0.00069  0.00000 ]
 Pixel error:          err = [ 0.22523   0.19858 ]
+
+
+Heikkil's notation
+
+kc(1)  k1
+kc(2)  k2
+kc(3)  p1
+kc(4)  p2
+kc(5)  k3=0

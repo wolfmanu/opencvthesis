@@ -1,4 +1,4 @@
-
+#include "stdafx.h"
 #include "cameraInfo.h"
 
 #include <stdlib.h>
@@ -12,45 +12,39 @@
 using namespace std;
 
 //public ctor
-cameraInfo::cameraInfo()
+cameraInfo::cameraInfo():
+rawimg(),
+unimg()
 {
-NameCamera = " void";
-Description = " void";
-
-rawimg = NULL;
-unimg = NULL;
-
+	NameCamera = " void";
+	Description = " void";
 };
 
 
-cameraInfo::cameraInfo(IplImage* src)
+cameraInfo::cameraInfo(CvImage src)
 {
-cameraInfo();
-rawimg = cvCloneImage(src);
-unimg  = cvCloneImage(src);
+	cameraInfo();
+	rawimg = src.clone();
+	unimg  = src.clone();
 
 
-size =  src->height * src->width;
-tablex = new int[size];
-tabley = new int[size];
-
-
+	size =  src.height() * src.width();
+	tablex = new int[size];
+	tabley = new int[size];
 }
 
 
 
-void cameraInfo::loadImage(IplImage* src)
+void cameraInfo::loadImage(CvImage src)
 {
-//cameraInfo();
-rawimg = cvCloneImage(src);
-unimg  = cvCloneImage(src);
+	//cameraInfo();
+	rawimg = src.clone();
+	unimg  = src.clone();
 
 
-size =  src->height * src->width;
-tablex = new int[size];
-tabley = new int[size];
-
-
+	size =  src.height() * src.width();
+	tablex = new int[size];
+	tabley = new int[size];
 }
 
 
@@ -59,8 +53,8 @@ tabley = new int[size];
   //public dtor
 cameraInfo::~cameraInfo()
 {
-cvReleaseImage(&rawimg);
-cvReleaseImage(&unimg);
-delete []tablex;
-delete []tabley;
+	rawimg.release();
+	unimg.release();
+	delete []tablex;
+	delete []tabley;
 }
