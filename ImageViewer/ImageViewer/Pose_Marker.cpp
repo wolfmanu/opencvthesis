@@ -1,0 +1,57 @@
+#include "StdAfx.h"
+#include "Pose_Marker.h"
+
+Pose_Marker::Pose_Marker(double roll_, double pitch_, double yaw_, 
+						 double distX_, double distY_, double distZ_, 
+						 int mId/*, int pN*/)
+{
+	roll = roll_;
+	pitch = pitch_;
+	yaw = yaw_;
+	distX = distX_;
+	distY = distY_;
+	distZ = distZ_;
+	markerId = mId;
+	//poseNumber=pN;
+}
+Pose_Marker::Pose_Marker(void)
+{
+	roll = 0;
+	pitch = 0;
+	yaw = 0;
+	distX = 0;
+	distY = 0;
+	distZ = 0;
+	markerId = 0;
+	poseNumber=0;
+}
+Pose_Marker::~Pose_Marker(void)
+{
+}
+
+std::string Pose_Marker::toString()
+{
+	std::stringstream s;
+	s << "roll: "<< roll << std::endl;
+	s << "pitch: "<< pitch << std::endl;
+	s << "yaw: "<< yaw << std::endl;
+	s << "distX: "<< distX << std::endl;
+	s << "distY: "<< distY << std::endl;
+	s << "distZ: "<< distZ << std::endl;
+	s << "markerId: "<< markerId << std::endl;
+	return s.str();
+}
+
+std::wstring Pose_Marker::toLine()
+{
+	std::wstringstream s;
+	s << "roll: "<< roll <<"; ";
+	s << "pitch: "<< pitch <<"; ";
+	s << "yaw: "<< yaw <<";\t";
+	s << "x: "<< distX <<"; ";
+	s << "y: "<< distY<<"; ";
+	s << "z: "<< distZ<<endl;
+	s << "marker ID: "<< markerId ;
+	//s << "\t"<< poseNumber << std::endl;
+	return s.str();
+}
