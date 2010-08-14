@@ -49,7 +49,7 @@ class Calibrator{
 	TRANSFMATRIX Testimation;
 	//MyLogger logger;
 	cameraInfo *c;
-	IplImage *maskImg,/* *calcImg,*/ *treshImg, *croppedImg;
+	CvImage maskImg,/* *calcImg,*/ treshImg, croppedImg;
 
 	ARToolKitPlus::TrackerSingleMarker *tracker ;
 	ARToolKitPlus::TrackerSingleMarker *trackerLite;
@@ -116,9 +116,9 @@ void Calibrator::Calibrator_(void)
 
 Calibrator::~Calibrator(void)
 {	
-	cvReleaseImage(&c->rawimg);
-	cvReleaseImage(&c->unimg);
-	cvReleaseImage(&maskImg);
+	c->rawimg.release();
+	c->unimg.release();
+	maskImg.release();
 
 	tracker->cleanup();
 	trackerLite->cleanup();
@@ -195,44 +195,43 @@ int Calibrator::Calibrate()
 	return 1;
 }
 
-IplImage* Calibrator::LoadMyImage()
-{
-	IplImage *im;
-	inputImage=getFileNameToLoad();
-	
-	im = cvLoadImage(inputImage.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
-	if(!im)
-	{
-		printf("Image file does not exist. Press any key to exit.\n");
-		_getch();
-		return 0;
-	}
-	/*else
-	{
-		im = cvCreateImage( cvSize( calcImg->width, calcImg->height ),
-                               calcImg->depth, calcImg->nChannels );
-		cvCopyImage( calcImg, im);
-	}*/
-
-	if( (im->width == 0) || (im->height == 0) )
-	{
-		printf("NULL image dimension\n");
-	}
-	//else
-	//	printf("Img size %dx%d\n", im->width, im->height);
-	return im;
-}
-
+//CvImage Calibrator::LoadMyImage()
+//{
+//	inputImage=getFileNameToLoad();
+//	
+//	CvImage im(inputImage.c_str(), 0,CV_LOAD_IMAGE_GRAYSCALE);
+//	if(!im)
+//	{
+//		printf("Image file does not exist. Press any key to exit.\n");
+//		_getch();
+//		return 0;
+//	}
+//	/*else
+//	{
+//		im = cvCreateImage( cvSize( calcImg->width, calcImg->height ),
+//                               calcImg->depth, calcImg->nChannels );
+//		cvCopyImage( calcImg, im);
+//	}*/
+//
+//	if( (im.width() == 0) || (im.height() == 0) )
+//	{
+//		printf("NULL image dimension\n");
+//	}
+//	//else
+//	//	printf("Img size %dx%d\n", im->width, im->height);
+//	return im;
+//}
 
 
-Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
+
+Pose_Marker* Calibrator::FindPattern(CvImage calcImg)
 {
 	Pose_Marker *pose = 0;
 	bool stop=false;
 	bool usedSq=false;
-	Squares sq;
+	//Squares sq;
 	//IplImage* backupImg=cvCloneImage(calcImg);
-	set<Square_Area*,Square_Area::classcomp>::iterator it;
+	//set<Square_Area*,Square_Area::classcomp>::iterator it;
 
 	while(!stop)
 	{
@@ -251,7 +250,7 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 		cvThreshold(calcImg, treshImg, tracker->getThreshold(), 255, CV_THRESH_BINARY);
 
 		
-		markerIdfound = trackerLite->calc((uchar*)calcImg->imageData, MARKER_ID, false, &MI, &numMrkFound);
+		markerIdfound = trackerLite->calc((uchar*)calcImg.data(), MARKER_ID, false, &MI, &numMrkFound);
 
 #ifndef USE_SQUARE
 		if(markerIdfound != -1 )
@@ -266,7 +265,7 @@ Pose_Marker* Calibrator::FindPattern(IplImage* calcImg)
 		//The estimator searches only for a specific marker (whose id is specified by the argument markerID)
 		//or for any marker if markerID is equal to -1
 		
-		markerIdfound = tracker->calc((uchar*)calcImg->imageData, MARKER_ID, true, &MI);
+		markerIdfound = tracker->calc((uchar*)calcImg.data(), MARKER_ID, true, &MI);
 
 		if (markerIdfound != -1)
 		{
@@ -458,19 +457,19 @@ string cameraIp = "192.168.0.199";
 string rtspProto = "http://";
 string imgNameBase="Capture__2906r_", imgName, ext=".jpg";
 string folder="analized";
-string imgNameBaseToLoad="images/Fapture__2906b_";
+string imgNameBaseToLoad="analized/FCapture__2906r_";
 Calibrator *calibrator;
 CriticalSection fileNumbCS;
-volatile LONG fileNumber=400;
-LONG fileNumberToLoad=1;
-int numFrameToElab=150;
+volatile LONG fileNumber=943;
+LONG fileNumberToLoad=603;
+int numFrameToElab=15;
 bool toStop=false;
 bool endTask=true;
-queue<IplImage*> imageQueue;
+queue<CvImage> imageQueue;
 CriticalSection imageQueueCS;
 FTPSender *ftps;
 time_t testTime;
-string testDescription=" - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- ";
+string testDescription=" - Throughtput test - HTTP request - ";
 
 
 long lTimeout;
@@ -482,7 +481,7 @@ void stopAlarm();
 
 
 int CalibrateCamera(); //DWORD WINAPI CalibrateCamera( LPVOID lpParam );
-int SaveFile(IplImage* image, Pose_Marker *pose);
+int SaveFile(CvImage image, Pose_Marker *pose);
 /*int ElaborateImage(IplImage* inImage); */ DWORD WINAPI ElaborateImage( LPVOID lpParam );
 string getTimeFileName();
 //DWORD testConnectivity(string ip);
@@ -491,10 +490,10 @@ string getUniqueFileName();
 
 void changeFileNameToPose(int n);
 
-ofstream fcapt("TestTimeCapt.txt", ios::app);
+ofstream fcapt("TestHTTPCapt.txt", ios::app);
 
 //globali x cercare una pseudo-sincronizzazione cn l'elaborazione
-int elaboratedFrame=1;
+int elaboratedFrame=0;
 clock_t aux_t, end_e;
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -508,7 +507,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	clock_t start_e;
 	double tot=0,diff=0;
-	IplImage  *frame;
+	CvImage frame;
 	int key=0, key2=0;
 	string cameraRtspIp=rtspProto;
 	cameraRtspIp.append(cameraIp);
@@ -519,7 +518,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	#endif
 
 	calibrator = new Calibrator();
-	ofstream f("TestElab2Threads_CaptureEstimator.txt", ios::app);
+	ofstream f("TestHTTP_CaptureEstimator.txt", ios::app);
 	
 	if(!f) {
         cout<<"Errore nell'apertura del file!";
@@ -597,6 +596,7 @@ int _tmain(int argc, _TCHAR* argv[])
 #ifdef PLAY_VIDEO
 
 #ifdef HTTP_IMAGE
+	clock_t to;
 	//IplImage *image;
 	char recvbuf[BUFLEN];
 	FILE* imageFile; 
@@ -615,17 +615,20 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Network cameraNet(cameraIp,"80");
 
+	CvImage image;
 	CvPoint pt[1], *rect = pt;
 	int count=1;
 	pt[0].x=367;
 	pt[0].y=245;
 	int o;
+	int toElab=1000;
 	
-	unsigned char* bufJpeg;
+	unsigned char* bufJpeg, *auxbufJpeg;
 	int jpegSize = 47720;
 	string comment="";
 
-	while( key != 'q' ) 
+
+	while( key != 'q' /*&& toElab>elaboratedFrame*/) 
 	{
 		cameraNet.NWConnect();
 		cameraNet.NWsendData(bu.c_str(),bu.length());
@@ -633,6 +636,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		comment="";
 		
 		bufJpeg=(unsigned char*)malloc((iResult-headerLen)*sizeof(unsigned char));
+
 		if(iResult>headerLen)
 			memcpy(bufJpeg,&(recvbuf[headerLen]),(iResult-headerLen));
 			
@@ -640,34 +644,53 @@ int _tmain(int argc, _TCHAR* argv[])
 		while(iResult > 0)
 		{
 			iResult = cameraNet.NWrcvData(recvbuf, BUFLEN);	
+			/*auxbufJpeg=&(bufJpeg[o]);
+			auxbufJpeg=(unsigned char*)malloc((o+iResult)*sizeof(unsigned char));*/
 			bufJpeg=(unsigned char*)realloc(bufJpeg,(o+iResult)*sizeof(unsigned char));
+			//free(bufJpeg);
+			//bufJpeg=auxbufJpeg;
 			memcpy(&(bufJpeg[o]), recvbuf,iResult);
 			o+=iResult;
 		}
 
 		imgJ =readJpegMem (bufJpeg,o,comment);
-		cvPolyLine(imgJ, (&rect), &count, 1, 1, CV_RGB(255,255,255), 3, CV_AA, 0 );
-		cvShowImage( "wnd", imgJ );
-		key = cvWaitKey(1);
+		//cvPolyLine(imgJ, (&rect), &count, 1, 1, CV_RGB(255,255,255), 3, CV_AA, 0 );
+		//if(key2!='e') 
+		//{//se nn sto elaborando o se voglio stoppare elaborazione
+		//	key2=key;
+			cvShowImage( "wnd", imgJ );
+		//}
+
 		
 		cameraNet.NWCloseConnection();
 		if(key=='e')
 		{
-			IplImage *image = cvCreateImage(imgJ.size(), imgJ.depth(), imgJ.channels() );
+			to=clock();
+			image.create(imgJ.size(), imgJ.depth(), 1 );
 			cvCopyImage(imgJ, image);
 			{
 				Guard p(imageQueueCS);
 				imageQueue.push(image);
 			}
-			if(elaboratedFrame==1)
+			if(elaboratedFrame==0){
+				start_e=to;
 				QueueUserWorkItem(ElaborateImage, 0,0);
+			}
 			key=0;
 			elaboratedFrame++;
 		}
-		free(bufJpeg);
+		//free(bufJpeg);
+		key = cvWaitKey(1);
 		
 	}
+	toStop=true;
 	cvDestroyAllWindows();
+	end_e=clock();
+	f<<"[Capture_Estimator] - End elaborating "<<end_e<<endl;
+	f<<"[Capture_Estimator] - Total elaboration time: "<<double(end_e-start_e)<<" milliseconds - "<<elaboratedFrame<<" frames"<<endl;
+	f<<"[Capture_Estimator] - Avarage elaboration time: "<<double(end_e-start_e)/elaboratedFrame<<" milliseconds"<<endl;
+	f<<"[Capture_Estimator] - Rate: "<<elaboratedFrame/(double(end_e-start_e))*1000<<" frames/sec"<<endl;
+	f<<"Test end"<<endl<<endl;
 #endif
 #ifdef CAPT_IMAGE
 
@@ -675,7 +698,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	string wndName = "video _ 's'ave, 'e'laborate, 'q'uit";
 	cvNamedWindow(wndName.c_str(), CV_WINDOW_AUTOSIZE );
 	cout<< "Playing video" << endl;
-	IplImage *image;
+	CvImage image;
 
 	int toElab[1]={10};//,1000,1000,1000,1000,1000,1000};
 	int elabIndex=0,rateIndex=-1,rateLimit=3;
@@ -864,10 +887,10 @@ void stopAlarm()
 
 
 
-int SaveFile(IplImage* image, Pose_Marker *pose)
+int SaveFile(CvImage image, Pose_Marker *pose)
 {
 	
-	CvImage *cvimage=new CvImage(image);
+	CvImage cvimage(image);
 	string comment;
 	string options="quality=90";
 	string filename=getUniqueFileName();
@@ -878,7 +901,7 @@ int SaveFile(IplImage* image, Pose_Marker *pose)
 		comment=pose->toString();
 		filename[9]='F';			//per riconoscere se la posa è stata trovata dal nome del file
 	}
-	writeJpegFile ((char*)(filename.c_str()), *cvimage, options, comment);
+	writeJpegFile ((char*)(filename.c_str()), cvimage, options, comment);
 	cout<<"Saved image "<<filename<<endl;
 	//string comment="";
 	// Now I try to read the file and allocate it into a CvImage class
@@ -899,11 +922,11 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 {
 	
 	int count=4,xcount=2, ycount=2;
-	ofstream filePose("Test_relativeMeasure_2906_complete.txt",ios::app);
+	ofstream filePose("Test_0107.txt",ios::app);
 	int recognized=0, n=1;
 	//ofstream f2("TestElab2Threads_ElaborateImage_Timing.txt", ios::app);
-	ofstream f3("TestElab2Threads_ElaborateImage.txt", ios::app);
-	IplImage *image = cvCreateImage(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
+	ofstream f3("TestHTTP_ElaborateImage.txt", ios::app);
+	CvImage image(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
 	Pose_Marker *pose, *pose2;
 	if(!f3) {
         cout<<"Errore nell'apertura del file!";
@@ -911,7 +934,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
         return -1;
     }
 	//f2<<"[ElaborateImage] - Test start"<<endl;
-	IplImage* inImage;//=reinterpret_cast<IplImage*>(lpParam);
+	CvImage inImage;//=reinterpret_cast<IplImage*>(lpParam);
 	double tot=0 ;
 	int frames=0,emptyCicle=0;
 	endTask=false;
@@ -944,7 +967,6 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 			}
 			else
 			{
-				inImage=0;
 				emptyCicle++;
 			}
 		}
@@ -1018,7 +1040,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 				filePose<<endl;
 			n++;
 			SaveFile(inImage, pose);
-			cvReleaseImage(&inImage);
+			inImage.release();
 			
 		#ifdef USEFTP
 			SendViaFTP(pose);
@@ -1026,12 +1048,14 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 			t6=clock();
 			//f2<<"[ElaborateImage] - Elaborazione: "<<double(t6-t5)<<endl;
 			tot+=(t6-t5);
-			if(pose){
+			if(pose)
+			{
 				free(pose);
-				recognized++;}
+				recognized++;
+			}
 		}
 	}
-	/*clock_t end_ElaborateImage=clock();
+	clock_t end_ElaborateImage=clock();
 	f3<<"[ElaborateImage] - End elaborating "<<end_ElaborateImage<<endl;
 	f3<<"[ElaborateImage] - Delay "<<double(end_ElaborateImage-end_e)<<endl;
 	f3<<"[ElaborateImage] - Total elaboration time: "<<double(end_ElaborateImage-start_ElaborateImage)<<" - "<<frames<<" frames"<<endl;
@@ -1039,7 +1063,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	f3<<"[ElaborateImage] - Rate: "<<(frames/double(end_ElaborateImage-start_ElaborateImage))*1000<<" frames/sec"<<endl;
 	f3<<"[ElaborateImage] - Correctly recognized "<<recognized<<endl;
 	f3<<"[ElaborateImage] - Wasted Time: "<<double(end_ElaborateImage-start_ElaborateImage-tot)<<" - Empty Clicles: "<<emptyCicle<<endl<<endl;
-	*/
+	
 	return 1;
 }
 

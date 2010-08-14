@@ -19,7 +19,7 @@
 #include "cameraInfo.h"
 #include "calibration.h"
 #include "ReadFileIni.h"
-#include "Clock.h"
+
 #include <math.h>
 //#include <vector>
 //#include <string>
@@ -485,12 +485,12 @@ void UndistortedImageAICON(cameraInfo *c, bool filled, CvScalar color )
 {
  int width = c->ImageWidth;
  int height = c->ImageHeight;
- int step      = c->rawimg->widthStep;
- int channels  = c->rawimg->nChannels;
+ int step      = c->rawimg.step();
+ int channels  = c->rawimg.channels();
 
  //data      = (uchar *)img->imageData;
- uchar* oriimg =  (uchar *)c->rawimg->imageData;
- uchar* rectimg = (uchar *)c->unimg->imageData;
+ uchar* oriimg =  (uchar *)c->rawimg.data();
+ uchar* rectimg = (uchar *)c->unimg.data();
 
 
   for (int y=0;y<height;y++)

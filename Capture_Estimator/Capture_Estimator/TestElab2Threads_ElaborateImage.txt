@@ -1924,3 +1924,21 @@ Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mo
 [ElaborateImage] - Start elaborating 71937
 Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277821803
 [ElaborateImage] - Start elaborating 25343
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277882830
+[ElaborateImage] - Start elaborating 23500
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277885059
+[ElaborateImage] - Start elaborating 153578
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277888653
+[ElaborateImage] - Start elaborating 11156
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277890160
+[ElaborateImage] - Start elaborating 48281
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277898607
+[ElaborateImage] - Start elaborating 59703
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277902517
+[ElaborateImage] - Start elaborating 31359
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277903815
+[ElaborateImage] - Start elaborating 48359
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277908551
+[ElaborateImage] - Start elaborating 1328
+Test Start - queue<IplImage*> - 1/3 frames elaborated - 352x288 -DlinkCamera- Mod- search for M20- 1277908833
+[ElaborateImage] - Start elaborating 1265

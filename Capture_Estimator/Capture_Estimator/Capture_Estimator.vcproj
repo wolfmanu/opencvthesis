@@ -63,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="Mswsock.lib Advapi32.lib ws2_32.lib ARToolKitPlusd.lib cxcore210d.lib highgui210d.lib cv210d.lib opencv_ffmpeg210d.lib cvaux210d.lib c:\lib\OpenCV\opencv\bin-vs8\3rdparty\lib\Debug\opencv_lapackd.lib c:\lib\OpenCV\opencv\bin-vs8\3rdparty\lib\Debug\libjpegd.lib c:\lib\OpenCV\opencv\bin-vs8\3rdparty\lib\Debug\libjasperd.lib Iphlpapi.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="C:\lib\Studierstube\icg\ARToolKitPlus_2.1.1\lib\Win32;&quot;C:\lib\OpenCV\opencv2.1\bin-vs8\lib\Debug&quot;"
+				AdditionalLibraryDirectories="C:\lib\Studierstube\icg\ARToolKitPlus_2.1.1\lib\Win32;&quot;C:\lib\OpenCV\opencv\bin-vs8\lib\Debug&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
