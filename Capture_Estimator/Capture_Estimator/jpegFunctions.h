@@ -38,7 +38,7 @@ into the jpeg format
 // string is an optional variable where it is possible to store plain text up to 65533 characters
 // Please note that the text format is into plain text without any non printable characters
 
-void writeJpegFile (char * filename, CvImage& img, std::string options= "quality=95", std::string remarks= "");
+void writeJpegFile (char * filename, CvImage& img, std::string options, std::string remarks);
 
 //----------------------------------------------------------------------------//
 //                    writeJpegMem                                           //
@@ -53,7 +53,7 @@ void writeJpegFile (char * filename, CvImage& img, std::string options= "quality
 // As rule of thumb an outBuffer which dimension is close to 1 Mbytes is generally sufficient 
 // for all jpeg compressed images.
 
-void writeJpegMem (unsigned char * outBuffer, int& jpegSize, CvImage& img,  std::string options= "quality=95", std::string remarks= "");
+void writeJpegMem (unsigned char * outBuffer, int& jpegSize, CvImage& img,  std::string options, std::string remarks);
 
 
 //----------------------------------------------------------------------------//

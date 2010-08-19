@@ -49,7 +49,7 @@ class Calibrator{
 	TRANSFMATRIX Testimation;
 	//MyLogger logger;
 	cameraInfo *c;
-	CvImage maskImg,/* *calcImg,*/ treshImg, croppedImg;
+	Mat maskImg,/* *calcImg,*/ treshImg, croppedImg;
 
 	ARToolKitPlus::TrackerSingleMarker *tracker ;
 	ARToolKitPlus::TrackerSingleMarker *trackerLite;
@@ -224,7 +224,7 @@ int Calibrator::Calibrate()
 
 
 
-Pose_Marker* Calibrator::FindPattern(CvImage calcImg)
+Pose_Marker* Calibrator::FindPattern(Mat calcImg)
 {
 	Pose_Marker *pose = 0;
 	bool stop=false;
@@ -235,7 +235,7 @@ Pose_Marker* Calibrator::FindPattern(CvImage calcImg)
 
 	while(!stop)
 	{
-		cvCopyImage(calcImg, c->rawimg);
+		calcImg.copyTo(c->rawimg);
 		
 		//UndistortedImageAICON(c, false, CV_RGB(255,0,0));
 
@@ -247,10 +247,10 @@ Pose_Marker* Calibrator::FindPattern(CvImage calcImg)
 			cvDestroyWindow("squared");
 		#endif*/
 
-		cvThreshold(calcImg, treshImg, tracker->getThreshold(), 255, CV_THRESH_BINARY);
-
+		cv::threshold(calcImg, treshImg, tracker->getThreshold(), 255, CV_THRESH_BINARY);
 		
-		markerIdfound = trackerLite->calc((uchar*)calcImg.data(), MARKER_ID, false, &MI, &numMrkFound);
+		
+		markerIdfound = trackerLite->calc((uchar*)calcImg.data, MARKER_ID, false, &MI, &numMrkFound);
 
 #ifndef USE_SQUARE
 		if(markerIdfound != -1 )
@@ -265,7 +265,7 @@ Pose_Marker* Calibrator::FindPattern(CvImage calcImg)
 		//The estimator searches only for a specific marker (whose id is specified by the argument markerID)
 		//or for any marker if markerID is equal to -1
 		
-		markerIdfound = tracker->calc((uchar*)calcImg.data(), MARKER_ID, true, &MI);
+		markerIdfound = tracker->calc((uchar*)calcImg.data, MARKER_ID, true, &MI);
 
 		if (markerIdfound != -1)
 		{
@@ -465,7 +465,7 @@ LONG fileNumberToLoad=603;
 int numFrameToElab=15;
 bool toStop=false;
 bool endTask=true;
-queue<CvImage> imageQueue;
+queue<Mat> imageQueue;
 CriticalSection imageQueueCS;
 FTPSender *ftps;
 time_t testTime;
@@ -481,7 +481,7 @@ void stopAlarm();
 
 
 int CalibrateCamera(); //DWORD WINAPI CalibrateCamera( LPVOID lpParam );
-int SaveFile(CvImage image, Pose_Marker *pose);
+int SaveFile(Mat image, Pose_Marker *pose);
 /*int ElaborateImage(IplImage* inImage); */ DWORD WINAPI ElaborateImage( LPVOID lpParam );
 string getTimeFileName();
 //DWORD testConnectivity(string ip);
@@ -507,7 +507,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	clock_t start_e;
 	double tot=0,diff=0;
-	CvImage frame;
+	Mat frame;
 	int key=0, key2=0;
 	string cameraRtspIp=rtspProto;
 	cameraRtspIp.append(cameraIp);
@@ -602,7 +602,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	FILE* imageFile; 
 	int iResult;
 	int headerLen = 207;
-	CvImage imgJ;
+	//Mat imgJ;
 	string bu="GET /cgi-bin/video.jpg HTTP/1.1\r\n";
 			bu+="Accept: */*\r\n";
 			bu+="Referer: http://192.168.0.199/snapshot.vspx\r\n";
@@ -615,7 +615,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Network cameraNet(cameraIp,"80");
 
-	CvImage image;
+	Mat image;
 	CvPoint pt[1], *rect = pt;
 	int count=1;
 	pt[0].x=367;
@@ -653,12 +653,13 @@ int _tmain(int argc, _TCHAR* argv[])
 			o+=iResult;
 		}
 
-		imgJ =readJpegMem (bufJpeg,o,comment);
+		Mat imgJ(readJpegMem (bufJpeg,o,comment));
 		//cvPolyLine(imgJ, (&rect), &count, 1, 1, CV_RGB(255,255,255), 3, CV_AA, 0 );
 		//if(key2!='e') 
 		//{//se nn sto elaborando o se voglio stoppare elaborazione
 		//	key2=key;
-			cvShowImage( "wnd", imgJ );
+		imshow( "wnd", imgJ );
+			
 		//}
 
 		
@@ -666,8 +667,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		if(key=='e')
 		{
 			to=clock();
-			image.create(imgJ.size(), imgJ.depth(), 1 );
-			cvCopyImage(imgJ, image);
+			image.create(imgJ.rows, imgJ.cols, imgJ.type() );
+			imgJ.copyTo( image);
 			{
 				Guard p(imageQueueCS);
 				imageQueue.push(image);
@@ -698,7 +699,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	string wndName = "video _ 's'ave, 'e'laborate, 'q'uit";
 	cvNamedWindow(wndName.c_str(), CV_WINDOW_AUTOSIZE );
 	cout<< "Playing video" << endl;
-	CvImage image;
+	Mat image;
 
 	int toElab[1]={10};//,1000,1000,1000,1000,1000,1000};
 	int elabIndex=0,rateIndex=-1,rateLimit=3;
@@ -887,10 +888,10 @@ void stopAlarm()
 
 
 
-int SaveFile(CvImage image, Pose_Marker *pose)
+int SaveFile(Mat image, Pose_Marker *pose)
 {
 	
-	CvImage cvimage(image);
+	Mat cvimage(image);
 	string comment;
 	string options="quality=90";
 	string filename=getUniqueFileName();
@@ -901,10 +902,11 @@ int SaveFile(CvImage image, Pose_Marker *pose)
 		comment=pose->toString();
 		filename[9]='F';			//per riconoscere se la posa è stata trovata dal nome del file
 	}
-	writeJpegFile ((char*)(filename.c_str()), cvimage, options, comment);
+	CvImage ccc(&((IplImage)(cvimage)));
+	writeJpegFile ((char*)(filename.c_str()), ccc, options, comment);
 	cout<<"Saved image "<<filename<<endl;
 	//string comment="";
-	// Now I try to read the file and allocate it into a CvImage class
+	// Now I try to read the file and allocate it into a Mat class
 	//CvImage img = readJpegFile("outputTest.jpg",comment);
 	// I visualize the results obtained
 
@@ -926,7 +928,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	int recognized=0, n=1;
 	//ofstream f2("TestElab2Threads_ElaborateImage_Timing.txt", ios::app);
 	ofstream f3("TestHTTP_ElaborateImage.txt", ios::app);
-	CvImage image(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
+	Mat image(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
 	Pose_Marker *pose, *pose2;
 	if(!f3) {
         cout<<"Errore nell'apertura del file!";
@@ -934,7 +936,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
         return -1;
     }
 	//f2<<"[ElaborateImage] - Test start"<<endl;
-	CvImage inImage;//=reinterpret_cast<IplImage*>(lpParam);
+	Mat inImage;//=reinterpret_cast<IplImage*>(lpParam);
 	double tot=0 ;
 	int frames=0,emptyCicle=0;
 	endTask=false;
@@ -970,10 +972,10 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 				emptyCicle++;
 			}
 		}
-		if(inImage)
+		if(!inImage.empty())
 		{
 			frames++;
-			cvCopyImage(inImage,image);
+			inImage.copyTo(image);
 			pose=calibrator->FindPattern(image); //devo ritornare anche la posa per metterla nel file jpeg
 			filePose<<"image "<<n<<" ";
 			if (pose)
@@ -1145,27 +1147,27 @@ string getTimeFileName()
 	return ss.str();
 }
 
-void changeFileNameToPose(int n)
-{
-	string comment;
-	string options="quality=90";
-	float r,p,y;
-
-	for(int k=0;k<n; k++)
-	{
-		stringstream ss;
-		ss<<"images\\Fapture__1006__"<<k<<".jpeg";
-		
-		CvImage img = readJpegFile((char*)(ss.str().c_str()),comment);
-
-		if(img)
-		{
-			sscanf(comment.c_str(),"roll:%f\npitch:%f\nyaw:%f\n",&r,&p,&y);
-			stringstream tt;
-			tt<<"test\\"<<k<<"_640x480_"<<r<<"_"<<p<<"_"<<y<<"_"<<".jpeg";
-
-			writeJpegFile ((char*)(tt.str().c_str()), img,options, comment);
-		}
-	}
-
-}
+//void changeFileNameToPose(int n)
+//{
+//	string comment;
+//	string options="quality=90";
+//	float r,p,y;
+//
+//	for(int k=0;k<n; k++)
+//	{
+//		stringstream ss;
+//		ss<<"images\\Fapture__1006__"<<k<<".jpeg";
+//		
+//		Mat img = readJpegFile((char*)(ss.str().c_str()),comment);
+//
+//		if(!img.empty())
+//		{
+//			sscanf(comment.c_str(),"roll:%f\npitch:%f\nyaw:%f\n",&r,&p,&y);
+//			stringstream tt;
+//			tt<<"test\\"<<k<<"_640x480_"<<r<<"_"<<p<<"_"<<y<<"_"<<".jpeg";
+//
+//			writeJpegFile ((char*)(tt.str().c_str()), img,options, comment);
+//		}
+//	}
+//
+//}
