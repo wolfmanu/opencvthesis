@@ -21,28 +21,28 @@ unimg()
 };
 
 
-cameraInfo::cameraInfo(CvImage src)
+cameraInfo::cameraInfo(Mat src)
 {
 	cameraInfo();
 	rawimg = src.clone();
 	unimg  = src.clone();
 
 
-	size =  src.height() * src.width();
+	size =  src.rows * src.cols;
 	tablex = new int[size];
 	tabley = new int[size];
 }
 
 
 
-void cameraInfo::loadImage(CvImage src)
+void cameraInfo::loadImage(Mat src)
 {
 	//cameraInfo();
 	rawimg = src.clone();
 	unimg  = src.clone();
 
 
-	size =  src.height() * src.width();
+	size =  src.rows * src.cols;
 	tablex = new int[size];
 	tabley = new int[size];
 }

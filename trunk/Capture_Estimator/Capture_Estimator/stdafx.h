@@ -47,7 +47,6 @@
 #include "CriticalSection.h"
 #include "Guard.h"
 
-//#include "squares.h"
-//#include "Square_Area.h"
+#include "ErrorDef.h"
 
 // TODO: reference additional headers your program requires here

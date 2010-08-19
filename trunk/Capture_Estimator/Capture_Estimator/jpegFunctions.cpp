@@ -207,19 +207,21 @@ jpeg_stdio_destPlus (j_compress_ptr cinfo, unsigned char* outBuffer)
 void writeJpegMem (unsigned char * outBuffer, int& jpegSize, CvImage& img,  std::string options="quality=95", string remarks = NULL)
 {
 
-CvImage loc = img.clone(); // create a clone
-// check if a b/w image
-if (img.channels()==3) {
-// switch the color channels from BGR ( OpenCV) to more usual RGB
-cvCvtColor(img, loc, CV_BGR2RGB);
-}
+	CvImage loc = img.clone(); // create a clone
+	//Mat loc(img.rows,img.cols,CV_MAKE_TYPE(CV_32F,img.channels()));
+
+	// check if a b/w image
+	if (img.channels()==3) {
+	// switch the color channels from BGR ( OpenCV) to more usual RGB
+	cvCvtColor(img, loc, CV_BGR2RGB);
+	}
 
 
-JSAMPLE * image_buffer = loc.data();
-int quality = 95;
-//identifies the possible options:
-size_t index;
-string strNumber;
+	JSAMPLE * image_buffer = loc.data();
+	int quality = 95;
+	//identifies the possible options:
+	size_t index;
+	string strNumber;
  index = options.find("quality=");
 	 if (index !=string::npos) {
 	 	strNumber = options.substr(index+8); // index + sizeof("quality="

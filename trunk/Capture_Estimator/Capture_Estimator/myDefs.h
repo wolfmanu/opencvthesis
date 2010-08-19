@@ -1,6 +1,8 @@
 #ifndef MYDEFS_H
 #define MYDEFS_H
 
+
+
 #define PI			3.14159265358979323846
 
 typedef double GREAL; 
