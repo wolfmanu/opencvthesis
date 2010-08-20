@@ -16,9 +16,9 @@
 
 #include <string> // C++ string class
 #include <cv.h>
-#include <cvaux.h>
 #include <iostream>
 
+using namespace cv;
 
 class cameraInfo {
  public:
@@ -69,18 +69,18 @@ class cameraInfo {
   int *tablex; // pre evaluated coefficients for fast calibration in x axis
   int *tabley; // pre evaluated coefficients for fast calibration in y axis
 
-  CvImage rawimg;//IplImage* rawimg;
-	CvImage unimg;//IplImage* unimg;
+  Mat rawimg;//IplImage* rawimg;
+	Mat unimg;//IplImage* unimg;
 //  unsigned char *rawimg;// raw image acquired
 //  unsigned char *unimg;	// undistorted, gain corrected image
 
 
   //public ctor
   cameraInfo();
-  cameraInfo(CvImage src);
+  cameraInfo(Mat src);
 
   //methods:
-  void loadImage(CvImage src);
+  void loadImage(Mat src);
 
 
   //public dtor

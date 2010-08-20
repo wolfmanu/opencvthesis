@@ -2,7 +2,6 @@
 
 #define BUFLEN 1024
 
-
 class Network
 {
 private:
@@ -26,7 +25,7 @@ public:
 		HANDLE hIcmpFile;
 		unsigned long ipaddr = INADDR_NONE;
 		DWORD dwRetVal = 0;
-		char SendData[] = "Data Buffer";
+		char SendData[] = "Data Buffer", ipchar[14];
 		LPVOID ReplyBuffer = NULL;
 		DWORD ReplySize = 0;
 

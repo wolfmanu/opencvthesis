@@ -485,12 +485,12 @@ void UndistortedImageAICON(cameraInfo *c, bool filled, CvScalar color )
 {
  int width = c->ImageWidth;
  int height = c->ImageHeight;
- int step      = c->rawimg.step();
+ int step      = c->rawimg.step;
  int channels  = c->rawimg.channels();
 
  //data      = (uchar *)img->imageData;
- uchar* oriimg =  (uchar *)c->rawimg.data();
- uchar* rectimg = (uchar *)c->unimg.data();
+ uchar* oriimg =  (uchar *)c->rawimg.data;
+ uchar* rectimg = (uchar *)c->unimg.data;
 
 
   for (int y=0;y<height;y++)

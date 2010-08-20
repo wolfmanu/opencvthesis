@@ -10,27 +10,47 @@ CameraOptions::CameraOptions(void):
 	saveImg(false), 
 	viewVideo(true),
 	elaborate(false),
-	ftpUser(L""),
-	ftpPass(L""), 
-	saveFold(L""), 
-	saveName(L""),
-	ftpServer(L"")
+	ftpUser(""),
+	ftpPass(""), 
+	saveFold(""), 
+	saveName(""),
+	ftpServer(""),
+	ftpPort("")
 {
 }
 
-//CameraOptions::CameraOptions(bool vp, bool vc, bool sf, bool si, bool vv, string fu, string fp, string sfo, string sn):
-//	viewPose(vp),
-//	viewCenter(vc), 
-//	sendFtp(sf),
-//	saveImg(si), 
-//	viewVideo(vv),
-//	ftpUser(fu),
-//	ftpPass(fp), 
-//	saveFold(sfo), 
-//	saveName(sn)
-//{
-//}
 
 CameraOptions::~CameraOptions(void)
 {
+}
+
+void CameraOptions::setUser(wstring ws)
+{
+	wftpUser=ws;
+	ftpUser.assign(ws.begin(),ws.end());
+}
+void CameraOptions::setPass(wstring ws)
+{
+	wftpPass=ws;
+	ftpPass.assign(ws.begin(),ws.end());
+}
+void CameraOptions::setServer( wstring ws)
+{
+	wftpServer=ws;
+	ftpServer.assign(ws.begin(),ws.end());
+}
+void CameraOptions::setPort( wstring ws)
+{
+	wftpPort=ws;
+	ftpPort.assign(ws.begin(),ws.end());
+}
+void CameraOptions::setFold(wstring ws)
+{
+	wsaveFold=ws;
+	saveFold.assign(ws.begin(),ws.end());
+}
+void CameraOptions::setName( wstring ws)
+{
+	wsaveName=ws;
+	saveName.assign(ws.begin(),ws.end());
 }
