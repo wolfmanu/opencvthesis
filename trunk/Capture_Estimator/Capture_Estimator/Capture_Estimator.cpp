@@ -10,8 +10,6 @@
 
 using namespace std;
 
-
-
 string cameraIp = DEF_CAMERA_IP;
 string imgNameBaseToSave = DEF_IMG_FILE_BASE_NAME_SAVE;
 string ext = DEF_EXTENSION;
@@ -495,7 +493,32 @@ int main(int argc, char** argv)
 			else if(strcmp(argv[i], SAVE_FOLDER)==0)
 			{
 				if(++i<argc)
+				{
 					saveFolder=argv[i];
+					wstring wstr(saveFolder.begin(), saveFolder.end());
+					
+					if(GetFileAttributes(wstr.c_str())==INVALID_FILE_ATTRIBUTES)
+					{
+						cout<<"[Warnign] - The directory doesn't exist. Create it? [y/n] ";
+						char a;
+						cin>>a;
+						if(a=='y' || a=='Y')
+						{
+							if(!CreateDirectory(wstr.c_str(), NULL))
+							{
+								cout<<endl<<"Error creating the directory. Using default "<<DEF_SAVE_FOLDER<<endl;
+								saveFolder = DEF_SAVE_FOLDER;
+							}
+							else
+								cout<<endl<<"Directory created succesfully."<<endl;
+						}
+						else
+						{
+							cout<<endl<<"Directory not created. Using default "<<DEF_SAVE_FOLDER<<endl;
+							saveFolder = DEF_SAVE_FOLDER;
+						}
+					}
+				}
 			}
 			else if(strcmp(argv[i], LOAD_FOLDER)==0)
 			{
@@ -668,6 +691,7 @@ int main(int argc, char** argv)
 				QueueUserWorkItem(ElaborateImage, 0,0); //faccio partire elavorazione la prima volta
 			elaboratedFrame++; 
 		}
+		toStop=true;
 	}
 	
 	system("pause");
@@ -713,16 +737,17 @@ void stopAlarm()
 
 int SaveFile(Mat image, Pose_Marker *pose)
 {
-	Mat cvimage(image);
+	//Mat cvimage(image);
 	string comment;
 	string options="quality=90";
 	string filename=getUniqueFileName();
 	
 	comment=pose->toString();
-	
-	CvImage ccc(&((IplImage)(cvimage)));
-	writeJpegFile ((char*)(filename.c_str()), ccc, options, comment);
+	IplImage iplim=image;
+	CvImage* ccc=new CvImage(&iplim);
+	writeJpegFile ((char*)(filename.c_str()), *ccc, options, comment);
 	cout<<"Saved image "<<filename<<endl;
+	
 	
 	return 1;
 }
@@ -741,12 +766,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	int frames=0;
 	endTask=false;
 	
-	/****/
-	double alpha=23;//degree
-	double b_tan_alpha;
-
-	/****/
-	
+		
 	while(true)
 	{
 		{
