@@ -12,10 +12,12 @@ Pose_Marker::Pose_Marker(double roll_, double pitch_, double yaw_,
 	distY = distY_;
 	distZ = distZ_;
 	markerId = mId;
+	errorState=0;
 }
 
 Pose_Marker::Pose_Marker(void)
 {
+	errorState=0;
 }
 
 Pose_Marker::~Pose_Marker(void)
@@ -25,14 +27,14 @@ Pose_Marker::~Pose_Marker(void)
 std::string Pose_Marker::toString()
 {
 	std::stringstream s;
-	s << _T("roll: ")<< roll << std::endl;
-	s << _T("pitch: ")<< pitch << std::endl;
-	s << _T("yaw: ")<< yaw << std::endl;
-	s << _T("distX: ")<< distX << std::endl;
-	s << _T("distY: ")<< distY << std::endl;
-	s << _T("distZ: ")<< distZ << std::endl;
-	s << _T("markerId: ")<< markerId << std::endl;
-	s << _T("errorState: ")<<errorState << std::endl;
+	s << "roll: "<< roll << std::endl;
+	s << "pitch: "<< pitch << std::endl;
+	s << "yaw: "<< yaw << std::endl;
+	s << "distX: "<< distX << std::endl;
+	s << "distY: "<< distY << std::endl;
+	s << "distZ: "<< distZ << std::endl;
+	s << "markerId: "<< markerId << std::endl;
+	s << "errorState: "<<errorState << std::endl;
 	return s.str();
 }
 
@@ -54,13 +56,13 @@ std::string Pose_Marker::toFTP()
 std::string Pose_Marker::toLine()
 {
 	std::stringstream s;
-	s << _T("\t")<< roll ;
-	s << _T("\t")<< pitch ;
-	s << _T("\t")<< yaw ;
-	s << _T("\t")<< distX ;
-	s << _T("\t")<< distY;
-	s << _T("\t")<< distZ ;
-	s << _T("\t")<< markerId << std::endl;
+	s << "\t"<< roll ;
+	s << "\t"<< pitch ;
+	s << "\t"<< yaw ;
+	s << "\t"<< distX ;
+	s << "\t"<< distY;
+	s << "\t"<< distZ ;
+	s << "\t"<< markerId << std::endl;
 	return s.str();
 }
 

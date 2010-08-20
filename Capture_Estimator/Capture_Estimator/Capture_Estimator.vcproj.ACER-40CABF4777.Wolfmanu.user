@@ -11,7 +11,7 @@
 			<DebugSettings
 				Command="$(TargetPath)"
 				WorkingDirectory=""
-				CommandArguments="-load"
+				CommandArguments="-load -n 5 -loadfold 165x165 -ftp -u user -pw pw"
 				Attach="false"
 				DebuggerType="3"
 				Remote="1"
