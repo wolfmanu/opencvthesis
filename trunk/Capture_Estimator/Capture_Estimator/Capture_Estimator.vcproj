@@ -230,14 +230,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Square_Area.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Squares.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -292,6 +284,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ErrorDef.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ErrVisualize.h"
 				>
 			</File>
@@ -329,14 +325,6 @@
 			</File>
 			<File
 				RelativePath=".\ReadFileIni.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Square_Area.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Squares.h"
 				>
 			</File>
 			<File
