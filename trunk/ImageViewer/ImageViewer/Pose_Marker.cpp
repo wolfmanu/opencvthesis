@@ -3,7 +3,7 @@
 
 Pose_Marker::Pose_Marker(double roll_, double pitch_, double yaw_, 
 						 double distX_, double distY_, double distZ_, 
-						 int mId/*, int pN*/)
+						 int mId)
 {
 	roll = roll_;
 	pitch = pitch_;
@@ -12,19 +12,14 @@ Pose_Marker::Pose_Marker(double roll_, double pitch_, double yaw_,
 	distY = distY_;
 	distZ = distZ_;
 	markerId = mId;
-	//poseNumber=pN;
+	errorState=0;
 }
+
 Pose_Marker::Pose_Marker(void)
 {
-	roll = 0;
-	pitch = 0;
-	yaw = 0;
-	distX = 0;
-	distY = 0;
-	distZ = 0;
-	markerId = 0;
-	poseNumber=0;
+	errorState=0;
 }
+
 Pose_Marker::~Pose_Marker(void)
 {
 }
@@ -39,19 +34,46 @@ std::string Pose_Marker::toString()
 	s << "distY: "<< distY << std::endl;
 	s << "distZ: "<< distZ << std::endl;
 	s << "markerId: "<< markerId << std::endl;
+	s << "errorState: "<<errorState << std::endl;
 	return s.str();
 }
+
+std::string Pose_Marker::toFTP()
+{
+	std::stringstream s;
+	s << roll << std::endl;
+	s << pitch << std::endl;
+	s << yaw << std::endl;
+	s << distX << std::endl;
+	s << distY << std::endl;
+	s << distZ << std::endl;
+	s << markerId << std::endl;
+	s << errorState << std::endl;
+	return s.str();
+}
+
 
 std::wstring Pose_Marker::toLine()
 {
 	std::wstringstream s;
-	s << "roll: "<< roll <<"; ";
-	s << "pitch: "<< pitch <<"; ";
-	s << "yaw: "<< yaw <<";\t";
-	s << "x: "<< distX <<"; ";
-	s << "y: "<< distY<<"; ";
-	s << "z: "<< distZ<<endl;
-	s << "marker ID: "<< markerId ;
-	//s << "\t"<< poseNumber << std::endl;
+	s << _T("\t")<< roll ;
+	s << _T("\t")<< pitch ;
+	s << _T("\t")<< yaw ;
+	s << _T("\t")<< distX ;
+	s << _T("\t")<< distY;
+	s << _T("\t")<< distZ ;
+	s << _T("\t")<< markerId << std::endl;
 	return s.str();
+}
+
+bool operator ==(const Pose_Marker &pm1, const Pose_Marker &pm2)
+{
+	return (pm1.roll == pm2.roll &&
+			pm1.pitch == pm2.pitch &&
+			pm1.yaw == pm2.yaw &&
+			pm1.distX == pm2.distX &&
+			pm1.distY == pm2.distY &&
+			pm1.distZ == pm2.distZ &&
+			pm1.markerId == pm2.markerId);
+
 }

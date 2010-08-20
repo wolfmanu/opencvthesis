@@ -288,6 +288,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ErrorDef.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ErrVisualize.h"
 				>
 			</File>

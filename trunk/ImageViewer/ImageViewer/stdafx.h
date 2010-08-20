@@ -57,7 +57,7 @@
 #include <atlbase.h> //for lpwstr to char* conversion W2A
 #include <sstream>
 
-
+#include "Network.h"
 #include "FTPSender.h"
 #include "CartesianLib.h" //Matrix manipulation
 #include "Calibration.h"
@@ -66,10 +66,10 @@
 #include "Utils.h"
 #include "ImageData.h"
 #include "CameraOptions.h"
-#include "Network.h"
+
 #include "Pose_Marker.h"
 #include "cameraInfo.h"
 
-
+#include "ErrorDef.h"
 
 #endif

@@ -28,6 +28,9 @@
 #define IDC_STATICNAME                  1012
 #define IDC_BUTTONSELECT                1013
 #define IDC_ELABORATE                   1014
+#define IDC_EDITFTPSERVER2              1015
+#define IDC_EDITFTPPORT                 1015
+#define IDC_STATICFTPPORT               1016
 #define ID_FILE_OPEN32781               32781
 #define ID_FILE_SAVE32782               32782
 #define ID_CAPTURE_S                    32783

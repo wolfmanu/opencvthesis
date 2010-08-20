@@ -10,7 +10,15 @@ public:
 
 	~CameraOptions(void);
 
+	void setUser( wstring ws);
+	void setPass( wstring ws);
+	void setServer(wstring ws);
+	void setPort( wstring ws);
+	void setFold( wstring ws);
+	void setName( wstring ws);
+
 	bool viewPose, viewCenter, viewVideo, sendFtp, saveImg, elaborate;
-	wstring ftpUser, ftpPass,ftpServer, saveFold, saveName; 
+	string ftpUser, ftpPass, ftpServer, ftpPort, saveFold, saveName; 
+	wstring wftpUser, wftpPass, wftpServer, wftpPort, wsaveFold, wsaveName; 
 
 };

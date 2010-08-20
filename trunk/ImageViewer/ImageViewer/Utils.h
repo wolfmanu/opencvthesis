@@ -48,45 +48,45 @@ public:
 		return Image; 
 	}
 
-	static HBITMAP IplImage2DIB(IplImage *Image)
+	static HBITMAP IplImage2DIB(IplImage Image)
 	{
-			int bpp = Image->nChannels * 8;
-			assert(Image->width >= 0 && Image->height >= 0 &&
-					(bpp == 8 || bpp == 24 || bpp == 32));
-			CvMat dst;
-			void* dst_ptr = 0;
-			HBITMAP hbmp = NULL;
-			unsigned char buffer[sizeof(BITMAPINFO) + 255*sizeof(RGBQUAD)];
-			BITMAPINFO* bmi = (BITMAPINFO*)buffer;
-			BITMAPINFOHEADER* bmih = &(bmi->bmiHeader);
-	        
-			ZeroMemory(bmih, sizeof(BITMAPINFOHEADER));
-			bmih->biSize = sizeof(BITMAPINFOHEADER);
-			bmih->biWidth = Image->width;
-			bmih->biHeight = Image->origin ? abs(Image->height) :-abs(Image->height);
-			bmih->biPlanes = 1;
-			bmih->biBitCount = bpp;
-			bmih->biCompression = BI_RGB;
-	        
-			if (bpp == 8) {
-					RGBQUAD* palette = bmi->bmiColors;
-					int i;
-					for (i = 0; i < 256; i++) {
-							palette[i].rgbRed = palette[i].rgbGreen = palette[i].rgbBlue = (BYTE)i;
-							palette[i].rgbReserved = 0;
-					}
-			}
-	        
-			hbmp = CreateDIBSection(NULL, bmi, DIB_RGB_COLORS, &dst_ptr, 0, 0);
-			int type;
-			if(Image->nChannels==1)
-				type=CV_8UC1;
-			else
-				type=CV_8UC3;
-			cvInitMatHeader(&dst, Image->height, Image->width, type,
-					dst_ptr, (Image->width * Image->nChannels + 3) & -4);
-			cvConvertImage(Image, &dst, Image->origin ?  CV_CVTIMG_FLIP :0);
-	        
-			return hbmp;
+		int bpp = Image.nChannels * 8;
+		assert(Image.width >= 0 && Image.height >= 0 &&
+				(bpp == 8 || bpp == 24 || bpp == 32));
+		CvMat dst;
+		void* dst_ptr = 0;
+		HBITMAP hbmp = NULL;
+		unsigned char buffer[sizeof(BITMAPINFO) + 255*sizeof(RGBQUAD)];
+		BITMAPINFO* bmi = (BITMAPINFO*)buffer;
+		BITMAPINFOHEADER* bmih = &(bmi->bmiHeader);
+        
+		ZeroMemory(bmih, sizeof(BITMAPINFOHEADER));
+		bmih->biSize = sizeof(BITMAPINFOHEADER);
+		bmih->biWidth = Image.width;
+		bmih->biHeight = Image.origin ? abs(Image.height) :-abs(Image.height);
+		bmih->biPlanes = 1;
+		bmih->biBitCount = bpp;
+		bmih->biCompression = BI_RGB;
+        
+		if (bpp == 8) {
+				RGBQUAD* palette = bmi->bmiColors;
+				int i;
+				for (i = 0; i < 256; i++) {
+						palette[i].rgbRed = palette[i].rgbGreen = palette[i].rgbBlue = (BYTE)i;
+						palette[i].rgbReserved = 0;
+				}
+		}
+        
+		hbmp = CreateDIBSection(NULL, bmi, DIB_RGB_COLORS, &dst_ptr, 0, 0);
+		int type;
+		if(Image.nChannels==1)
+			type=CV_8UC1;
+		else
+			type=CV_8UC3;
+		cvInitMatHeader(&dst, Image.height, Image.width, type,
+				dst_ptr, (Image.width * Image.nChannels + 3) & -4);
+		cvConvertImage(&Image, &dst, Image.origin ?  CV_CVTIMG_FLIP :0);
+        
+		return hbmp;
 	}
 };

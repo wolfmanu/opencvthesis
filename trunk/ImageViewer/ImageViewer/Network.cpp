@@ -1,9 +1,10 @@
 #include "StdAfx.h"
 #include "Network.h"
-using namespace std;
+
 Network::Network(string serverName, string serverPort)
 {
 	int iResult;
+	
 	iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
     if (iResult != 0) 
 	{
@@ -60,7 +61,7 @@ int Network::NWConnect(void)
         if (ConnectSocket == INVALID_SOCKET) 
 		{
             printf("[Network]connect - Error at socket(): %ld\n", WSAGetLastError());
-            return 0;
+            return -1;
         }
         
         // Connect to server.
@@ -74,7 +75,7 @@ int Network::NWConnect(void)
         break;
 	}
 
-    	return 1;
+    return 1;
 }
 
 int Network::NWsendData(const char* data,int len)

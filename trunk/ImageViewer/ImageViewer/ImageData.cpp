@@ -47,7 +47,7 @@ void CImageData::setPoseMarker(Pose_Marker pm)
 	posemarker=pm;
 }
 
-void CImageData::setImage(CvImage imm)
+void CImageData::setImage(Mat imm)
 {
 	extern CImageData imagedata;
 	extern double ZoomRatios[];
@@ -56,12 +56,11 @@ void CImageData::setImage(CvImage imm)
 	factor = ZoomRatios[imagedata.CurrentZoomRatio];
 	//if(!immagine.is_valid())
 	{
-		immagine.create( cvSize( imm.width()*factor, imm.height()*factor ),
-						imm.depth(), imm.channels() );
+		immagine.create( cvSize( imm.cols*factor, imm.rows*factor ), imm.type());
 		//immagine->origin=imm->origin;
 	}
-	
-	cvResize(backup, immagine);
+	resize(backup,immagine,immagine.size(),0,INTER_LANCZOS4);
+	//cvResize(backup, immagine);
 }
 
 HBITMAP CImageData::GetBitmap() 

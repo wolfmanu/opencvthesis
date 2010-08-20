@@ -29,8 +29,8 @@ fix would be nice.
 class CImageData
 {
 public:
-	CvImage backup;
-	CvImage immagine;
+	Mat backup;
+	Mat immagine;
 	bool isCameraImage;
 	int CurrentZoomRatio;
 private:               
@@ -42,7 +42,7 @@ public:
 
 	Pose_Marker getPoseMarker();
 	void setPoseMarker(Pose_Marker);
-	void setImage(CvImage);
+	void setImage(Mat);
 	
 	HBITMAP GetBitmap();
 };
