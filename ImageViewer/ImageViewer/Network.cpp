@@ -1,7 +1,25 @@
 #include "StdAfx.h"
 #include "Network.h"
 
+Network::Network()
+{}
+
 Network::Network(string serverName, string serverPort)
+{
+	setNetwork(serverName, serverPort);
+}
+
+Network::~Network(void)
+{
+	closesocket(ConnectSocket);
+	
+	WSACleanup();
+	if(result)
+		freeaddrinfo(result);
+
+}
+
+void Network::setNetwork(std::string serverName, std::string serverPort)
 {
 	int iResult;
 	
@@ -9,7 +27,6 @@ Network::Network(string serverName, string serverPort)
     if (iResult != 0) 
 	{
         printf("[Network]startUpConnection - WSAStartup failed: %d\n", iResult);
-        
     }
 	else
 	{
@@ -37,17 +54,6 @@ Network::Network(string serverName, string serverPort)
 		}
 	}
 }
-
-Network::~Network(void)
-{
-	closesocket(ConnectSocket);
-	
-	WSACleanup();
-	if(result)
-		freeaddrinfo(result);
-
-}
-
 
 int Network::NWConnect(void)
 {

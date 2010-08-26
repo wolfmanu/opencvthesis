@@ -12,9 +12,11 @@ private:
 
 public:
 
+	Network::Network();
 	Network(std::string serverName, std::string serverPort);
 	~Network(void);
 
+	void setNetwork(std::string serverName, std::string serverPort);
 	int NWConnect(void);
 	int NWsendData(const char* data, int len);
 	int NWrcvData(char* data, int len);

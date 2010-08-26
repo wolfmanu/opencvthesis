@@ -31,10 +31,19 @@ class CImageData
 public:
 	Mat backup;
 	Mat immagine;
+	Mat backupFilter;
 	bool isCameraImage;
 	int CurrentZoomRatio;
+
 private:               
 	Pose_Marker posemarker;
+	double thresholdVal;
+	int blurSize;
+	int blurType;
+	Mat backupRestore;
+	int laplDepth;
+	double thresh1, thresh2;
+
 
 public:
     CImageData();                                   // default c'tor
@@ -43,6 +52,36 @@ public:
 	Pose_Marker getPoseMarker();
 	void setPoseMarker(Pose_Marker);
 	void setImage(Mat);
+
+	void setBackupFilter();
+	void setBackupCannyDetection();
+	void setBackupHoughDetection();
+
+	void testThreshFilter(double thresh);
+	void testBlurFilter(int bt, int ksize);
+	void testCannyFilter(double thresh1,double thresh2);
+	void testLineDetection(double rho_,double teta_, double thresh_);
+	
+	void setBlurFilter( int ksize);
+	void setThreshFilter(double thresh);
+	void setBNFilter();
+	void setErodeFilter();
+	void setDilateFilter();
+	void setLaplacianFilter();
+	void setCannyFilter(double thresh1,double thresh2);
+	void setLineDetection(double rho_,double teta_, double thresh_);
+	
+
+	/*void resetThreshFilter();
+	void resetBlurFilter();
+	void resetBNFilter();
+	void resetErodeFilter();
+	void resetDilateFilter();
+	void resetLaplacianFilter();*/
+	void resetAllFilter();
+	//void resetCannyFilter();
+
+
 	
 	HBITMAP GetBitmap();
 };

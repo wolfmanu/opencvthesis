@@ -17,6 +17,13 @@ Pose_Marker::Pose_Marker(double roll_, double pitch_, double yaw_,
 
 Pose_Marker::Pose_Marker(void)
 {
+	roll = 0;
+	pitch = 0;
+	yaw = 0;
+	distX = 0;
+	distY = 0;
+	distZ = 0;
+	markerId = 0;
 	errorState=0;
 }
 
@@ -40,16 +47,23 @@ std::string Pose_Marker::toString()
 
 std::string Pose_Marker::toFTP()
 {
-	std::stringstream s;
-	s << roll << std::endl;
-	s << pitch << std::endl;
-	s << yaw << std::endl;
-	s << distX << std::endl;
-	s << distY << std::endl;
-	s << distZ << std::endl;
-	s << markerId << std::endl;
-	s << errorState << std::endl;
-	return s.str();
+	extern int errstate;
+	double derrstate=errstate;
+	double dummydata=0.0;
+	char str[100+1]; //10char*10values + 1'/0'
+	sprintf(str,"%10.4f",derrstate);
+	sprintf(&(str[10]),"%10.4f",distX);
+	sprintf(&(str[20]),"%10.4f",distY);
+	sprintf(&(str[30]),"%10.4f",distZ);
+	sprintf(&(str[40]),"%10.4f",roll);
+	sprintf(&(str[50]),"%10.4f",pitch);
+	sprintf(&(str[60]),"%10.4f",yaw);
+	sprintf(&(str[70]),"%10.4f",markerId);
+	sprintf(&(str[80]),"%10.4f",dummydata);
+	sprintf(&(str[90]),"%10.4f",dummydata);
+	
+	
+	return str;
 }
 
 

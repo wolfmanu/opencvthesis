@@ -178,10 +178,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Calibrator.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\cameraInfo.cpp"
 				>
 			</File>
@@ -261,10 +257,6 @@
 			</File>
 			<File
 				RelativePath=".\Calibration.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Calibrator.h"
 				>
 			</File>
 			<File

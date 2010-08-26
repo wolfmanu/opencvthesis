@@ -1,9 +1,6 @@
 // Capture_Estimator.cpp : Defines the entry point for the console application.
 //
-
-
 #include "stdafx.h"
-
 
 #include "jpegFunctions.h"
 #include <ARToolKitPlus/TrackerSingleMarkerImpl.h>
@@ -37,7 +34,6 @@ class Calibrator{
 
 	string AICONcalib, ARTKPcalib;
 
-	//int poseN;
 	int threshold[MAX_NUM_THRESH];
 	int threshCounter;
 	int countNumberThresh;
@@ -46,40 +42,17 @@ class Calibrator{
 
 	VECT6 Xestimation;
 	TRANSFMATRIX Testimation;
-	//MyLogger logger;
-	cameraInfo *c;
-	Mat maskImg,/* *calcImg,*/ treshImg, croppedImg;
 
 	ARToolKitPlus::TrackerSingleMarker *tracker ;
 	ARToolKitPlus::TrackerSingleMarker *trackerLite;
 	ARToolKitPlus::ARMarkerInfo *MI ;
 
 public:
-//	Calibrator::Calibrator(string path, string AICONCalibName_, string ARTKPCalibName_)
-//{
-//	if(path[path.length()-1]!='\\')
-//		path.append("\\");
-//
-//	inputImgPath=path;
-//	AICONCalibName=AICONCalibName_;
-//	ARTKPCalibName=ARTKPCalibName_;
-//
-//	Calibrator_();
-//}
+
 
 Calibrator::Calibrator(string ARTKPCalibName_)
 {
-	//inputImgPath="D:\\Documenti\\Politecnico\\anno5\\Tesi\\Capture_Estimator_svn\\Capture_Estimator\\Capture_Estimator\\";
-
-	//AICONCalibName="cameraAICON2.ini";
 	ARTKPCalibName=ARTKPCalibName_;
-
-	Calibrator_();
-}
-
-void Calibrator::Calibrator_(void)
-{
-	//poseN=1;
 
 	threshold[0] = 64;
 	threshold[1] = 96;
@@ -90,36 +63,26 @@ void Calibrator::Calibrator_(void)
 	countNumberThresh = 0;
 	numMrkFound = -1;
 
-
-	//inputImage = inputImgPath + inputImgName;
-	//AICONcalib = inputImgPath + AICONCalibName;
 	ARTKPcalib = inputImgPath + ARTKPCalibName;
 
 	tracker = new ARToolKitPlus::TrackerSingleMarkerImpl<18,18,72, 1, N_PATTERN>(cam_w, cam_h);
 	trackerLite = new ARToolKitPlus::TrackerSingleMarkerImpl<6,6,6, 1, N_PATTERN>(cam_w, cam_h);
 	MI = new ARToolKitPlus::ARMarkerInfo[N_PATTERN];
-	c = new cameraInfo();
-	
-	//tracker->setLogger(&logger);
+
 	tracker->setPixelFormat(ARToolKitPlus::PIXEL_FORMAT_LUM);
 	trackerLite->setPixelFormat(ARToolKitPlus::PIXEL_FORMAT_LUM);
 
 	return;
 }
 
+
 Calibrator::~Calibrator(void)
 {	
-	c->rawimg.release();
-	c->unimg.release();
-	maskImg.release();
-
 	tracker->cleanup();
 	trackerLite->cleanup();
 	delete tracker;
 	delete trackerLite;
 	delete MI;
-	delete c;
-	
 }
 
 int Calibrator::Initialize()
@@ -134,8 +97,6 @@ int Calibrator::Initialize()
 		tempfile << "704 480 380.45102 246.24552 846.63525 765.88469 -0.23620   0.36864   -0.00032   0.00024  0.00000 0.0 5"<<endl;
 		tempfile.close();
 		tracker->init("temp.cal", 1.0f, 2500.0f);
-		//delete tracker;
-		//_getch();
 		return -1;
 	}
 	printf("Loading trackerLite init files...");
@@ -148,8 +109,6 @@ int Calibrator::Initialize()
 		tempfile << "704 480 380.45102 246.24552 846.63525 765.88469 -0.23620   0.36864   -0.00032   0.00024  0.00000 0.0 5"<<endl;
 		tempfile.close();
 		trackerLite->init("temp.cal", 1.0f, 2500.0f);
-		//delete trackerLite;
-		//_getch();
 		return -1;
 	}
 
@@ -171,32 +130,6 @@ int Calibrator::Initialize()
     trackerLite->setMarkerMode(ARToolKitPlus::MARKER_ID_SIMPLE);
 	trackerLite->setImageProcessingMode(ARToolKitPlus::IMAGE_HALF_RES);
 
-	//printf("DONE!\n");
-	return 1;
-}
-
-int Calibrator::Calibrate()
-{
-	//printf("Loading calibration LUT...");
-	
-	/*if(File_Exists(AICONcalib.c_str()))
-		ReadCalibrationCamera(AICONcalib, c);
-	else
-	{
-		printf("\nAICON Calibration File does not exist. Press any key to exit\n");
-		_getch();
-		return -1;
-	}
-	UndistortedImageTable(c, true);*/
-	c->rawimg = cvCreateImage(cvSize(cam_w, cam_h), IPL_DEPTH_8U, 1);
-	c->unimg = cvCreateImage(cvSize(cam_w, cam_h), IPL_DEPTH_8U, 1);
-
-	maskImg = cvCreateImage(cvSize(cam_w, cam_h), IPL_DEPTH_8U, 1);
-//	calcImg = cvCreateImage(cvSize(CAM_W,CAM_H), IPL_DEPTH_8U, 1);
-	treshImg = cvCreateImage(cvSize(cam_w, cam_h), IPL_DEPTH_8U, 1);
-	croppedImg = cvCreateImage(cvSize(cam_w, cam_h), IPL_DEPTH_8U, 1);
-
-	printf("DONE!\n");
 	return 1;
 }
 
@@ -208,12 +141,7 @@ Pose_Marker* Calibrator::FindPattern(Mat calcImg)
 	
 	while(!stop)
 	{
-		calcImg.copyTo(c->rawimg);
-
-		cv::threshold(calcImg, treshImg, tracker->getThreshold(), 255, CV_THRESH_BINARY);
-		
 		markerIdfound = trackerLite->calc((uchar*)calcImg.data, MARKER_ID, false, &MI, &numMrkFound);
-
 
 		if(markerIdfound != -1 )
 		{
@@ -221,12 +149,10 @@ Pose_Marker* Calibrator::FindPattern(Mat calcImg)
 			trackerLite->activateAutoThreshold(false);
 			tracker->setThreshold(trackerLite->getThreshold());
 			/////////////////////////////////THRESHOLDING/////////////////////////////////////////
-			
 		}
 
 		//The estimator searches only for a specific marker (whose id is specified by the argument markerID)
 		//or for any marker if markerID is equal to -1
-		
 		markerIdfound = tracker->calc((uchar*)calcImg.data, MARKER_ID, true, &MI);
 
 		if (markerIdfound != -1)
@@ -235,7 +161,7 @@ Pose_Marker* Calibrator::FindPattern(Mat calcImg)
 
 			Tmatrix2Vect(Testimation, &Xestimation);
 			
-			printf( "Found Marker %d\n\n", markerIdfound);
+			printf( "Found Marker %d\n", markerIdfound);
 			
 			pose = new Pose_Marker(Xestimation.a[0]*RAD2DEG, Xestimation.a[1]*RAD2DEG, Xestimation.a[2]*RAD2DEG, 
 							Xestimation.l.x/10.0, Xestimation.l.y/10.0, Xestimation.l.z/10.0,
@@ -290,19 +216,6 @@ void Calibrator::WriteTMatrixFromFloat(float* matr, TRANSFMATRIX *Tmx)
 	Tmx->mat[11] = (GREAL)(matr[14]);
 
 	return;
-
-}
-
-void Calibrator::PrintStatus(bool *flags, int i)
-{
-	if ((flags[0] == true) && (i==0)) printf("\nEstimator Inactive.\n");
-	if ((flags[1] == true) && (i==1)) printf("\nMarker Detected.\n");
-	if ((flags[2] == true) && (i==2)) printf("\nMarker Not Detected.\n");
-
-	if (flags[i] == true)  flags[i] = false;
-
-	for (int j=0; j<3; j++)
-		if (j!=i) flags[j] = true;
 }
 
 void Calibrator::FindMaskCorners(ARToolKitPlus::ARMarkerInfo *MI, CvPoint* pt1, CvPoint* pt2)
@@ -344,21 +257,6 @@ void Calibrator::FindMaskCorners(ARToolKitPlus::ARMarkerInfo *MI, CvPoint* pt1, 
 	return;
 }
 
-
-bool Calibrator::File_Exists(const char *sPath)
-{
-	ifstream in(sPath, ios::_Nocreate);
-	if(!in)
-	{
-		in.close();
-		return false;
-	}
-	else
-	{
-		in.close();
-		return true;
-	}
-}
 };
 
 /************************************************************************************/
@@ -367,8 +265,6 @@ bool Calibrator::File_Exists(const char *sPath)
 /************************************************************************************/
 /************************************************************************************/
 
-
-
 bool toStop=false;
 bool endTask=true;
 queue<Mat> imageQueue;
@@ -376,31 +272,24 @@ CriticalSection imageQueueCS;
 FTPSender *ftps;
 Calibrator *calibrator;
 CriticalSection fileNumbCS;
-
-
-
-
 string imgName;
 long lTimeout;
 HANDLE hThread;
+
 DWORD WINAPI WaitThread ( LPVOID );
 void setAlarm();
 void stopAlarm();
-
 
 string getFileNameToLoad();
 int CalibrateCamera(); 
 int SaveFile(Mat image, Pose_Marker *pose);
 DWORD WINAPI ElaborateImage( LPVOID lpParam );
-//string getTimeFileName();
 string getUniqueFileName();
 Mat LoadMyImage();
 void SendViaFTP(Pose_Marker* pose);
 void showHelp();
 
 int errstate=0;
-
-//globali x cercare una pseudo-sincronizzazione cn l'elaborazione
 int elaboratedFrame=0;
 
 bool usecamera=false,
@@ -427,6 +316,7 @@ int main(int argc, char** argv)
 				if(useload)
 				{
 					cout<<"Incompatible load and camera combination\nAborting\n";
+					system("pause");
 					return 0;
 				}
 			}
@@ -436,6 +326,7 @@ int main(int argc, char** argv)
 				if(usecamera)
 				{
 					cout<<"Incompatible load and camera combination\nAborting\n";
+					system("pause");
 					return 0;
 				}
 			}
@@ -448,37 +339,81 @@ int main(int argc, char** argv)
 			else if(strcmp(argv[i], IMG_FILE_BASE_NAME_LOAD)==0)
 			{
 				if(++i<argc)
-					imgNameBaseToLoad=(argv[i]);
+					if(argv[i][0]!='-')
+						imgNameBaseToLoad=(argv[i]);
+					else
+						cout<<"Invalid file name "<<argv[i]<<". Using default"<<endl;
+				else 
+					cout<<"Missing file name. Using default"<<endl;
 			}
 			else if(strcmp(argv[i], IMG_FILE_BASE_NAME_SAVE)==0)
 			{
 				if(++i<argc)
-					imgNameBaseToSave=argv[i];
+					if(argv[i][0]!='-')
+						imgNameBaseToSave=argv[i];
+					else
+						cout<<"Invalid file name "<<argv[i]<<". Using default"<<endl;
+				else 
+					cout<<"Missing file name. Using default"<<endl;
 			}
 			else if(strcmp(argv[i], IMG_FILE_START_NUM_LOAD)==0)
 			{
-				if(++i<argc) 
+				if(++i<argc && argv[i][0]!='-')
 					fileNumberToLoad=strtol(argv[i], NULL, 10);
+				else 
+					cout<<"Missing file start number. Using default"<<endl;
 			}
 			else if(strcmp(argv[i], IMG_FILE_START_NUM_SAVE)==0)
 			{
-				if(++i<argc)
+				if(++i<argc && argv[i][0]!='-')
 					fileNumberToSave=strtol(argv[i], NULL, 10);
+				else 
+					cout<<"Missing file start number. Using default"<<endl;
 			}
 			else if(strcmp(argv[i], HOW_MANY_LOAD)==0)
 			{
-				if(++i<argc)
+				if(++i<argc && argv[i][0]!='-')
+				{
 					numFrameToElab=strtol(argv[i], NULL, 10);
+					if(numFrameToElab==0)
+					{
+						cout<<"Invalid number of file to elaborate."<<argv[i]<<endl;
+						system("pause");
+						return 0;
+					}
+				}
+				else 
+					cout<<"Missing number of file to elaborate. Using default"<<endl;
 			}
 			else if(strcmp(argv[i], WIDTH)==0)
 			{
-				if(++i<argc)
+				if(++i<argc || argv[i][0]!='-')
+				{
 					cam_w=atoi(argv[i]);
+					if(cam_w==0)
+						{
+							cout<<"Invalid camera width "<<argv[i]<<endl;
+							system("pause");
+							return 0;
+						}
+					}
+				else 
+					cout<<"Missing camera width. Using default"<<endl;
 			}
 			else if(strcmp(argv[i], HEIGHT)==0)
 			{
-				if(++i<argc)
+				if(++i<argc || argv[i][0]!='-')
+				{
 					cam_h=atoi(argv[i]);
+					if(cam_w==0)
+					{
+						cout<<"Invalid camera height "<<argv[i]<<endl;
+						system("pause");
+						return 0;
+					}
+				}
+				else 
+					cout<<"Missing camera height. Using default"<<endl;
 			}
 			else if(strcmp(argv[i], CAMERA_IP)==0)
 			{
@@ -545,7 +480,7 @@ int main(int argc, char** argv)
 				if(++i<argc)
 					port=argv[i];
 			}
-			else if(strcmp(argv[i], CALIB_FILE))
+			else if(strcmp(argv[i], CALIB_FILE)==0)
 			{
 				if(++i<argc)
 					calibfile=argv[i];
@@ -553,33 +488,22 @@ int main(int argc, char** argv)
 			else
 			{
 				cout<<"Invalid "<<argv[i]<<" command\n";
+				system("pause");
 				return 0;
 			}
 		}
 	}
-
-	//print parametri
-
 	Mat frame;
 	int key=0;
 	char recvbuf[BUFLEN];
-	FILE* imageFile; 
 	int iResult;
-	int headerLen = 207;
+	int headerLen = HEADER_LEN;
 	string bu;
-	//string cameraRtspIp=rtspProto;
-	//cameraRtspIp.append(cameraIp);
-	//CvCapture *cap;
-	Mat image;
-	//CvPoint pt[1], *rect = pt;
+	
 	int count=1;
-	//pt[0].x=367;
-	//pt[0].y=245;
 	int o;
-	//int toElab=1000;
 	
 	unsigned char* bufJpeg, *auxbufJpeg;
-	int jpegSize = 47720;
 	string comment="";
 	
 	if(useftp)
@@ -595,12 +519,9 @@ int main(int argc, char** argv)
 	}
 	
 	calibrator = new Calibrator(calibfile);
-	
-	//cout<<endl<< "Capturing file " << cameraIp << endl;
 		
 	if(CalibrateCamera()==-1)
 		errstate=CALIB_FILE_READ_ERR;
-	/*test connettività camera */	
 
 	if(usecamera)
 	{
@@ -612,14 +533,11 @@ int main(int argc, char** argv)
 			return CAM_NOT_CONNECTED;
 		}   
 
-		 bu="GET /cgi-bin/video.jpg HTTP/1.1\r\n";
-				bu+="Accept: */*\r\n";
-				bu+="Referer: http://192.168.0.199/snapshot.vspx\r\n";
-				bu+="Accept-Language: it\r\n";
-				bu+="Accept-Encoding: gzip, deflate\r\n";
-				bu+="User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152)\r\n";
-				bu+="Host: 192.168.0.199\r\n";
-				bu+="Connection: Keep-Alive\r\n\r\n";
+		bu="GET /cgi-bin/video.jpg HTTP/1.1\r\n";
+		bu+="Host: ";
+		bu+=cameraIp;
+		bu+="\r\n";
+		bu+="Connection: Keep-Alive\r\n\r\n";
 
 		Network cameraNet(cameraIp, "80");
 	
@@ -656,11 +574,11 @@ int main(int argc, char** argv)
 
 			//if(key=='e')
 			//{
-				image.create(imgJ.rows, imgJ.cols, imgJ.type() );
-				imgJ.copyTo( image);
+				///image.create(imgJ.rows, imgJ.cols, imgJ.type() );
+				//imgJ.copyTo( image);
 				{
 					Guard p(imageQueueCS);
-					imageQueue.push(image);
+					imageQueue.push(imgJ);
 				}
 				if(elaboratedFrame==0)
 					QueueUserWorkItem(ElaborateImage, 0,0);
@@ -705,10 +623,7 @@ int CalibrateCamera()
 		throw "[CalibrateCamera] - Initialize() Failed\n";
 		return -1;
 	}
-	if (!calibrator->Calibrate()){
-		throw "[CalibrateCamera] - Calibrate() Failed\n";
-		return -1;
-	}
+
 	return 0;
 }
 
@@ -737,7 +652,6 @@ void stopAlarm()
 
 int SaveFile(Mat image, Pose_Marker *pose)
 {
-	//Mat cvimage(image);
 	string comment;
 	string options="quality=90";
 	string filename=getUniqueFileName();
@@ -747,7 +661,6 @@ int SaveFile(Mat image, Pose_Marker *pose)
 	CvImage* ccc=new CvImage(&iplim);
 	writeJpegFile ((char*)(filename.c_str()), *ccc, options, comment);
 	cout<<"Saved image "<<filename<<endl;
-	
 	
 	return 1;
 }
@@ -766,7 +679,9 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 	int frames=0;
 	endTask=false;
 	
-		
+	if(useftp)
+		SendViaFTP(&pose_old);	//x inviare stato di errore prima di iniziare elaborazione immagine
+
 	while(true)
 	{
 		{
@@ -790,15 +705,23 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 			
 			if (pose)
 			{
+				errstate=0;
 				if(*pose==pose_old)
+				{
 					pose->errorState=REPEATED_POSE;
+					errstate=REPEATED_POSE;
+				}
 				else if(pose->errorState==REPEATED_POSE)
+				{
 					pose->errorState=0;	
+					errstate=0;
+				}
 			}
 			else 
 			{
 				pose=new Pose_Marker(0,0,0,0,0,0,0);
 				pose->errorState=MARKER_NOT_FOUND;
+				errstate=MARKER_NOT_FOUND;
 			}
 			
 			if(usesave)
@@ -817,7 +740,7 @@ DWORD WINAPI ElaborateImage( LPVOID lpParam )
 
 void SendViaFTP(Pose_Marker* pose)
 {
-	string msg=pose->toString();
+	string msg=pose->toFTP();
 	
 	if(errstate!=FTP_CONNECTION_ERR	&& errstate!=FTP_USER_ERR && errstate!=FTP_PASSWOR_ERR)
 		ftps->FTPsendData(msg);
@@ -832,7 +755,6 @@ string getUniqueFileName()
 	ss<<saveFolder<<"//"<<imgNameBaseToSave<<fileNumberToSave<<DEF_EXTENSION;
 	fileNumberToSave++;
 	}
-	
 	return ss.str();
 }
 
@@ -843,33 +765,9 @@ string getFileNameToLoad()
 	ss<<loadFolder<<"//"<<imgNameBaseToLoad<<fileNumberToLoad<<ext;
 	fileNumberToLoad++;
 	}
-	
 	return ss.str();
 }
 
-//string getTimeFileName()
-//{
-//	stringstream ss;
-//	time_t imgTime;
-//	//struct tm  *timeinfo=new tm();
-//	//char *buf;
-//
-//	//imgTime=time(0);
-//	time(&imgTime);
-//	ss<<imgNameBase<<imgTime<<ext;
-//	
-//	/*string s=ctime(&imgTime);
-//	//localtime_s(timeinfo,&imgTime);
-//	//buf=asctime(timeinfo);
-//	//s[s.end()]='\0'; //tolgo \n finale
-//	s=s.substr(0,s.length()-1);
-//	imgName=imgNameBase;
-//	std::remove(s.begin(), s.end(), ' ');
-//	imgName.append(s);
-//	imgName.append(ext);*/
-//	
-//	return ss.str();
-//}
 Mat LoadMyImage()
 {
 	string inputImage=getFileNameToLoad();
@@ -880,30 +778,6 @@ Mat LoadMyImage()
 		
 	return im;
 }
-//void changeFileNameToPose(int n)
-//{
-//	string comment;
-//	string options="quality=90";
-//	float r,p,y;
-//
-//	for(int k=0;k<n; k++)
-//	{
-//		stringstream ss;
-//		ss<<"images\\Fapture__1006__"<<k<<".jpeg";
-//		
-//		Mat img = readJpegFile((char*)(ss.str().c_str()),comment);
-//
-//		if(!img.empty())
-//		{
-//			sscanf(comment.c_str(),"roll:%f\npitch:%f\nyaw:%f\n",&r,&p,&y);
-//			stringstream tt;
-//			tt<<"test\\"<<k<<"_640x480_"<<r<<"_"<<p<<"_"<<y<<"_"<<".jpeg";
-//
-//			writeJpegFile ((char*)(tt.str().c_str()), img,options, comment);
-//		}
-//	}
-//
-//}
 
 void showHelp()
 {
