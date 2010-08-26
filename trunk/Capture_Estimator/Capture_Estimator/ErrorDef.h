@@ -30,6 +30,7 @@
 #define DEF_CALIB_FILE				"cameraTOOLBOX.cal"
 #define DEF_CAM_H					480
 #define DEF_CAM_W					704
+#define HEADER_LEN					207
 
 #define NO_VIDEO					"-novideo"
 #define USE_CAMERA					"-camera"

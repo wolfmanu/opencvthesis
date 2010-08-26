@@ -178,6 +178,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CameraControlDialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\cameraInfo.cpp"
 				>
 			</File>
@@ -269,6 +273,10 @@
 			</File>
 			<File
 				RelativePath=".\Calibration.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CameraControlDialog.h"
 				>
 			</File>
 			<File

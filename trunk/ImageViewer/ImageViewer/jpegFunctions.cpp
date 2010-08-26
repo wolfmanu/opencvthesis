@@ -1035,7 +1035,10 @@ IplImage* readJpegMem (unsigned char* inBuffer, int jpegSize, std::string &comme
    IplImage* loc = cvCreateImage(cvSize(cinfo.output_width, cinfo.output_height), IPL_DEPTH_8U, cinfo.output_components);
    if (loc->nChannels==3)
    cvCvtColor(img, loc, CV_BGR2RGB);
-   else loc = cvCloneImage(img);   
+   else 
+	   //loc = cvCloneImage(img);
+	   cvCopyImage(img,loc);
+
 
   /* Step 7: Finish decompression */
 

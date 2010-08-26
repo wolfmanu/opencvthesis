@@ -16,9 +16,10 @@ public:
 	void setPort( wstring ws);
 	void setFold( wstring ws);
 	void setName( wstring ws);
+	void setCameraIp( wstring ws1,wstring ws2,wstring ws3, wstring ws4);
 
 	bool viewPose, viewCenter, viewVideo, sendFtp, saveImg, elaborate;
-	string ftpUser, ftpPass, ftpServer, ftpPort, saveFold, saveName; 
-	wstring wftpUser, wftpPass, wftpServer, wftpPort, wsaveFold, wsaveName; 
+	string ftpUser, ftpPass, ftpServer, ftpPort, saveFold, saveName, cameraIp; 
+	wstring wftpUser, wftpPass, wftpServer, wftpPort, wsaveFold, wsaveName, wip1, wip2, wip3, wip4; 
 
 };
