@@ -12,7 +12,7 @@ private:
 
 public:
 
-	Network(string serverName, string serverPort);
+	Network(std::string serverName, std::string serverPort);
 	~Network(void);
 
 	int NWConnect(void);
@@ -20,7 +20,7 @@ public:
 	int NWrcvData(char* data, int len);
 	int NWCloseConnection(void);
 
-	static DWORD testConnectivity(string ip)
+	static DWORD testConnectivity(std::string ip)
 	{
 		HANDLE hIcmpFile;
 		unsigned long ipaddr = INADDR_NONE;

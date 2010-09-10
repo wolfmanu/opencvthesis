@@ -174,14 +174,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\calibration.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\cameraInfo.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Capture_Estimator.cpp"
 				>
 			</File>
@@ -191,10 +183,6 @@
 			</File>
 			<File
 				RelativePath=".\CriticalSection.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ErrVisualize.cpp"
 				>
 			</File>
 			<File
@@ -219,10 +207,6 @@
 			</File>
 			<File
 				RelativePath=".\Pose_Marker.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ReadFileIni.cpp"
 				>
 			</File>
 			<File
@@ -252,23 +236,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\Assertion.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Calibration.h"
-				>
-			</File>
-			<File
-				RelativePath=".\cameraInfo.h"
-				>
-			</File>
-			<File
 				RelativePath=".\CartesianLib.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Clock.h"
 				>
 			</File>
 			<File
@@ -277,10 +245,6 @@
 			</File>
 			<File
 				RelativePath=".\ErrorDef.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ErrVisualize.h"
 				>
 			</File>
 			<File
@@ -316,10 +280,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ReadFileIni.h"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>
@@ -334,6 +294,14 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath=".\ClassDiagram21.cd"
+			>
+		</File>
+		<File
+			RelativePath=".\ClassDiagram22.cd"
+			>
+		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

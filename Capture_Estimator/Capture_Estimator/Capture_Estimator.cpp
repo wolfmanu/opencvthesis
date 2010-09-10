@@ -6,6 +6,7 @@
 #include <ARToolKitPlus/TrackerSingleMarkerImpl.h>
 
 using namespace std;
+using namespace cv;
 
 string cameraIp = DEF_CAMERA_IP;
 string imgNameBaseToSave = DEF_IMG_FILE_BASE_NAME_SAVE;
@@ -24,6 +25,7 @@ LONG numFrameToElab = DEF_NUM_FRAME_TO_ELAB;
 int cam_w = DEF_CAM_W;
 int cam_h = DEF_CAM_H;
 
+int myimgr,myimgc,myimgtype;
 
 class Calibrator{
 
@@ -133,6 +135,8 @@ int Calibrator::Initialize()
 	return 1;
 }
 
+
+
 Pose_Marker* Calibrator::FindPattern(Mat calcImg)
 {
 	Pose_Marker *pose = 0;
@@ -141,6 +145,9 @@ Pose_Marker* Calibrator::FindPattern(Mat calcImg)
 	
 	while(!stop)
 	{
+		myimgr=calcImg.rows;
+		myimgc=calcImg.cols;
+		myimgtype=calcImg.type();
 		markerIdfound = trackerLite->calc((uchar*)calcImg.data, MARKER_ID, false, &MI, &numMrkFound);
 
 		if(markerIdfound != -1 )
@@ -273,19 +280,14 @@ FTPSender *ftps;
 Calibrator *calibrator;
 CriticalSection fileNumbCS;
 string imgName;
-long lTimeout;
-HANDLE hThread;
 
-DWORD WINAPI WaitThread ( LPVOID );
-void setAlarm();
-void stopAlarm();
-
+void checkInput(int argc, char** argv);
 string getFileNameToLoad();
 int CalibrateCamera(); 
-int SaveFile(Mat image, Pose_Marker *pose);
+int SaveFile(cv::Mat image, Pose_Marker *pose);
 DWORD WINAPI ElaborateImage( LPVOID lpParam );
 string getUniqueFileName();
-Mat LoadMyImage();
+cv::Mat LoadMyImage();
 void SendViaFTP(Pose_Marker* pose);
 void showHelp();
 
@@ -300,199 +302,8 @@ bool usecamera=false,
 
 int main(int argc, char** argv)
 {		
-	if(argc>1)
-	{	
-		if(strcmp(argv[1], HELP)==0)
-		{
-			showHelp();
-			system("pause");
-			return 0;
-		}
-		for(int i=1; i<argc; i++)
-		{
-			if(strcmp(argv[i], USE_CAMERA)==0)
-			{
-				usecamera=true;
-				if(useload)
-				{
-					cout<<"Incompatible load and camera combination\nAborting\n";
-					system("pause");
-					return 0;
-				}
-			}
-			else if(strcmp(argv[i], USE_LOAD)==0)
-			{
-				useload=true;
-				if(usecamera)
-				{
-					cout<<"Incompatible load and camera combination\nAborting\n";
-					system("pause");
-					return 0;
-				}
-			}
-			else if(strcmp(argv[i], NO_VIDEO)==0)
-				usevideo=false;
-			else if(strcmp(argv[i], USE_FTP)==0)
-				useftp=true;
-			else if(strcmp(argv[i], USE_SAVE)==0)
-				usesave=true;
-			else if(strcmp(argv[i], IMG_FILE_BASE_NAME_LOAD)==0)
-			{
-				if(++i<argc)
-					if(argv[i][0]!='-')
-						imgNameBaseToLoad=(argv[i]);
-					else
-						cout<<"Invalid file name "<<argv[i]<<". Using default"<<endl;
-				else 
-					cout<<"Missing file name. Using default"<<endl;
-			}
-			else if(strcmp(argv[i], IMG_FILE_BASE_NAME_SAVE)==0)
-			{
-				if(++i<argc)
-					if(argv[i][0]!='-')
-						imgNameBaseToSave=argv[i];
-					else
-						cout<<"Invalid file name "<<argv[i]<<". Using default"<<endl;
-				else 
-					cout<<"Missing file name. Using default"<<endl;
-			}
-			else if(strcmp(argv[i], IMG_FILE_START_NUM_LOAD)==0)
-			{
-				if(++i<argc && argv[i][0]!='-')
-					fileNumberToLoad=strtol(argv[i], NULL, 10);
-				else 
-					cout<<"Missing file start number. Using default"<<endl;
-			}
-			else if(strcmp(argv[i], IMG_FILE_START_NUM_SAVE)==0)
-			{
-				if(++i<argc && argv[i][0]!='-')
-					fileNumberToSave=strtol(argv[i], NULL, 10);
-				else 
-					cout<<"Missing file start number. Using default"<<endl;
-			}
-			else if(strcmp(argv[i], HOW_MANY_LOAD)==0)
-			{
-				if(++i<argc && argv[i][0]!='-')
-				{
-					numFrameToElab=strtol(argv[i], NULL, 10);
-					if(numFrameToElab==0)
-					{
-						cout<<"Invalid number of file to elaborate."<<argv[i]<<endl;
-						system("pause");
-						return 0;
-					}
-				}
-				else 
-					cout<<"Missing number of file to elaborate. Using default"<<endl;
-			}
-			else if(strcmp(argv[i], WIDTH)==0)
-			{
-				if(++i<argc || argv[i][0]!='-')
-				{
-					cam_w=atoi(argv[i]);
-					if(cam_w==0)
-						{
-							cout<<"Invalid camera width "<<argv[i]<<endl;
-							system("pause");
-							return 0;
-						}
-					}
-				else 
-					cout<<"Missing camera width. Using default"<<endl;
-			}
-			else if(strcmp(argv[i], HEIGHT)==0)
-			{
-				if(++i<argc || argv[i][0]!='-')
-				{
-					cam_h=atoi(argv[i]);
-					if(cam_w==0)
-					{
-						cout<<"Invalid camera height "<<argv[i]<<endl;
-						system("pause");
-						return 0;
-					}
-				}
-				else 
-					cout<<"Missing camera height. Using default"<<endl;
-			}
-			else if(strcmp(argv[i], CAMERA_IP)==0)
-			{
-				if(++i<argc)
-					cameraIp=argv[i];
-			}
-			else if(strcmp(argv[i], EXTENSION)==0)
-			{
-				if(++i<argc)
-					ext=argv[i];
-			}
-			else if(strcmp(argv[i], SAVE_FOLDER)==0)
-			{
-				if(++i<argc)
-				{
-					saveFolder=argv[i];
-					wstring wstr(saveFolder.begin(), saveFolder.end());
-					
-					if(GetFileAttributes(wstr.c_str())==INVALID_FILE_ATTRIBUTES)
-					{
-						cout<<"[Warnign] - The directory doesn't exist. Create it? [y/n] ";
-						char a;
-						cin>>a;
-						if(a=='y' || a=='Y')
-						{
-							if(!CreateDirectory(wstr.c_str(), NULL))
-							{
-								cout<<endl<<"Error creating the directory. Using default "<<DEF_SAVE_FOLDER<<endl;
-								saveFolder = DEF_SAVE_FOLDER;
-							}
-							else
-								cout<<endl<<"Directory created succesfully."<<endl;
-						}
-						else
-						{
-							cout<<endl<<"Directory not created. Using default "<<DEF_SAVE_FOLDER<<endl;
-							saveFolder = DEF_SAVE_FOLDER;
-						}
-					}
-				}
-			}
-			else if(strcmp(argv[i], LOAD_FOLDER)==0)
-			{
-				if(++i<argc)
-					loadFolder=argv[i];
-			}
-			else if(strcmp(argv[i], USER)==0)
-			{
-				if(++i<argc)
-					user=argv[i];
-			}
-			else if(strcmp(argv[i], PASSWORD)==0)
-			{
-				if(++i<argc)
-					password=argv[i];
-			}
-			else if(strcmp(argv[i], SERVER)==0)
-			{
-				if(++i<argc)
-					server=argv[i];
-			}
-			else if(strcmp(argv[i], PORT)==0)
-			{
-				if(++i<argc)
-					port=argv[i];
-			}
-			else if(strcmp(argv[i], CALIB_FILE)==0)
-			{
-				if(++i<argc)
-					calibfile=argv[i];
-			}
-			else
-			{
-				cout<<"Invalid "<<argv[i]<<" command\n";
-				system("pause");
-				return 0;
-			}
-		}
-	}
+	checkInput(argc, argv);
+
 	Mat frame;
 	int key=0;
 	char recvbuf[BUFLEN];
@@ -572,10 +383,6 @@ int main(int argc, char** argv)
 				
 				cameraNet.NWCloseConnection();
 
-			//if(key=='e')
-			//{
-				///image.create(imgJ.rows, imgJ.cols, imgJ.type() );
-				//imgJ.copyTo( image);
 				{
 					Guard p(imageQueueCS);
 					imageQueue.push(imgJ);
@@ -585,7 +392,6 @@ int main(int argc, char** argv)
 
 				key=0;
 				elaboratedFrame++;
-			//}
 			}
 		
 			key = cvWaitKey(1);	
@@ -616,6 +422,202 @@ int main(int argc, char** argv)
 	return 0;
 }
 
+void checkInput(int argc, char** argv)
+{
+	if(argc>1)
+	{	
+		if(strcmp(argv[1], HELP)==0)
+		{
+			showHelp();
+			system("pause");
+			exit(0);
+		}
+		for(int i=1; i<argc; i++)
+		{
+			if(strcmp(argv[i], USE_CAMERA)==0)
+			{
+				usecamera=true;
+				if(useload)
+				{
+					cout<<"Incompatible load and camera combination\nAborting\n";
+					system("pause");
+					exit(0);
+				}
+			}
+			else if(strcmp(argv[i], USE_LOAD)==0)
+			{
+				useload=true;
+				if(usecamera)
+				{
+					cout<<"Incompatible load and camera combination\nAborting\n";
+					system("pause");
+					exit(0);
+				}
+			}
+			else if(strcmp(argv[i], NO_VIDEO)==0)
+				usevideo=false;
+			else if(strcmp(argv[i], USE_FTP)==0)
+				useftp=true;
+			else if(strcmp(argv[i], USE_SAVE)==0)
+				usesave=true;
+			else if(strcmp(argv[i], IMG_FILE_BASE_NAME_LOAD)==0)
+			{
+				if(++i<argc)
+					if(argv[i][0]!='-')
+						imgNameBaseToLoad=(argv[i]);
+					else
+						cout<<"Invalid file name "<<argv[i]<<". Using default"<<endl;
+				else 
+					cout<<"Missing file name. Using default"<<endl;
+			}
+			else if(strcmp(argv[i], IMG_FILE_BASE_NAME_SAVE)==0)
+			{
+				if(++i<argc)
+					if(argv[i][0]!='-')
+						imgNameBaseToSave=argv[i];
+					else
+						cout<<"Invalid file name "<<argv[i]<<". Using default"<<endl;
+				else 
+					cout<<"Missing file name. Using default"<<endl;
+			}
+			else if(strcmp(argv[i], IMG_FILE_START_NUM_LOAD)==0)
+			{
+				if(++i<argc && argv[i][0]!='-')
+					fileNumberToLoad=strtol(argv[i], NULL, 10);
+				else 
+					cout<<"Missing file start number. Using default"<<endl;
+			}
+			else if(strcmp(argv[i], IMG_FILE_START_NUM_SAVE)==0)
+			{
+				if(++i<argc && argv[i][0]!='-')
+					fileNumberToSave=strtol(argv[i], NULL, 10);
+				else 
+					cout<<"Missing file start number. Using default"<<endl;
+			}
+			else if(strcmp(argv[i], HOW_MANY_LOAD)==0)
+			{
+				if(++i<argc && argv[i][0]!='-')
+				{
+					numFrameToElab=strtol(argv[i], NULL, 10);
+					if(numFrameToElab==0)
+					{
+						cout<<"Invalid number of file to elaborate."<<argv[i]<<endl;
+						system("pause");
+						exit(0);
+					}
+				}
+				else 
+					cout<<"Missing number of file to elaborate. Using default"<<endl;
+			}
+			else if(strcmp(argv[i], WIDTH)==0)
+			{
+				if(++i<argc || argv[i][0]!='-')
+				{
+					cam_w=atoi(argv[i]);
+					if(cam_w==0)
+						{
+							cout<<"Invalid camera width "<<argv[i]<<endl;
+							system("pause");
+							exit(0);
+						}
+					}
+				else 
+					cout<<"Missing camera width. Using default"<<endl;
+			}
+			else if(strcmp(argv[i], HEIGHT)==0)
+			{
+				if(++i<argc || argv[i][0]!='-')
+				{
+					cam_h=atoi(argv[i]);
+					if(cam_w==0)
+					{
+						cout<<"Invalid camera height "<<argv[i]<<endl;
+						system("pause");
+						exit(0);
+					}
+				}
+				else 
+					cout<<"Missing camera height. Using default"<<endl;
+			}
+			else if(strcmp(argv[i], CAMERA_IP)==0)
+			{
+				if(++i<argc)
+					cameraIp=argv[i];
+			}
+			else if(strcmp(argv[i], EXTENSION)==0)
+			{
+				if(++i<argc)
+					ext=argv[i];
+			}
+			else if(strcmp(argv[i], SAVE_FOLDER)==0)
+			{
+				if(++i<argc)
+				{
+					saveFolder=argv[i];
+					wstring wstr(saveFolder.begin(), saveFolder.end());
+					
+					if(GetFileAttributes(wstr.c_str())==INVALID_FILE_ATTRIBUTES)
+					{
+						cout<<"[Warnign] - The directory doesn't exist. Create it? [y/n] ";
+						char a;
+						cin>>a;
+						if(a=='y' || a=='Y')
+						{
+							if(!CreateDirectory(wstr.c_str(), NULL))
+							{
+								cout<<endl<<"Error creating the directory. Using default "<<DEF_SAVE_FOLDER<<endl;
+								saveFolder = DEF_SAVE_FOLDER;
+							}
+							else
+								cout<<endl<<"Directory created succesfully."<<endl;
+						}
+						else
+						{
+							cout<<endl<<"Directory not created. Using default "<<DEF_SAVE_FOLDER<<endl;
+							saveFolder = DEF_SAVE_FOLDER;
+						}
+					}
+				}
+			}
+			else if(strcmp(argv[i], LOAD_FOLDER)==0)
+			{
+				if(++i<argc)
+					loadFolder=argv[i];
+			}
+			else if(strcmp(argv[i], USER)==0)
+			{
+				if(++i<argc)
+					user=argv[i];
+			}
+			else if(strcmp(argv[i], PASSWORD)==0)
+			{
+				if(++i<argc)
+					password=argv[i];
+			}
+			else if(strcmp(argv[i], SERVER)==0)
+			{
+				if(++i<argc)
+					server=argv[i];
+			}
+			else if(strcmp(argv[i], PORT)==0)
+			{
+				if(++i<argc)
+					port=argv[i];
+			}
+			else if(strcmp(argv[i], CALIB_FILE)==0)
+			{
+				if(++i<argc)
+					calibfile=argv[i];
+			}
+			else
+			{
+				cout<<"Invalid "<<argv[i]<<" command\n";
+				system("pause");
+				exit(0);
+			}
+		}
+	}
+}
 
 int CalibrateCamera()
 {
@@ -626,29 +628,6 @@ int CalibrateCamera()
 
 	return 0;
 }
-
-
-DWORD WINAPI WaitThread ( LPVOID ) 
-{
-	Sleep (lTimeout);
-	ExitProcess(0);
-	return 0;
-}
-
-
-void setAlarm()
-{	
-	DWORD dwTID;
-	lTimeout=10000; //10sec
-	hThread = CreateThread( NULL,0, WaitThread, 0, 0, &dwTID);
-}
-
-void stopAlarm()
-{
-	TerminateThread(hThread,0); // cancel thread
-}
-
-
 
 int SaveFile(Mat image, Pose_Marker *pose)
 {
@@ -768,7 +747,7 @@ string getFileNameToLoad()
 	return ss.str();
 }
 
-Mat LoadMyImage()
+cv::Mat LoadMyImage()
 {
 	string inputImage=getFileNameToLoad();
 	
@@ -804,6 +783,8 @@ void showHelp()
 	cout<< IMG_FILE_START_NUM_LOAD	<<" nn\t\tThe first number of the file to load"<<endl;
 		cout<<endl;	
 	cout<< HOW_MANY_LOAD			<<" nn\tHow many images elaborate (both for camera or load)"<<endl;
+	cout<< WIDTH					<<" nn\tThe width of the image (default 704 pixel)"<<endl;
+	cout<< HEIGHT					<<" nn\tThe height of the image (default 480 pixel)"<<endl;
 		cout<<endl;
 	cout<< USER						<<" user\t\t\tThe username of the FTP connection"<<endl;
 	cout<< PASSWORD					<<" password\t\tThe passord of the FTP connection"<<endl;

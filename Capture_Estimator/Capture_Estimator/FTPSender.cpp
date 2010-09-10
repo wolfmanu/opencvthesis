@@ -3,7 +3,9 @@
 
 #define FTP_DEBUG
 
-string nl="\r\n";//\015\012
+using namespace std;
+
+std::string nl="\r\n";//\015\012
 
 FTPSender::FTPSender(string serverName, string serverPort)
 :net(serverName, serverPort)
@@ -25,14 +27,14 @@ int FTPSender::FTPconnect(string user, string pwd)
 
 	if( net.NWConnect()==-1)
 	{
-		cout<<"FTP connection error"<<endl;
+		std::cout<<"FTP connection error"<<endl;
 		return -1;
 	}
 
 	iResult = FTPrcvData(&Msg);	//Receive Welcome Message
 	if(iResult<=0)
 	{
-		cout<<"FTP connection error"<<endl;
+		std::cout<<"FTP connection error"<<endl;
 		return -1;
 	}
 	//std::cout<<welcomeMsg;
@@ -47,7 +49,7 @@ int FTPSender::FTPconnect(string user, string pwd)
 	FTPrcvData(&Msg);
 	if(Msg[0]=='4' || Msg[0]=='5')
 	{
-		cout<<"FTP usermane error"<<endl;
+		std::cout<<"FTP usermane error"<<endl;
 		return -2;
 	}
 	//230, meaning that the client has permission to access files under that username; 
@@ -63,7 +65,7 @@ int FTPSender::FTPconnect(string user, string pwd)
 	FTPrcvData(&Msg);
 	if(Msg[0]=='4' || Msg[0]=='5')
 	{
-		cout<<"FTP password error"<<endl;
+		std::cout<<"FTP password error"<<endl;
 		return -3;
 	}
 	return 1;

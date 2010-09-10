@@ -3,8 +3,6 @@
 
 
 
-#define PI			3.14159265358979323846
-
 typedef double GREAL; 
 
 typedef struct vectList3{

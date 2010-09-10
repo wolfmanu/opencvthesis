@@ -27,7 +27,7 @@
 #define DEF_PASSWORD				""
 #define DEF_SERVER					"localhost"
 #define DEF_PORT					"21"
-#define DEF_CALIB_FILE				"cameraTOOLBOX.cal"
+#define DEF_CALIB_FILE				"calibration.cal"
 #define DEF_CAM_H					480
 #define DEF_CAM_W					704
 #define HEADER_LEN					207

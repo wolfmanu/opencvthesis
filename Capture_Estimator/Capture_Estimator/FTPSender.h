@@ -8,13 +8,13 @@
 class FTPSender
 {
 public:
-	FTPSender(string serverName, string serverPort=PORT);
+	FTPSender(std::string serverName, std::string serverPort=PORT);
 
 	~FTPSender(void);
 
-	int FTPrcvData(string* data);
-	int FTPsendData(string data);
-	int FTPconnect(string user, string pwd);
+	int FTPrcvData(std::string* data);
+	int FTPsendData(std::string data);
+	int FTPconnect(std::string user, std::string pwd);
 	
 
 private:

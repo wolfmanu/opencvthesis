@@ -1,7 +1,7 @@
 #include <math.h>
 
 #include "CartesianLib.h"
-
+#include "cv.h"
 
 // Cartesian 3-components vector to Rotation Matrix (Roll, -Pitch, Yaw)
 void vect2RPY(VECT3 in, ROTMATRIX * out )
@@ -66,7 +66,7 @@ void RPY2vect(ROTMATRIX  in, VECT3 * out )
 	if((fabs(in.col.i.l.x) < RPY2VECT_EPS) && (fabs(in.col.i.l.y) < RPY2VECT_EPS))
 	{
 		out->a[0] = 0;
-		out->a[1] = PI/2*in.col.i.l.z;
+		out->a[1] = CV_PI/2*in.col.i.l.z;
 		out->a[2] = atan2(-in.col.j.l.x,in.col.j.l.y);
 	}
 	else
@@ -145,7 +145,7 @@ void versorLemma(ROTMATRIX  in1, ROTMATRIX  in2, VECT3 * out )
 
 			if(maxnorm!=0)
 				for(i=0;i<3;i++)
-					out->a[i] = temp1.a[i] * PI / maxnorm;
+					out->a[i] = temp1.a[i] * CV_PI / maxnorm;
 			else
 				for(i=0;i<3;i++)
 					out->a[i] = 0;
