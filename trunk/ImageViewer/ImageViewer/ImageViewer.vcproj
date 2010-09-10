@@ -117,10 +117,11 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="C:\lib\Studierstube\icg\ARToolKitPlus_2.1.1\include;C:\lib\OpenCV\opencv2.1\3rdparty\include;&quot;C:\lib\OpenCV\add files\opencv\3rdparty\include&quot;;C:\lib\OpenCV\opencv2.1\include\opencv"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -135,7 +136,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="Mswsock.lib Advapi32.lib ws2_32.lib ARToolKitPlus.lib cxcore210.lib gdiplus.lib Shell32.lib highgui210.lib cv210.lib opencv_ffmpeg210.lib cvaux210.lib opencv_lapack.lib libjpeg.lib libjasper.lib Iphlpapi.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="C:\lib\Studierstube\icg\ARToolKitPlus_2.1.1\lib\Win32;&quot;C:\lib\OpenCV\opencv2.1\bin-vs8\lib\Debug&quot;;&quot;c:\lib\OpenCV\opencv\bin-vs8\3rdparty\lib\Release&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -375,6 +378,90 @@
 			</File>
 			<File
 				RelativePath=".\small.ico"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Library"
+			>
+			<File
+				RelativePath="..\lib\ARToolKitPlus.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\ARToolKitPlusd.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\cv210.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\cv210d.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\cvaux210.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\cvaux210d.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\cxcore210.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\cxcore210d.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\highgui210.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\highgui210d.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\libjasper.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\libjasperd.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\libjpeg.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\libjpegd.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\ml210.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\ml210d.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\opencv_ffmpeg210.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\opencv_ffmpeg210d.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\opencv_lapack.lib"
+				>
+			</File>
+			<File
+				RelativePath="..\lib\opencv_lapackd.lib"
 				>
 			</File>
 		</Filter>

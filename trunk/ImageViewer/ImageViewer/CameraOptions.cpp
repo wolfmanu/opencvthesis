@@ -10,6 +10,7 @@ CameraOptions::CameraOptions(void):
 	saveImg(false), 
 	viewVideo(true),
 	elaborate(false),
+	useUsb(false),
 	ftpUser(DEF_USER),
 	ftpPass(DEF_PASSWORD), 
 	saveFold(DEF_SAVE_FOLDER), 

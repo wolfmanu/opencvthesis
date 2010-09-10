@@ -19,6 +19,7 @@
 #define IDD_BLUR                        134
 #define IDD_CANNYEDGE                   135
 #define IDD_LINESDET                    136
+#define IDD_LINESDET_P                  137
 #define IDC_DISPLAYVIDEO                1000
 #define IDC_USEFTP                      1001
 #define IDC_SAVEIMAGE                   1002
@@ -70,6 +71,11 @@
 #define IDC_RADIO_ISOLATED              1032
 #define IDC_EDIT_THRESH                 1032
 #define IDC_SLIDER_THR                  1033
+#define IDC_EDIT_MINLINELEN             1034
+#define IDC_EDIT_TETA2                  1035
+#define IDC_RADIO_IP                    1035
+#define IDC_EDIT_MAXLINEGAP             1035
+#define IDC_RADIO_USB                   1036
 #define ID_FILE_OPEN32781               32781
 #define ID_FILE_SAVE32782               32782
 #define ID_CAPTURE_S                    32783
@@ -118,7 +124,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        137
 #define _APS_NEXT_COMMAND_VALUE         32820
-#define _APS_NEXT_CONTROL_VALUE         1034
+#define _APS_NEXT_CONTROL_VALUE         1036
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

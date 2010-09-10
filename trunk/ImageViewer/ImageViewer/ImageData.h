@@ -37,12 +37,14 @@ public:
 
 private:               
 	Pose_Marker posemarker;
-	double thresholdVal;
-	int blurSize;
-	int blurType;
+	//double thresholdVal;
+	//int blurSize;
+	//int blurType;
 	Mat backupRestore;
-	int laplDepth;
-	double thresh1, thresh2;
+	//Mat zoomImage;		//segue zoom ma nn ha filtri applicati
+	//Mat filterImage;	//filtri applicati ma dimensioni originali
+	//int laplDepth;
+	//double thresh1, thresh2;
 
 
 public:
@@ -52,6 +54,7 @@ public:
 	Pose_Marker getPoseMarker();
 	void setPoseMarker(Pose_Marker);
 	void setImage(Mat);
+	void resetData();
 
 	void setBackupFilter();
 	void setBackupCannyDetection();
@@ -61,8 +64,9 @@ public:
 	void testBlurFilter(int bt, int ksize);
 	void testCannyFilter(double thresh1,double thresh2);
 	void testLineDetection(double rho_,double teta_, double thresh_);
+	void testLineDetectionP(double rho_,double teta_, double thresh_, int len, int gap);
 	
-	void setBlurFilter( int ksize);
+	void setBlurFilter(int , int ksize);
 	void setThreshFilter(double thresh);
 	void setBNFilter();
 	void setErodeFilter();
@@ -70,6 +74,7 @@ public:
 	void setLaplacianFilter();
 	void setCannyFilter(double thresh1,double thresh2);
 	void setLineDetection(double rho_,double teta_, double thresh_);
+	void setLineDetectionP(double rho_,double teta_, double thresh_, int len, int gap);
 	
 
 	/*void resetThreshFilter();
