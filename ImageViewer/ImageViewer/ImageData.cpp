@@ -30,12 +30,12 @@ immagine(),
 backup(),
 backupFilter(),
 backupRestore(),
-CurrentZoomRatio(4),
-thresholdVal(-1),
-blurSize(-1),
-blurType(-1),
-laplDepth(-1),
-thresh1(-1), thresh2(-1)
+CurrentZoomRatio(4)//,
+//thresholdVal(-1),
+//blurSize(-1),
+//blurType(-1)//,
+//laplDepth(-1),
+//thresh1(-1), thresh2(-1)
 {
 }
 
@@ -54,6 +54,12 @@ Pose_Marker CImageData::getPoseMarker()
 void CImageData::setPoseMarker(Pose_Marker pm)
 {
 	posemarker=pm;
+}
+
+void CImageData::resetData()
+{
+	backupRestore.release();
+	backupRestore=Mat();
 }
 
 void CImageData::setImage(Mat imm)
@@ -76,15 +82,12 @@ void CImageData::setImage(Mat imm)
 	resize(backup,immagine,immagine.size(),0,INTER_LANCZOS4);
 }
 
-void CImageData::setBlurFilter(int ksize)
+
+void CImageData::setBlurFilter(int blurType, int blurSize)
 {
 	cv::Mat imgFilter;
 
-	if(ksize==-1)
-		blurType=-1;
-
-	blurSize=ksize;
-	if(blurType!=-1)
+	if(blurType!=-1 && blurSize>0)
 	{
 		Size s(blurSize, blurSize);
 		switch (blurType)
@@ -99,8 +102,8 @@ void CImageData::setBlurFilter(int ksize)
 			medianBlur(backup, imgFilter, blurSize);
 			break;
 		}
+		setImage(imgFilter);
 	}
-	setImage(imgFilter);
 }
 
 void CImageData::setBackupFilter()
@@ -126,9 +129,8 @@ void CImageData::setBackupCannyDetection()
 
 }
 
-void CImageData::testBlurFilter(int bt, int ksize)
+void CImageData::testBlurFilter(int blurType, int ksize)
 {
-	blurType=bt;
 	Size s(ksize, ksize);
 	switch (blurType)
 	{
@@ -151,9 +153,9 @@ void CImageData::testThreshFilter(double thresh)
 void CImageData::setThreshFilter(double thresh)
 {
 	cv::Mat imgFilter;
-	if(thresholdVal>=0)
+	if(thresh>=0)
 	{
-		threshold(backup, imgFilter, thresholdVal, 255, THRESH_BINARY);
+		threshold(backup, imgFilter, thresh, 255, THRESH_BINARY);
 		setImage(imgFilter);
 	}
 	else
@@ -172,9 +174,9 @@ void CImageData::setBNFilter()
 
 void CImageData::resetAllFilter()
 {
-	thresholdVal=-1;
-	blurType=-1;
-	laplDepth=-1;
+//	thresholdVal=-1;
+	//blurType=-1;
+	//laplDepth=-1;
 	setImage(backupRestore);
 }
 
@@ -212,7 +214,7 @@ void CImageData::setCannyFilter(double t1,double t2)
 void CImageData::testLineDetection(double rho_,double teta_, double thresh_)
 {
 	vector<Vec2f> lines;
-	setImage(backup);
+	//setImage(backup);//????
 	if(rho_>0 && teta_>0 && thresh_>0)
 	{
 		HoughLines( backupFilter, lines, rho_, (teta_*CV_PI)/180, thresh_ );
@@ -235,21 +237,57 @@ void CImageData::testLineDetection(double rho_,double teta_, double thresh_)
 void CImageData::setLineDetection(double rho_,double teta_, double thresh_)
 {
 	vector<Vec2f> lines;
-	HoughLines( backupFilter, lines, rho_, teta_, thresh_ );
-
-	for( size_t i = 0; i < lines.size(); i++ )
+	if(rho_>0 && teta_>0 && thresh_>0)
 	{
-		float rho = lines[i][0];
-		float theta = lines[i][1];
-		double a = cos(theta), b = sin(theta);
-		double x0 = a*rho, y0 = b*rho;
-		cv::Point pt1(cvRound(x0 + 1000*(-b)),
-				  cvRound(y0 + 1000*(a)));
-		cv::Point pt2(cvRound(x0 - 1000*(-b)),
-				  cvRound(y0 - 1000*(a)));
-		line(immagine, pt1, pt2, Scalar(0,0,255), 1, 8 );
+		HoughLines( backupFilter, lines, rho_, (teta_*CV_PI)/180, thresh_ );
+
+		for( size_t i = 0; i < lines.size(); i++ )
+		{
+			float rho = lines[i][0];
+			float theta = lines[i][1];
+			double a = cos(theta), b = sin(theta);
+			double x0 = a*rho, y0 = b*rho;
+			cv::Point pt1(cvRound(x0 + 1000*(-b)),
+					  cvRound(y0 + 1000*(a)));
+			cv::Point pt2(cvRound(x0 - 1000*(-b)),
+					  cvRound(y0 - 1000*(a)));
+			line(immagine, pt1, pt2, Scalar(0,0,255), 1, 8 );
+		}
+		setImage(immagine);
 	}
-	setImage(immagine);
+}
+
+void CImageData::testLineDetectionP(double rho_,double teta_, double thresh_, int len, int gap)
+{		
+	vector<Vec4i> lines;
+
+	if(rho_>0 && teta_>0 && thresh_>0 && len >=0 && gap >=0)
+	{
+		HoughLinesP( backupFilter, lines, rho_, (teta_*CV_PI)/180, thresh_, len, gap );
+		for( size_t i = 0; i < lines.size(); i++ )
+		{
+			line(immagine, cv::Point(lines[i][0], lines[i][1]),
+				cv::Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 1, 8 );
+		}
+
+	}
+}
+
+void CImageData::setLineDetectionP(double rho_,double teta_, double thresh_, int len, int gap)
+{		
+	vector<Vec4i> lines;
+
+	if(rho_>0 && teta_>0 && thresh_>0 && len >=0 && gap >=0)
+	{
+		HoughLinesP( backupFilter, lines, rho_, (teta_*CV_PI)/180, thresh_, len, gap );
+		for( size_t i = 0; i < lines.size(); i++ )
+		{
+			line(immagine, cv::Point(lines[i][0], lines[i][1]),
+				cv::Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 1, 8 );
+		}
+		setImage(immagine);
+
+	}
 }
 
 HBITMAP CImageData::GetBitmap() 
