@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "MatrixLib.h"
+#include "cv.h"
 
 #define MATRIXLIB_SIGN(a,b)	((b) >= 0.0 ? fabs(a) : -fabs(a))
 #define MATRIXLIB_MAX(a,b)	((a) > (b)  ? (a) : (b))
@@ -559,7 +560,7 @@ GREAL GT_RaisedCos(GREAL in, GREAL th, GREAL lambda)
 
 	if (0<=in && in<=th)
 	{
-		return (lambda * cos((in/th)*(PI/2)));
+		return (lambda * cos((in/th)*(CV_PI/2)));
 	}
 	else 
 	{

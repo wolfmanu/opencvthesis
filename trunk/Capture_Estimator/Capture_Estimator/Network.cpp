@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 #include "Network.h"
 
+using namespace std;
+
 Network::Network(string serverName, string serverPort)
 {
 	int iResult;

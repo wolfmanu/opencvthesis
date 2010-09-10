@@ -11,7 +11,7 @@
 			<DebugSettings
 				Command="$(TargetPath)"
 				WorkingDirectory=""
-				CommandArguments="-camera -ftp -u user -pw pw"
+				CommandArguments="-load -loadfold 165x165 -n 5 -nstartl 5"
 				Attach="false"
 				DebuggerType="3"
 				Remote="1"

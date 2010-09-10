@@ -15,7 +15,7 @@
 
 #include "targetver.h"
 
-#include <time.h>
+#include <iostream>
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +23,6 @@
 #include <conio.h>
 #include <string>
 #include <queue>
-#include <set>
 
 #include <winsock2.h>
 #include <iphlpapi.h>
@@ -38,11 +37,9 @@
 #include <ffopencv.h>
 
 #include "CartesianLib.h" //Matrix manipulation
-#include "Calibration.h"
 #include "Pose_Marker.h"
 #include "Network.h"
 #include "FTPSender.h"
-
 
 #include "CriticalSection.h"
 #include "Guard.h"
